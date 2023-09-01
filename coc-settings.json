@@ -98,5 +98,7 @@
   "volar.diagnostics.tsLocale": "zh-cn",
   "coc.source.omni.filetypes": ["org"],
   "snippets.ultisnips.pythonPrompt": false,
-  "powershell.integratedConsole.showOnStartup": false
+  "powershell.integratedConsole.showOnStartup": false,
+  "powershell.codeFormatting.useCorrectCasing": true,
+  "powershell.codeFormatting.autoCorrectAliases": true
 }

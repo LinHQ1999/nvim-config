@@ -1,3 +1,5 @@
+require('ide')
+
 -- (treesitter)
 require('nvim-treesitter.configs').setup {
     ensurse_installed = {
@@ -138,3 +140,7 @@ require('orgmode').setup({
 require('org-bullets').setup({
     concealcursor = false
 })
+
+-- 自动关闭配对标签括号
+require("nvim-ts-autotag").setup()
+require("autoclose").setup()

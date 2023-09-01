@@ -1,20 +1,29 @@
 call plug#begin('~\vimfiles\plugged')
-    " Toolset
+    " 对接外部库
     Plug 'tpope/vim-fugitive'
     Plug 'lewis6991/gitsigns.nvim'
     Plug 'nvim-lua/plenary.nvim'
     Plug 'NTBBloodbath/rest.nvim'
     Plug 'gpanders/editorconfig.nvim'
-    " IDE support
-    Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': ':CocUpdate'}
+    " IDE 支持
+    Plug 'williamboman/mason.nvim'
+    Plug 'neovim/nvim-lspconfig'
+    Plug 'williamboman/mason-lspconfig.nvim'
+    " 补全插件
+    Plug 'hrsh7th/cmp-nvim-lsp'
+    Plug 'hrsh7th/cmp-buffer'
+    Plug 'hrsh7th/cmp-path'
+    Plug 'hrsh7th/cmp-cmdline'
+    Plug 'hrsh7th/nvim-cmp'
     "临时使用
     Plug 'liuchengxu/vista.vim'
-    Plug 'mattn/emmet-vim', {'for': ['html', 'javascriptreact', 'typescriptreact', 'vue']}
+    Plug 'mattn/emmet-vim', {'for': ['javascript', 'html', 'javascriptreact', 'typescriptreact', 'vue']}
     Plug 'fatih/vim-go', {'for': 'go'}
     Plug 'nvim-orgmode/orgmode',
     Plug 'akinsho/org-bullets.nvim'
-    " Editor enhancement
-    Plug 'glacambre/firenvim', { 'do': { -> firenvim#install(0) } }
+    " 编辑体验增强
+    Plug 'm4xshen/autoclose.nvim'
+    Plug 'windwp/nvim-ts-autotag'
     Plug 'lukas-reineke/indent-blankline.nvim'
     Plug 'kyazdani42/nvim-tree.lua'
     Plug 'nvim-lualine/lualine.nvim'
@@ -22,13 +31,13 @@ call plug#begin('~\vimfiles\plugged')
     Plug 'numToStr/Comment.nvim'
     Plug 'tpope/vim-repeat'
     Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
-    " Themes
+    " 主题
     Plug 'kyazdani42/nvim-web-devicons'
     Plug 'sainnhe/forest-night'
     Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
     Plug 'olimorris/onedarkpro.nvim'
     Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
-    " Syntax
+    " 语法高亮和语言插件
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'frozen': v:true}
 call plug#end()
 

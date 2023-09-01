@@ -3,7 +3,9 @@ inoremap fj <Esc>
 
 " 方便粘贴
 nnoremap <A-S-v> "+p
-vnoremap <A-S-c> "+y
+" 原 Ctrl-v 建议使用 Ctrl-Q
+inoremap <C-v> <C-o>"+P
+vnoremap <C-c> "+y
 
 noremap \ :
 nnoremap / /\v
@@ -82,9 +84,9 @@ nmap <silent> <C-Down> <Plug>(coc-diagnostic-next-error)
 nnoremap <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
 nnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 " 0.0.82 版适配
-inoremap <expr> <CR> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+"inoremap <expr> <CR> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 " Insert <tab> when previous text is space, refresh completion if not.
-inoremap <silent><expr> <TAB>
+"inoremap <silent><expr> <TAB>
             \ coc#pum#visible() ? coc#pum#next(1):
             \ Check_back_space() ? "\<Tab>" :
             \ coc#refresh()
@@ -96,7 +98,7 @@ noremap <silent><Leader>lg <Cmd>Telescope live_grep<CR>
 noremap <silent> <Leader>lb <Cmd>Telescope buffers<CR>
 noremap <silent> <Leader>lr <Cmd>Telescope oldfiles<CR>
 noremap <silent> <Leader>lv <Cmd>Telescope vim_options<CR>
-noremap <silent> <Leader>ll <Cmd>Telescope loclist<CR>
+noremap <silent> <Leader>ll <Cmd>Telescope current_buffer_fuzzy_find<CR>
 " noremap <silent> <Leader>lm <Cmd><CR>
 " noremap <silent> <Leader>l/ <Cmd><CR>
 " noremap <silent> <Leader>l: <Cmd><CR>
