@@ -1,0 +1,8 @@
+{
+    "workspace.library": [
+        "C:\\Users\\LinHQ\\AppData\\Local\\nvim-data\\plugins\\neodev.nvim\\types\\stable",
+        "C:\\BINARIES\\nvim-win64\\share\\nvim\\runtime\\lua",
+        "C:/Users/LinHQ/AppData/Local/nvim/lua/lua",
+        "${3rd}/luv/library"
+    ]
+}

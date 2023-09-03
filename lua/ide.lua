@@ -12,16 +12,17 @@ require("neodev").setup()
 require("mason-lspconfig").setup({
     -- vue-language-server 就是 volar lol
     -- eslint 用的 lsp，不用再在 efm 里配置
-    ensure_installed = { "efm", "eslint", "vtsls", "html", "jsonls", "cssls", "volar", "yamlls", "vimls", "lua_ls" }
+    ensure_installed = { "efm", "eslint", "vtsls", "html", "jsonls", "cssls", "vuels", "yamlls", "vimls", "lua_ls" }
 })
 
 -- 提前声明以避免写在里面多次 require 出故障
 local cmpFeatures = require('cmp_nvim_lsp').default_capabilities()
 local stylelint = require("efmls-configs.linters.stylelint")
+local prettier = require("efmls-configs.formatters.prettier")
 local efmLangs = {
-    vue = { stylelint },
-    css = { stylelint },
-    html = { stylelint },
+    vue = { prettier },
+    css = { stylelint, prettier },
+    html = { stylelint, prettier },
 
 }
 require("mason-lspconfig").setup_handlers({
@@ -32,40 +33,45 @@ require("mason-lspconfig").setup_handlers({
         })
     end,
     -- 这就是 null-ls 替代品，把命令行 lint 工具包装成 language-server，这样就可以把报错集成到自带的 ls 中
+    -- 格式化会和原有 lsc 冲突，由于现在我不知道哪个 api 可以探测到 efm 是否可以格式化，所以映射为 cf 和 pf 两种快捷键
     ["efm"] = function()
         lc.efm.setup({
-            capabilities = cmpFeatures,
             init_options = {
-
+                documentFormatting = true,
+                documentRangeFormatting = true,
             },
             filetypes = vim.tbl_keys(efmLangs),
             settings = {
                 rootMarkers = { "package.json" },
-                language = efmLangs
+                languages = efmLangs
             },
+        })
+    end,
+    ["vuels"] = function()
+        lc.vuels.setup({
+            capabilities = cmpFeatures,
+            init_options = {
+                config = {
+                    vetur = {
+                        completion = {
+                            autoImport = true,
+                            tagCasing = 'initial'
+                        },
+                        ignoreProjectWarning = true
+                    },
+                }
+            }
         })
     end,
     ["eslint"] = function()
         lc.eslint.setup({
-            capabilities = cmpFeatures,
+            filetypes = { "javascript" },
             on_attach = function(client, bufnr)
                 vim.api.nvim_create_autocmd("BufWritePre", {
                     buffer = bufnr,
                     command = "EslintFixAll",
                 })
             end,
-        })
-    end,
-    ["lua_ls"] = function()
-        lc.lua_ls.setup({
-            capabilities = cmpFeatures,
-            settings = {
-                Lua = {
-                    completion = {
-                        callSnippet = "Replace"
-                    }
-                }
-            }
         })
     end
 })
@@ -168,8 +174,17 @@ vim.api.nvim_create_autocmd('LspAttach', {
         -- end, opts)
         vim.keymap.set('n', '<f2>', vim.lsp.buf.rename, opts)
         vim.keymap.set({ 'n', 'v' }, '<leader>.', vim.lsp.buf.code_action, opts)
-        vim.keymap.set('n', '<leader>cf', function() vim.lsp.buf.format { async = true } end, opts)
+
+        -- 强制不使用 efm 格式化
+        vim.keymap.set('n', '<leader>cf',
+            function() vim.lsp.buf.format { async = true, filter = function(client) return client.name ~= 'efm' end } end,
+            opts)
         -- 格式化选中区域
-        vim.keymap.set('v', '<leader>cf', function() vim.lsp.buf.format { async = true } end, opts)
+        vim.keymap.set('v', '<leader>cf',
+            "<cmd>vim.lsp.buf.format { async = true, filter = function (client) return client.name ~= 'efm'  end }<cr><esc>",
+            opts)
+        -- 强制使用 efm 格式化
+        vim.keymap.set('n', '<leader>pf', function() vim.lsp.buf.format { async = true, name = "efm" } end, opts)
+        vim.keymap.set('v', '<leader>pf', "<cmd>lua vim.lsp.buf.format { async = true, name = 'efm' }<cr><esc>", opts)
     end,
 })
