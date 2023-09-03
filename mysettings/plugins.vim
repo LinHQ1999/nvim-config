@@ -1,4 +1,4 @@
-call plug#begin('~\vimfiles\plugged')
+call plug#begin(stdpath('data').'\plugins')
     " 对接外部库
     Plug 'tpope/vim-fugitive'
     Plug 'lewis6991/gitsigns.nvim'
@@ -9,14 +9,21 @@ call plug#begin('~\vimfiles\plugged')
     Plug 'williamboman/mason.nvim'
     Plug 'neovim/nvim-lspconfig'
     Plug 'williamboman/mason-lspconfig.nvim'
+    Plug 'folke/trouble.nvim'
+    Plug 'folke/neodev.nvim'
+    Plug 'creativenull/efmls-configs-nvim', { 'tag': 'v1.*' }
     " 补全插件
     Plug 'hrsh7th/cmp-nvim-lsp'
     Plug 'hrsh7th/cmp-buffer'
     Plug 'hrsh7th/cmp-path'
     Plug 'hrsh7th/cmp-cmdline'
+    Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+    Plug 'saadparwaiz1/cmp_luasnip'
+    Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'mingw32-make install_jsregexp'}
     Plug 'hrsh7th/nvim-cmp'
+    Plug 'onsails/lspkind.nvim'
     "临时使用
-    Plug 'liuchengxu/vista.vim'
+    Plug 'simrat39/symbols-outline.nvim'
     Plug 'mattn/emmet-vim', {'for': ['javascript', 'html', 'javascriptreact', 'typescriptreact', 'vue']}
     Plug 'fatih/vim-go', {'for': 'go'}
     Plug 'nvim-orgmode/orgmode',
@@ -46,7 +53,7 @@ let g:vista_cursor_delay = 60
 let g:vista_sidebar_position = "vertical botright"
 let g:vista_default_executive = "coc"
 
-" (coc)
+" (lsp)
 "set updatetime=500
 set shortmess+=c
 set signcolumn=number

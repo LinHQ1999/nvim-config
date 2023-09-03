@@ -21,6 +21,9 @@ require('nvim-treesitter.configs').setup {
     }
 }
 
+-- (替代 vista)
+require("symbols-outline").setup()
+
 -- (tree)
 require('nvim-tree').setup({
     disable_netrw = true,

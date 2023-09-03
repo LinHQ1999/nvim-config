@@ -1,3 +1,4 @@
+" lsp 相关的快捷键都挪到 ide.lua 里面去了
 let mapleader = " "
 inoremap fj <Esc> 
 
@@ -39,11 +40,10 @@ inoremap <silent><expr> _tm strftime("%Y-%m-%d")
 noremap <silent> <Leader>fc <Cmd>call Compiler()<cr>
 noremap <silent> <Leader>fr <Cmd>call Runner()<cr>
 nnoremap <silent> <Leader>fs <Cmd>call Set_it()<cr>
-nnoremap <silent> <Leader>fd <Cmd>exe "e expand('<sfile>:p:h')"."\pack\my\start\myplugin\plugin\one.vim"<cr>
 nnoremap <silent> <Leader>ft <Cmd>call Open_terminal()<cr>
 nnoremap <silent> <Leader>fh <Cmd>tcd %:h<cr>
 " (single plugin maps)
-nnoremap <silent> <Leader>pv <Cmd>Vista coc<cr>
+nnoremap <silent> <Leader>pv <Cmd>SymbolsOutline<cr>
 " (tree)
 nnoremap <silent> <Leader>pd <Cmd>NvimTreeFindFileToggle<cr>
 " (fugitive)
@@ -60,45 +60,11 @@ nnoremap <silent> [g <Cmd>Gitsigns prev_hunk<cr>
 nnoremap <silent> <Leader>pi <Cmd>PlugInstall<cr>
 nnoremap <silent> <Leader>pu <Cmd>PlugUpdate<cr>
 nnoremap <silent> <Leader>pc <Cmd>PlugClean<cr>
-" (coc) 不遵循通用命名规则，{rhs} 和 vscodevim 保持一致
-nnoremap <silent> <Leader>cr <Cmd>CocRestart<cr>
-nnoremap <silent> gh <Cmd>call CocActionAsync('doHover')<cr>
 nnoremap gx <Cmd>exec "!start ".expand('<cfile>')<cr>
-noremap <Leader>ci <Cmd>call CocActionAsync('organizeImport')<CR> 
-noremap <silent> <Leader>cl <Cmd>CocList<cr>
-nnoremap <silent> <Leader>cc <Cmd>CocConfig<cr>
-nmap <silent> <leader>. <Plug>(coc-codeaction)
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gr <Plug>(coc-references)
-" 弄一下文本对象的跳转，omap 就不用 silent 了
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap if <Plug>(coc-funcobj-i)
-omap if <Plug>(coc-funcobj-i)
-nmap <silent> <Leader>cf <Plug>(coc-format)
-xmap <silent> <Leader>cf <Plug>(coc-format-selected)
-xmap <silent> <Leader>cv <Plug>(coc-convert-snippet)
-nmap <silent> <F2> <Plug>(coc-rename)
-nmap <silent> <C-Up> <Plug>(coc-diagnostic-prev-error)
-nmap <silent> <C-Down> <Plug>(coc-diagnostic-next-error)
-nnoremap <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-nnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-" 0.0.82 版适配
-"inoremap <expr> <CR> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-" Insert <tab> when previous text is space, refresh completion if not.
-"inoremap <silent><expr> <TAB>
-            \ coc#pum#visible() ? coc#pum#next(1):
-            \ Check_back_space() ? "\<Tab>" :
-            \ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 " (finder)
 noremap <silent> <Leader>lf <Cmd>Telescope find_files<CR>
 noremap <silent><Leader>lg <Cmd>Telescope live_grep<CR>
-" noremap <Leader>lg :grep! <cword> 
 noremap <silent> <Leader>lb <Cmd>Telescope buffers<CR>
 noremap <silent> <Leader>lr <Cmd>Telescope oldfiles<CR>
 noremap <silent> <Leader>lv <Cmd>Telescope vim_options<CR>
 noremap <silent> <Leader>ll <Cmd>Telescope current_buffer_fuzzy_find<CR>
-" noremap <silent> <Leader>lm <Cmd><CR>
-" noremap <silent> <Leader>l/ <Cmd><CR>
-" noremap <silent> <Leader>l: <Cmd><CR>
