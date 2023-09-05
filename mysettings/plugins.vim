@@ -17,6 +17,7 @@ call plug#begin(stdpath('data').'\plugins')
     Plug 'hrsh7th/cmp-buffer'
     Plug 'hrsh7th/cmp-path'
     Plug 'hrsh7th/cmp-cmdline'
+    Plug 'hrsh7th/cmp-calc'
     Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
     Plug 'saadparwaiz1/cmp_luasnip'
     Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'mingw32-make install_jsregexp'}

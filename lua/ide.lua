@@ -1,3 +1,4 @@
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 -- 先加载着，后面搞不好要用
 local lc = require('lspconfig')
 
@@ -11,19 +12,20 @@ require("neodev").setup()
 -- 这个我也不知道有什么用，似乎是处理一些加载路径的问题，因为 mason 动态更新环境变量
 require("mason-lspconfig").setup({
     -- vue-language-server 就是 volar lol
-    -- eslint 用的 lsp，不用再在 efm 里配置
-    ensure_installed = { "efm", "eslint", "vtsls", "html", "jsonls", "cssls", "vuels", "yamlls", "vimls", "lua_ls" }
+    ensure_installed = { "efm", "vtsls", "html", "jsonls", "cssls", "vuels", "yamlls", "vimls", "lua_ls", "powershell_es" }
 })
 
 -- 提前声明以避免写在里面多次 require 出故障
 local cmpFeatures = require('cmp_nvim_lsp').default_capabilities()
 local stylelint = require("efmls-configs.linters.stylelint")
+local eslint = require("efmls-configs.linters.eslint_d")
+local eslintfmt = require("efmls-configs.formatters.eslint_d")
 local prettier = require("efmls-configs.formatters.prettier")
 local efmLangs = {
-    vue = { prettier },
+    vue = { eslint, eslintfmt },
     css = { stylelint, prettier },
     html = { stylelint, prettier },
-
+    javascript = { eslint, eslintfmt },
 }
 require("mason-lspconfig").setup_handlers({
     function(server)
@@ -37,12 +39,21 @@ require("mason-lspconfig").setup_handlers({
     ["efm"] = function()
         lc.efm.setup({
             init_options = {
+                codeAction = true,
                 documentFormatting = true,
                 documentRangeFormatting = true,
             },
+            -- on_attach = function(client, bufnr)
+            --     vim.api.nvim_create_autocmd('BufWritePre', {
+            --         buffer = bufnr,
+            --         callback = function()
+            --             vim.lsp.buf.format({ name = "efm" })
+            --         end
+            --     })
+            -- end,
             filetypes = vim.tbl_keys(efmLangs),
             settings = {
-                rootMarkers = { "package.json" },
+                rootMarkers = { ".git/" },
                 languages = efmLangs
             },
         })
@@ -63,17 +74,6 @@ require("mason-lspconfig").setup_handlers({
             }
         })
     end,
-    ["eslint"] = function()
-        lc.eslint.setup({
-            filetypes = { "javascript" },
-            on_attach = function(client, bufnr)
-                vim.api.nvim_create_autocmd("BufWritePre", {
-                    buffer = bufnr,
-                    command = "EslintFixAll",
-                })
-            end,
-        })
-    end
 })
 
 -- 这P插件拆得真的细，感觉不如 coq
@@ -143,6 +143,7 @@ cmp.setup({
         { name = 'nvim_lsp_signature_help' },
         { name = 'luasnip' },
         { name = 'path' },
+        { name = 'calc' },
         { name = 'buffer' },
     }
 })
@@ -177,14 +178,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
         -- 强制不使用 efm 格式化
         vim.keymap.set('n', '<leader>cf',
-            function() vim.lsp.buf.format { async = true, filter = function(client) return client.name ~= 'efm' end } end,
+            function() vim.lsp.buf.format { filter = function(client) return client.name ~= 'efm' end } end,
             opts)
         -- 格式化选中区域
         vim.keymap.set('v', '<leader>cf',
-            "<cmd>vim.lsp.buf.format { async = true, filter = function (client) return client.name ~= 'efm'  end }<cr><esc>",
+            function() vim.lsp.buf.format { filter = function(client) return client.name ~= 'efm' end } end,
             opts)
         -- 强制使用 efm 格式化
-        vim.keymap.set('n', '<leader>pf', function() vim.lsp.buf.format { async = true, name = "efm" } end, opts)
-        vim.keymap.set('v', '<leader>pf', "<cmd>lua vim.lsp.buf.format { async = true, name = 'efm' }<cr><esc>", opts)
+        vim.keymap.set('n', '<leader>pf', function() vim.lsp.buf.format { name = "efm" } end, opts)
+        vim.keymap.set('v', '<leader>pf', function() vim.lsp.buf.format { name = "efm" } end, opts)
     end,
 })
