@@ -22,7 +22,7 @@ local eslint = require("efmls-configs.linters.eslint_d")
 local eslintfmt = require("efmls-configs.formatters.eslint_d")
 local prettier = require("efmls-configs.formatters.prettier")
 local efmLangs = {
-    vue = { eslint, eslintfmt },
+    vue = { eslint, prettier },
     css = { stylelint, prettier },
     html = { stylelint, prettier },
     javascript = { eslint, eslintfmt },
@@ -43,14 +43,14 @@ require("mason-lspconfig").setup_handlers({
                 documentFormatting = true,
                 documentRangeFormatting = true,
             },
-            -- on_attach = function(client, bufnr)
-            --     vim.api.nvim_create_autocmd('BufWritePre', {
-            --         buffer = bufnr,
-            --         callback = function()
-            --             vim.lsp.buf.format({ name = "efm" })
-            --         end
-            --     })
-            -- end,
+            on_attach = function(client, bufnr)
+                vim.api.nvim_create_autocmd('BufWritePre', {
+                    buffer = bufnr,
+                    callback = function()
+                        vim.lsp.buf.format({ name = "efm" })
+                    end
+                })
+            end,
             filetypes = vim.tbl_keys(efmLangs),
             settings = {
                 rootMarkers = { ".git/" },
