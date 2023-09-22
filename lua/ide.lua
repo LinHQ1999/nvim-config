@@ -81,6 +81,8 @@ local cmp = require("cmp")
 -- 图标都需要靠别的插件
 local lspkind = require("lspkind")
 local ls = require('luasnip')
+-- 导入 vscode 的 snippet（麻烦）
+require("luasnip.loaders.from_vscode").lazy_load()
 -- 就是个 lua 版的看是 tab 还是触发补全的函数
 -- 写是不可能自己写的，直接抄 wiki 算了
 local need_complete = function()

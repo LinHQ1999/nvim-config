@@ -20,6 +20,7 @@ call plug#begin(stdpath('data').'\plugins')
     Plug 'hrsh7th/cmp-calc'
     Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
     Plug 'saadparwaiz1/cmp_luasnip'
+    Plug 'rafamadriz/friendly-snippets'
     Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'mingw32-make install_jsregexp'}
     Plug 'hrsh7th/nvim-cmp'
     Plug 'onsails/lspkind.nvim'
