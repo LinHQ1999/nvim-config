@@ -20,16 +20,16 @@ augroup numbertoggle
   autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | setl nornu | endif
 augroup END
 
-" neovide 可以自动进行输入法切换
-if exists('g:neovide') 
-    augroup ime_input
-        autocmd! 
-        autocmd InsertLeave * execute "let g:neovide_input_ime=v:false"
-        autocmd InsertEnter * execute "let g:neovide_input_ime=v:true"
-        autocmd CmdlineEnter [/\?] execute "let g:neovide_input_ime=v:false"
-        autocmd CmdlineLeave [/\?] execute "let g:neovide_input_ime=v:true"
-    augroup END
-endif
+" neovide 可以自动进行输入法切换，但搜索时也无法输入中文，先禁用
+" if exists('g:neovide') 
+"     augroup ime_input
+"         autocmd! 
+"         autocmd InsertLeave * execute "let g:neovide_input_ime=v:false"
+"         autocmd InsertEnter * execute "let g:neovide_input_ime=v:true"
+"         autocmd CmdlineEnter [/\?] execute "let g:neovide_input_ime=v:false"
+"         autocmd CmdlineLeave [/\?] execute "let g:neovide_input_ime=v:true"
+"     augroup END
+" endif
 
 " 添加一些文件类型别名
 " 注意，这里和 treesitter 的类型别名不一样，但效果应该差不多:
