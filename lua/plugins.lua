@@ -126,7 +126,7 @@ require('lazy').setup({
                 theme = 'auto',
                 section_separators = { left = '', right = '' },
                 component_separators = { left = '', right = '' },
-                globalstatus = true
+                globalstatus = false
             },
             sections = {
                 lualine_b = { 'branch', 'diff' },

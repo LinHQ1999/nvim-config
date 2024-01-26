@@ -70,9 +70,23 @@ elseif exists('g:neovide')
     " neovide 的字体回退都在 guifont，gfw 不支持
     let &guifont = "FantasqueSansMono NFM,霞鹜新晰黑:h14"
 
+    " 窗口透明 & 输入时隐藏鼠标
+    let g:neovide_transparency = 0.9
+    let g:neovide_hide_mouse_when_typing = v:true
+
+    " 减少一点阴影深度
+    let g:neovide_floating_shadow = v:true
+    let g:neovide_floating_z_height = 2
+    let g:neovide_light_angle_degrees = 45
+    let g:neovide_light_radius = 1.5
+
     let g:neovide_remember_window_position = v:true
     let g:neovide_remember_window_size = v:true
-    let g:neovide_scroll_animation_length = 0.3
+
+    " 滚屏动画配置
+    let g:neovide_scroll_animation_length = 0.1
+    let g:neovide_scroll_animation_far_lines = 1
+
     " 输入时动画
     let g:neovide_cursor_animate_in_insert_mode = v:true
     " 跳转到 cmd 时是否使用动画

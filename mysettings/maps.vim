@@ -54,7 +54,7 @@ nnoremap <silent> <Leader>gs <Cmd>G<cr>
 nnoremap <silent> <Leader>gps <Cmd>Git push<cr>
 nnoremap <silent> <Leader>gpl <Cmd>Git pull<cr>
 nnoremap <silent> <Leader>gla <Cmd>Gclog<cr>
-nnoremap <silent> <Leader>gll <Cmd>exec "Git log -L ".line('.').",".line('.').":% --no-merges"<cr>
+nnoremap <silent> <Leader>gll <Cmd>exec "Git log -L ".line('.').",".line('.').":% --no-merges --oneline"<cr>
 nnoremap <silent> <Leader>gls :Git log -p --no-merges -S"<cword>" %<cr>
 " (gitsigns)
 nnoremap <silent> ]g <Cmd>Gitsigns next_hunk<cr>
