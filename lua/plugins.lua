@@ -193,6 +193,12 @@ require('lazy').setup({
                     i = {
                         ["<C-u>"] = false
                     }
+                },
+                preview = {
+                    filesize_limit = 1,
+                    treesitter = {
+                        disable = { "javascript" }
+                    }
                 }
             },
             pickers = {
