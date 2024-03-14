@@ -206,6 +206,21 @@ require('lazy').setup({
                     debounce = 500,
                     glob_pattern = { '!*.{bundle,min}.{js,css}', '!*-lock.*', '!{view-front,built,lib,plugin,*vnc,rdp,node_modules}/' }
                 }
+            },
+        },
+        dependencies = {
+            {
+                'nvim-telescope/telescope-fzf-native.nvim',
+                build = 'make',
+                config = function()
+                    require('telescope').load_extension('fzf')
+                end
+            },
+            {
+                "nvim-telescope/telescope-frecency.nvim",
+                config = function()
+                    require("telescope").load_extension('frecency')
+                end,
             }
         }
     },
