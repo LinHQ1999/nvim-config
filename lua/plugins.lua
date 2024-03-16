@@ -63,6 +63,7 @@ require('lazy').setup({
             -- vim.o 则是字符串
             vim.opt.shortmess:append('c')
             vim.o.signcolumn = 'number'
+            vim.g.coc_global_extensions = { "coc-clangd", "coc-css", "coc-cssmodules", "coc-dictionary", "coc-docker", "coc-emmet", "coc-eslint", "coc-go", "coc-html", "coc-java", "coc-json", "coc-lists", "coc-marketplace", "coc-omni", "coc-pairs", "coc-powershell", "coc-prisma", "coc-pyright", "coc-rust-analyzer", "coc-sh", "coc-snippets", "coc-stylelintplus", "coc-sumneko-lua", "coc-svelte", "coc-svg", "coc-toml", "coc-tsserver", "coc-unocss", "coc-vetur", "coc-vimlsp", "coc-xml", "coc-yaml" }
         end,
         dependencies = {
             {
