@@ -32,6 +32,8 @@ noremap <silent> <leader><left> <Cmd>bdelete<cr>
 " (diff)
 noremap <silent> <Leader>dt <Cmd>diffthis<cr>
 noremap <silent> <Leader>do <Cmd>diffoff<cr>
+xnoremap <silent> d1o :'<,'>diffget1<cr>
+xnoremap <silent> d3o :'<,'>diffget3<cr>
 " (my)
 " or <C-R>=
 " 根据最新的 coc 配置，不再使用此项
