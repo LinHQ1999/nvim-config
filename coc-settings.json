@@ -1,44 +1,5 @@
 {
-  "languageserver": {
-    "tailwind-lsp": {
-      "command": "tailwindcss-language-server.cmd",
-      "args": [
-        "--stdio"
-      ],
-      "filetypes": [
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact",
-        "vue"
-      ],
-      "rootPatterns": [
-        "windi.config.js",
-      ],
-      "settings": {
-        "tailwindCSS": {
-          "validate": true,
-          "lint": {
-            "cssConflict": "warning",
-            "invalidApply": "error",
-            "invalidScreen": "error",
-            "invalidVariant": "error",
-            "invalidConfigPath": "error",
-            "invalidTailwindDirective": "error",
-            "recommendedVariantOrder": "warning"
-          },
-          "classAttributes": [
-            "class",
-            "className",
-            "classList",
-            "ngClass",
-            "ng-class"
-          ],
-          "experimental": {}
-        }
-      }
-    },
-  },
+  "languageserver": {},
   "Lua.completion.enable": false,
   "eslint.autoFixOnSave": true,
   "diagnostic.enableMessage": "always",
