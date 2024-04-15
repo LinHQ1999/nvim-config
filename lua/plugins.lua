@@ -284,10 +284,10 @@ require('lazy').setup({
     {
         'brenoprata10/nvim-highlight-colors',
         opts = {
-            render = 'background',
-            enable_named_colors = true,
-            enable_tailwind = true,
-            virtual_symbol = '❆',
+            render = 'virtual',
+            enable_named_colors = false,
+            enable_tailwind = false,
+            virtual_symbol = '❆ ',
         }
     }
 })

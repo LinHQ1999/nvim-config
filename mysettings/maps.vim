@@ -32,8 +32,6 @@ noremap <silent> <leader><left> <Cmd>bdelete<cr>
 " (diff)
 noremap <silent> <Leader>dt <Cmd>diffthis<cr>
 noremap <silent> <Leader>do <Cmd>diffoff<cr>
-xnoremap <silent> d1o :'<,'>diffget1<cr>
-xnoremap <silent> d3o :'<,'>diffget3<cr>
 " (my)
 " or <C-R>=
 " 根据最新的 coc 配置，不再使用此项
@@ -61,6 +59,8 @@ nnoremap <silent> <Leader>gls :Git log -p --no-merges -S"<cword>" %<cr>
 " (gitsigns)
 nnoremap <silent> ]g <Cmd>Gitsigns next_hunk<cr>
 nnoremap <silent> [g <Cmd>Gitsigns prev_hunk<cr>
+nnoremap <silent> <Leader>gr <Cmd>Gitsigns reset_hunk<cr>
+xnoremap <silent> <Leader>gr :'<,'>Gitsigns reset_hunk<cr>
 " (vim-plug)
 nnoremap <silent> <Leader>pi <Cmd>Lazy install<cr>
 nnoremap <silent> <Leader>pu <Cmd>Lazy update<cr>
