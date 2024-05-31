@@ -100,11 +100,12 @@ inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 noremap <silent> <Leader>lf <Cmd>Telescope find_files<CR>
 noremap <silent><Leader>lg <Cmd>Telescope live_grep<CR>
 noremap <silent> <Leader>lb <Cmd>Telescope buffers<CR>
-noremap <silent> <Leader>lr <Cmd>Telescope frecency<CR>
+noremap <silent> <Leader>lr <Cmd>Telescope oldfiles<CR>
 noremap <silent> <Leader>lv <Cmd>Telescope vim_options<CR>
 noremap <silent> <Leader>ll <Cmd>Telescope loclist<CR>
 noremap <silent> <Leader>lm <Cmd>Telescope marks<CR>
 noremap <silent> <Leader>l/ <Cmd>Telescope current_buffer_fuzzy_find<CR>
+noremap <silent> <Leader>lq <Cmd>Telescope quickfix<CR>
 " noremap <silent> <Leader>l: <Cmd><CR>
 " 2-character Sneak (default)
 nmap ' <Plug>Sneak_s

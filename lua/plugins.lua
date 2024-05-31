@@ -77,7 +77,7 @@ require('lazy').setup({
         }
     },
     { 'fatih/vim-go',       ft = 'go' },
-    {
+    --[[ {
         "nvim-neorg/neorg",
         build = ":Neorg sync-parsers",
         cmd = "Neorg",
@@ -96,7 +96,7 @@ require('lazy').setup({
                 },
             },
         },
-    },
+    } ,]]
     {
         'kyazdani42/nvim-tree.lua',
         cmd = "NvimTreeFindFileToggle",
@@ -198,14 +198,14 @@ require('lazy').setup({
                 preview = {
                     filesize_limit = 1,
                     treesitter = {
-                        disable = { "javascript" }
+                        disable = { "javascript", "css" }
                     }
                 }
             },
             pickers = {
                 live_grep = {
                     debounce = 500,
-                    glob_pattern = { '!*.{bundle,min}.{js,css}', '!*-lock.*', '!{view-front,built,lib,plugin,*vnc,rdp,node_modules}/' }
+                    glob_pattern = { '!*.{bundle,min}.{js,css}', '!*-lock.*', '!{built,lib,plugin,*vnc,rdp,v,node_modules}/' }
                 }
             },
         },
@@ -216,12 +216,6 @@ require('lazy').setup({
                 config = function()
                     require('telescope').load_extension('fzf')
                 end
-            },
-            {
-                "nvim-telescope/telescope-frecency.nvim",
-                config = function()
-                    require("telescope").load_extension('frecency')
-                end,
             }
         }
     },
