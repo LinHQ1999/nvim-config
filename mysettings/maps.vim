@@ -65,37 +65,6 @@ xnoremap <silent> <Leader>gr :'<,'>Gitsigns reset_hunk<cr>
 nnoremap <silent> <Leader>pi <Cmd>Lazy install<cr>
 nnoremap <silent> <Leader>pu <Cmd>Lazy update<cr>
 nnoremap <silent> <Leader>pc <Cmd>Lazy clean<cr>
-" (coc) 不遵循通用命名规则，{rhs} 和 vscodevim 保持一致
-nnoremap <silent> <Leader>cr <Cmd>CocRestart<cr>
-nnoremap <silent> gh <Cmd>call CocActionAsync('doHover')<cr>
-nnoremap gx <Cmd>exec "!start ".expand('<cfile>')<cr>
-noremap <Leader>ci <Cmd>call CocActionAsync('organizeImport')<CR> 
-noremap <silent> <Leader>cl <Cmd>CocList<cr>
-nnoremap <silent> <Leader>cc <Cmd>CocConfig<cr>
-nmap <silent> <leader>. <Plug>(coc-codeaction)
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gr <Plug>(coc-references)
-" 弄一下文本对象的跳转，omap 就不用 silent 了
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap if <Plug>(coc-funcobj-i)
-omap if <Plug>(coc-funcobj-i)
-nmap <silent> <Leader>cf <Plug>(coc-format)
-xmap <silent> <Leader>cf <Plug>(coc-format-selected)
-xmap <silent> <Leader>cv <Plug>(coc-convert-snippet)
-nmap <silent> <F2> <Plug>(coc-rename)
-nmap <silent> <Up> <Plug>(coc-diagnostic-prev)
-nmap <silent> <Down> <Plug>(coc-diagnostic-next)
-nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-" 0.0.82 版适配
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-" Insert <tab> when previous text is space, refresh completion if not.
-inoremap <silent><expr> <TAB>
-            \ coc#pum#visible() ? coc#pum#next(1):
-            \ Check_back_space() ? "\<Tab>" :
-            \ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 " (finder)
 noremap <silent> <Leader>lf <Cmd>Telescope find_files<CR>
 noremap <silent><Leader>lg <Cmd>Telescope live_grep<CR>

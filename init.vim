@@ -22,7 +22,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require('plugins')
+require('lazy').setup('plugins')
 EOF
 
 let s:transform = {dir, list -> join(map(list,  { _, module -> dir."/".module.".vim" }), ' ')}
