@@ -114,29 +114,7 @@ return {
             -- 必须在设置各种 lsp 之前调用，所以放这里
             lsp_zero.extend_lspconfig()
             require('mason-lspconfig').setup({
-                ensure_installed = {
-                    'buf-language-server',
-                    'css-lsp',
-                    'custom-elements-languageserver',
-                    'docker-compose-language-service',
-                    'dockerfile-language-server',
-                    'eslint-lsp',
-                    'gopls',
-                    'html-lsp',
-                    'jq-lsp',
-                    'json-lsp',
-                    'lemminx',
-                    'lua-language-server',
-                    'powershell-editor-services',
-                    'protolint',
-                    'pyright',
-                    'stylelint',
-                    'taplo',
-                    'vim-language-server',
-                    'vtsls',
-                    'vue-language-server',
-                    'yaml-language-server',
-                },
+                ensure_installed = {},
                 -- 启用 lsp 自动配置
                 handlers = {
                     function(server_name)
@@ -148,6 +126,13 @@ return {
                         -- (Optional) Configure lua language server for neovim
                         local lua_opts = lsp_zero.nvim_lua_ls()
                         require('lspconfig').lua_ls.setup(lua_opts)
+                    end,
+                    powershell_es = function()
+                        require('lspconfig').powershell_es.setup({
+                            bundle_path = require('mason-registry')
+                                .get_package('powershell-editor-services')
+                                :get_install_path()
+                        })
                     end,
                     vtsls = function()
                         local vue_typescript_plugin = require('mason-registry')
