@@ -115,19 +115,45 @@ return {
             lsp_zero.extend_lspconfig()
             require('mason-lspconfig').setup({
                 ensure_installed = {},
+                -- 启用 lsp 自动配置
                 handlers = {
-                    -- this first function is the "default handler"
-                    -- it applies to every language server without a "custom handler"
                     function(server_name)
                         require('lspconfig')[server_name].setup({})
                     end,
 
-                    -- this is the "custom handler" for `lua_ls`
+                    -- 覆盖 lua
                     lua_ls = function()
                         -- (Optional) Configure lua language server for neovim
                         local lua_opts = lsp_zero.nvim_lua_ls()
                         require('lspconfig').lua_ls.setup(lua_opts)
                     end,
+                    vtsls = function()
+                        local vue_typescript_plugin = require('mason-registry')
+                            .get_package('vue-language-server')
+                            :get_install_path()
+                            .. '/node_modules/@vue/language-server'
+
+                        -- 考虑安装 nvim-vtsls 插件
+                        require('lspconfig')['vtsls'].setup({
+                            capabilities = lsp_zero.get_capabilities(),
+                            filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+                            settings = {
+                                vtsls = {
+                                    tsserver = {
+                                        globalPlugins = {
+                                            {
+                                                name = "@vue/typescript-plugin",
+                                                location = vue_typescript_plugin,
+                                                languages = { "vue" },
+                                                configNamespace = "typescript",
+                                                enableForWorkspaceTypeScriptVersions = true,
+                                            },
+                                        },
+                                    },
+                                },
+                            }
+                        })
+                    end
                 }
             })
 
