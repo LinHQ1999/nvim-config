@@ -28,4 +28,4 @@ set foldopen-=search
 set showbreak=\|>\ 
 set wildoptions+=fuzzy
 set diffopt+=vertical,linematch:60,algorithm:histogram
-
+set jumpoptions+=stack
