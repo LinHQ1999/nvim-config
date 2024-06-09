@@ -40,7 +40,7 @@ return {
             format_on_save = { timeout_ms = 2500, lsp_fallback = true },
         },
         init = function()
-            -- If you want the formatexpr, here is the place to set it
+            -- 让 = 也可以格式化
             vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
         end,
 

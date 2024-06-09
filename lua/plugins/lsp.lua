@@ -6,12 +6,9 @@
 return {
     {
         'kevinhwang91/nvim-ufo',
-        lazy = true,
-        opts = {},
-        config = function(_, opts)
+        event = 'VeryLazy', -- 不能为 BufReadPre，见  https://github.com/kevinhwang91/nvim-ufo/issues/47#issuecomment-1248773096
+        config = function()
             local ufo = require('ufo')
-
-            ufo.setup(opts)
 
             vim.o.foldcolumn = '0'
             vim.o.foldlevel = 99
@@ -20,6 +17,8 @@ return {
 
             vim.keymap.set('n', 'zR', ufo.openAllFolds)
             vim.keymap.set('n', 'zM', ufo.closeAllFolds)
+
+            ufo.setup()
         end,
         dependencies = {
             { 'kevinhwang91/promise-async' }
@@ -29,7 +28,6 @@ return {
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v3.x',
         lazy = true,
-        config = {},
         init = function()
             -- Disable automatic setup, we are doing it manually
             vim.g.lsp_zero_extend_cmp = 0
@@ -38,13 +36,13 @@ return {
     },
     {
         'williamboman/mason.nvim',
-        lazy = false,
-        config = true,
+        config = true
     },
     {
         'L3MON4D3/LuaSnip',
         lazy = true,
         dependencies = { 'rafamadriz/friendly-snippets' },
+        build = "make install_jsregex",
         config = function()
             require("luasnip.loaders.from_vscode").lazy_load({ path = { "./my_snippets" } })
         end
@@ -111,8 +109,27 @@ return {
         config = function()
             local lsp_zero = require('lsp-zero')
 
+            -- 一个简单的工具函数
+            local registry = require('mason-registry')
+            local get_mason_path = function(package)
+                return registry.get_package(package):get_install_path()
+            end
+
+
             -- 必须在设置各种 lsp 之前调用，所以放这里
             lsp_zero.extend_lspconfig()
+            -- 用于配置 ufo lsp 折叠
+            lsp_zero.set_server_config({
+                capabilities = {
+                    textDocument = {
+                        foldingRange = {
+                            dynamicRegistration = false,
+                            lineFoldingOnly = true
+                        }
+                    }
+                }
+            })
+
             require('mason-lspconfig').setup({
                 ensure_installed = {},
                 -- 启用 lsp 自动配置
@@ -123,26 +140,17 @@ return {
 
                     -- 覆盖 lua
                     lua_ls = function()
-                        -- (Optional) Configure lua language server for neovim
                         local lua_opts = lsp_zero.nvim_lua_ls()
                         require('lspconfig').lua_ls.setup(lua_opts)
                     end,
                     powershell_es = function()
                         require('lspconfig').powershell_es.setup({
-                            bundle_path = require('mason-registry')
-                                .get_package('powershell-editor-services')
-                                :get_install_path()
+                            bundle_path = get_mason_path('powershell-editor-services')
                         })
                     end,
                     vtsls = function()
-                        local vue_typescript_plugin = require('mason-registry')
-                            .get_package('vue-language-server')
-                            :get_install_path()
-                            .. '/node_modules/@vue/language-server'
-
                         -- 考虑安装 nvim-vtsls 插件
                         require('lspconfig')['vtsls'].setup({
-                            capabilities = lsp_zero.get_capabilities(),
                             filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
                             settings = {
                                 vtsls = {
@@ -150,7 +158,8 @@ return {
                                         globalPlugins = {
                                             {
                                                 name = "@vue/typescript-plugin",
-                                                location = vue_typescript_plugin,
+                                                location = vim.fs.joinpath(get_mason_path('vue-language-server'),
+                                                    'node_modules', '@vue', 'language-server'),
                                                 languages = { "vue" },
                                                 configNamespace = "typescript",
                                                 enableForWorkspaceTypeScriptVersions = true,
@@ -163,18 +172,6 @@ return {
                     end
                 }
             })
-
-            -- 用于配置 ufo lsp 折叠
-            lsp_zero.set_server_config({
-                capabilities = {
-                    textDocument = {
-                        foldingRange = {
-                            dynamicRegistration = false,
-                            lineFoldingOnly = true
-                        }
-                    }
-                }
-            })
         end
     },
     {
@@ -183,7 +180,6 @@ return {
         event = { 'BufReadPre', 'BufNewFile' },
         dependencies = {
             'williamboman/mason-lspconfig.nvim',
-            'kevinhwang91/nvim-ufo',
             { 'hrsh7th/cmp-nvim-lsp' },
             { 'hrsh7th/cmp-nvim-lsp-signature-help' }
         },

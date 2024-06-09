@@ -9,7 +9,7 @@ return {
     {
         'windwp/nvim-autopairs',
         event = "InsertEnter",
-        opts = {}
+        config = true
     },
     { 'tpope/vim-fugitive', cmd = { 'G', 'Git', 'GcLog', 'Gdiffs' } },
     {
