@@ -2,35 +2,36 @@
 -- 如果同时指定了 opts 和 config，则需要在 config 中显式调用 setup
 -- 非 lua 插件，除了 basic.vim 之外的配置需要写在 init 中
 -- lua 插件如果存在非 opts 的选项，则需要在 config 中初始化，写在 init 中如果存在 require() 会导致 lazy 失效 e.g ufo 的配置
+-- dependencies 实际上代表关联启动，具体是 before 还是 after 则智能判断
 
-vim.g.mapleader = ' '
+vim.g.mapleader = " "
 
 return {
     {
-        'windwp/nvim-autopairs',
+        "windwp/nvim-autopairs",
         event = "InsertEnter",
-        config = true
+        config = true,
     },
-    { 'tpope/vim-fugitive', cmd = { 'G', 'Git', 'GcLog', 'Gdiffs' } },
+    { "tpope/vim-fugitive", cmd = { "G", "Git", "GcLog", "Gdiffs" } },
     {
-        'lewis6991/gitsigns.nvim',
-        event = 'VeryLazy',
+        "lewis6991/gitsigns.nvim",
+        event = "VeryLazy",
         opts = {
             current_line_blame = true,
             signcolumn = true,
             linehl = false,
             current_line_blame_opts = {
-                delay = 1000
-            }
-        }
+                delay = 1000,
+            },
+        },
     },
     {
-        'nvim-lua/plenary.nvim',
-        lazy = true
+        "nvim-lua/plenary.nvim",
+        lazy = true,
     },
-    { 'fatih/vim-go',       ft = 'go' },
+    { "fatih/vim-go", ft = { "go", "gomod" } },
     {
-        'kyazdani42/nvim-tree.lua',
+        "kyazdani42/nvim-tree.lua",
         cmd = "NvimTreeFindFileToggle",
         opts = {
             disable_netrw = true,
@@ -49,118 +50,126 @@ return {
             diagnostics = {
                 enable = true,
                 show_on_dirs = true,
-            }
-        }
+            },
+        },
     },
     {
-        'nvim-lualine/lualine.nvim',
+        "nvim-lualine/lualine.nvim",
         opts = {
             options = {
-                theme = 'auto',
-                section_separators = { left = '', right = '' },
-                component_separators = { left = '', right = '' },
-                globalstatus = false
+                theme = "auto",
+                section_separators = { left = "", right = "" },
+                component_separators = { left = "", right = "" },
+                globalstatus = false,
             },
             sections = {
-                lualine_b = { 'branch', 'diff' },
-                lualine_c = { { 'filename', newfile_status = true, path = 1 } },
-                lualine_x = { 'diagnostics', 'encoding', 'fileformat', 'filetype' },
-                lualine_y = { '%2p%%❆ %-3L' },
-                lualine_z = { '%3l:%-2c' }
+                lualine_b = { "branch", "diff" },
+                lualine_c = { { "filename", newfile_status = true, path = 1 } },
+                lualine_x = { "diagnostics", "encoding", "fileformat", "filetype" },
+                lualine_y = { "%2p%%❆ %-3L" },
+                lualine_z = { "%3l:%-2c" },
             },
             inactive_sections = {
-                lualine_c = { { 'filename', path = 1 } },
+                lualine_c = { { "filename", path = 1 } },
                 lualine_x = {},
-                lualine_y = { '%2p%%❆ %-3L', '%3l:%-2c' }
+                lualine_y = { "%2p%%❆ %-3L", "%3l:%-2c" },
             },
             tabline = {
-                lualine_a = { {
-                    'buffers',
-                    mode = 4,
-                    use_mode_colors = true,
-                    buffers_color = {
-                        -- active = 'lualine_a_normal',
-                        inactive = 'lualine_b_normal',
-                    }
-                } },
-                lualine_z = { {
-                    'tabs',
-                    mode = 1,
-                    tabs_color = {
-                        active = 'lualine_a_normal',
-                        inactive = 'lualine_b_normal',
-                    }
-                } }
+                lualine_a = {
+                    {
+                        "buffers",
+                        mode = 4,
+                        use_mode_colors = true,
+                        buffers_color = {
+                            -- active = 'lualine_a_normal',
+                            inactive = "lualine_b_normal",
+                        },
+                    },
+                },
+                lualine_z = {
+                    {
+                        "tabs",
+                        mode = 1,
+                        tabs_color = {
+                            active = "lualine_a_normal",
+                            inactive = "lualine_b_normal",
+                        },
+                    },
+                },
             },
             extensions = {
-                'fugitive',
-                'nvim-tree',
-                'quickfix',
-                'lazy'
-            }
+                "fugitive",
+                "nvim-tree",
+                "quickfix",
+                "lazy",
+            },
         },
         config = function(_, opts)
-            require('lualine').setup(opts)
+            require("lualine").setup(opts)
             vim.opt.showmode = false
             vim.opt.laststatus = 2
             vim.opt.showtabline = 2
         end,
     },
     {
-        'kylechui/nvim-surround',
-        event = 'VeryLazy',
-        config = true
-    },
-    {
-        'numToStr/Comment.nvim',
-        event = 'VeryLazy',
-        config = true
-    },
-    {
-        'nvim-telescope/telescope.nvim',
-        version = "~0.1.0",
+        "kylechui/nvim-surround",
         event = "VeryLazy",
+        config = true,
+    },
+    {
+        "numToStr/Comment.nvim",
+        event = "VeryLazy",
+        config = true,
+    },
+    {
+        "nvim-telescope/telescope.nvim",
+        version = "~0.1.0",
+        cmd = { "Telescope" },
         opts = {
             defaults = {
                 mappings = {
                     i = {
-                        ["<C-u>"] = false
-                    }
+                        ["<C-u>"] = false,
+                    },
                 },
                 preview = {
                     filesize_limit = 1,
                     treesitter = {
-                        disable = { "javascript", "css" }
-                    }
-                }
+                        disable = { "javascript", "css" },
+                    },
+                },
             },
             pickers = {
                 live_grep = {
                     debounce = 500,
-                    glob_pattern = { '!*.{bundle,min}.{js,css}', '!*-lock.*', '!{built,lib,plugin,*vnc,rdp,v,node_modules}/' }
-                }
+                    glob_pattern = {
+                        "!*.{bundle,min}.{js,css}",
+                        "!*-lock.*",
+                        "!{built,lib,plugin,*vnc,rdp,v,node_modules}/",
+                    },
+                },
             },
         },
         dependencies = {
             {
-                'nvim-telescope/telescope-fzf-native.nvim',
-                build = 'make',
+                "nvim-telescope/telescope-fzf-native.nvim",
+                build = "make",
                 config = function()
-                    require('telescope').load_extension('fzf')
-                end
-            }
-        }
+                    require("telescope").load_extension("fzf")
+                end,
+            },
+        },
     },
     {
-        'justinmk/vim-sneak',
-        event = 'VeryLazy',
+        "justinmk/vim-sneak",
+        event = "VeryLazy",
         init = function()
-            vim.g['sneak#label'] = 1
-        end
+            vim.g["sneak#label"] = 1
+        end,
     },
-    { 'kyazdani42/nvim-web-devicons', lazy = true },
-    { 'sainnhe/forest-night',         lazy = true },
-    { 'folke/tokyonight.nvim',        lazy = true },
-    { 'olimorris/onedarkpro.nvim',    lazy = true },
-    { 'catppuccin/nvim',              name = 'catppuccin', lazy = true },
+    { "kyazdani42/nvim-web-devicons", lazy = true },
+    { "sainnhe/forest-night", lazy = true },
+    { "folke/tokyonight.nvim", lazy = true },
+    { "olimorris/onedarkpro.nvim", lazy = true },
+    { "catppuccin/nvim", name = "catppuccin", lazy = true },
 }
