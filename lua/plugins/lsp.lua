@@ -41,9 +41,10 @@ return {
     {
         'L3MON4D3/LuaSnip',
         lazy = true,
-        dependencies = { 'rafamadriz/friendly-snippets' },
+        dependencies = { 'rafamadriz/friendly-snippets', 'saadparwaiz1/cmp_luasnip' },
         config = function()
-            require("luasnip.loaders.from_vscode").lazy_load({ path = { "./my_snippets" } })
+            require("luasnip.loaders.from_vscode").lazy_load()
+            require("luasnip.loaders.from_snipmate").lazy_load({ paths = { "./my_snippets" } })
         end
     },
     {
@@ -95,9 +96,27 @@ return {
                 },
                 sources = {
                     { name = "nvim_lsp" },
-                    { name = "buffer" },
+                    { name = "buffer", 
+                        option = {
+                            get_bufnrs = function()
+                                local bufs = {}
+                                for _, win in ipairs(vim.api.nvim_list_wins()) do
+                                    local buf = vim.api.nvim_win_get_buf(win) 
+                                    -- 限制大于 1M 的文件
+                                    if vim.api.nvim_buf_get_offset(buf, vim.api.nvim_buf_line_count(buf)) <= 1024 * 1024 then
+                                        bufs[buf] = true
+                                    end
+                                end
+                                return vim.tbl_keys(bufs)
+                            end
+                        }
+                    },
                     { name = "path" },
-                    { name = "nvim_lsp_signature_help" }
+                    { name = "nvim_lsp_signature_help" },
+                    { name = "luasnip" }
+                },
+                expirment = {
+                    ghost_text = true
                 }
             })
         end
