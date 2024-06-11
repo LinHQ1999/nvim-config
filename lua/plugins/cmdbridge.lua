@@ -2,15 +2,15 @@
 
 return {
     {
-        'NTBBloodbath/rest.nvim',
-        ft = 'http',
+        "NTBBloodbath/rest.nvim",
+        ft = "http",
         opts = {
             highlight = {
                 enable = true,
                 timeout = 150,
             },
-            jump_to_request = true
-        }
+            jump_to_request = true,
+        },
     },
     {
         "stevearc/conform.nvim",
@@ -30,11 +30,11 @@ return {
         opts = {
             formatters_by_ft = {
                 lua = { "stylua" },
-                python = {
-                    "isort", "black" },
+                python = { "isort", "black" },
                 javascript = { "eslint_d", "eslint" },
                 typescript = { "eslint_d", "eslint" },
                 vue = { "eslint_d", "eslint" },
+                html = { "prettierd", "prettier", "eslint" },
             },
             -- Set up format-on-save
             format_on_save = { timeout_ms = 2500, lsp_fallback = true },
@@ -43,6 +43,5 @@ return {
             -- 让 = 也可以格式化
             vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
         end,
-
     },
 }
