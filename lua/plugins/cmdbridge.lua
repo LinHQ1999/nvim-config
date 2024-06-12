@@ -37,7 +37,8 @@ return {
                 html = { "prettierd", "prettier", "eslint" },
             },
             -- Set up format-on-save
-            format_on_save = { timeout_ms = 2500, lsp_fallback = true },
+            -- format_on_save = { timeout_ms = 2500, lsp_fallback = true },
+            format_after_save = { lsp_fallback = true },
         },
         init = function()
             -- 让 = 也可以格式化
