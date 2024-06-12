@@ -152,7 +152,20 @@ return {
             })
 
             require("mason-lspconfig").setup({
-                ensure_installed = {},
+                ensure_installed = {
+                    "yamlls",
+                    "volar",
+                    "lemminx",
+                    "tailwindcss",
+                    "lua_ls",
+                    "jsonls",
+                    "powershell_es",
+                    "html",
+                    "vtsls",
+                    "cssls",
+                    "eslint",
+                    "emmet_language_server",
+                },
                 -- 启用 lsp 自动配置
                 handlers = {
                     function(server_name)
@@ -161,8 +174,8 @@ return {
 
                     -- 覆盖 lua
                     lua_ls = function()
-                        local lua_opts = lsp_zero.nvim_lua_ls()
-                        require("lspconfig").lua_ls.setup(lua_opts)
+                        -- 对 neovim lua 配置特别优化的 opt
+                        require("lspconfig").lua_ls.setup(lsp_zero.nvim_lua_ls())
                     end,
                     powershell_es = function()
                         require("lspconfig").powershell_es.setup({
