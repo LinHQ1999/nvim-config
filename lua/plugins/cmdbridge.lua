@@ -1,5 +1,4 @@
 -- 一些调用外部命令行工具的插件
-
 return {
     {
         "NTBBloodbath/rest.nvim",
@@ -14,6 +13,7 @@ return {
     },
     {
         "stevearc/conform.nvim",
+        cond = false,
         event = { "BufWritePre" },
         cmd = { "ConformInfo" },
         keys = {
@@ -32,13 +32,13 @@ return {
                 lua = { "stylua" },
                 python = { "isort", "black" },
                 javascript = { "eslint_d", "eslint" },
-                typescript = { "eslint_d", "eslint" },
+                typescript = { "prettierd", "eslint" },
                 vue = { "eslint_d", "eslint" },
                 html = { "prettierd", "prettier", "eslint" },
             },
             -- Set up format-on-save
-            -- format_on_save = { timeout_ms = 2500, lsp_fallback = true },
-            format_after_save = { lsp_fallback = true },
+            format_on_save = { timeout_ms = 2500, lsp_fallback = true },
+            -- format_after_save = { lsp_fallback = true },
         },
         init = function()
             -- 让 = 也可以格式化

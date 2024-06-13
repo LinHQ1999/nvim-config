@@ -68,7 +68,7 @@ return {
                 formatting = {
                     format = lspkind.cmp_format({
                         mode = "symbol_text", -- show only symbol annotations
-                        maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+                        maxwidth = 50,        -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
                         -- can also be a function to dynamically calculate max width such as
                         -- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
                         ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
@@ -225,17 +225,31 @@ return {
             -- This is where all the LSP shenanigans will live
             local lsp_zero = require("lsp-zero")
 
+            vim.api.nvim_create_autocmd('BufWritePre', {
+                callback = function(event)
+                    local eslint = vim.lsp.get_clients({ name = 'eslint', bufnr = event.buf })
+
+                    if vim.tbl_isempty(eslint) then
+                        -- vim.lsp.buf.format()
+                    else
+                        vim.cmd("EslintFixAll")
+                        vim.cmd("w")
+                    end
+                end
+            })
+
             --- if you want to know more about lsp-zero and mason.nvim
             --- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md
             -- 这里仅仅是 lsp 可用就加载相应的快捷键，而不是直接全局设置
-            lsp_zero.on_attach(function(_, bufnr)
+            lsp_zero.on_attach(function(client, bufnr)
                 -- see :help lsp-zero-keybindings
                 -- to learn the available actions
                 lsp_zero.default_keymaps({ buffer = bufnr })
-                vim.keymap.set("n", "<up>", vim.diagnostic.goto_prev, { silent = true })
-                vim.keymap.set("n", "<down>", vim.diagnostic.goto_next, { silent = true })
+                vim.keymap.set("n", "<up>", function() vim.diagnostic.jump({ count = -1 }) end, { silent = true })
+                vim.keymap.set("n", "<down>", function() vim.diagnostic.jump({ count = 1 }) end, { silent = true })
                 vim.keymap.set("n", "gh", vim.lsp.buf.hover, { silent = true })
                 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { silent = true })
+                vim.keymap.set("n", "<leader>cf", vim.lsp.buf.format, { silent = true })
             end)
         end,
     },
