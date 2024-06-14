@@ -256,7 +256,7 @@ return {
     {
         "folke/trouble.nvim",
         opts = {}, -- for default options, refer to the configuration section for custom setup.
-        cmd = "Trouble",
+        cmd = { "Trouble", "TodoTrouble" },
         keys = {
             {
                 "<leader>xx",
@@ -269,7 +269,12 @@ return {
                 desc = "Buffer Diagnostics (Trouble)",
             },
             {
-                "<leader>v",
+                "<leader>xX",
+                "<cmd>TodoTrouble<cr>",
+                desc = "Show todo in trouble",
+            },
+            {
+                "<leader>xv",
                 "<cmd>Trouble symbols toggle focus=false<cr>",
                 desc = "Symbols (Trouble)",
             },
@@ -289,5 +294,8 @@ return {
                 desc = "Quickfix List (Trouble)",
             },
         },
+        dependencies = {
+            "folke/todo-comments.nvim"
+        }
     },
 }

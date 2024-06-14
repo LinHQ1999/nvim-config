@@ -29,7 +29,7 @@ return {
         "nvim-lua/plenary.nvim",
         lazy = true,
     },
-    { "fatih/vim-go", ft = { "go", "gomod" } },
+    { "fatih/vim-go",       ft = { "go", "gomod" } },
     {
         "kyazdani42/nvim-tree.lua",
         cmd = "NvimTreeFindFileToggle",
@@ -124,7 +124,7 @@ return {
     {
         "nvim-telescope/telescope.nvim",
         version = "~0.1.0",
-        cmd = { "Telescope" },
+        cmd = { "Telescope", "TodoTelescope" },
         opts = {
             defaults = {
                 mappings = {
@@ -151,6 +151,7 @@ return {
             },
         },
         dependencies = {
+            "folke/todo-comments.nvim",
             {
                 "nvim-telescope/telescope-fzf-native.nvim",
                 build = "make",
@@ -167,9 +168,16 @@ return {
             vim.g["sneak#label"] = 1
         end,
     },
+    {
+        -- 可以被 trouble 和 telescope 依赖
+        "folke/todo-comments.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        cmd = { "TodoLocList" },
+        opts = {}
+    },
     { "kyazdani42/nvim-web-devicons", lazy = true },
-    { "sainnhe/forest-night", lazy = true },
-    { "folke/tokyonight.nvim", lazy = true },
-    { "olimorris/onedarkpro.nvim", lazy = true },
-    { "catppuccin/nvim", name = "catppuccin", lazy = true },
+    { "sainnhe/forest-night",         lazy = true },
+    { "folke/tokyonight.nvim",        lazy = true },
+    { "olimorris/onedarkpro.nvim",    lazy = true },
+    { "catppuccin/nvim",              name = "catppuccin", lazy = true },
 }
