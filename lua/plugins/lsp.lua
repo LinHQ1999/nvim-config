@@ -204,6 +204,11 @@ return {
                                             },
                                         },
                                     },
+                                    expirmental = {
+                                        completion = {
+                                            enableServerSideFuzzyMatch = true
+                                        }
+                                    }
                                 },
                             },
                         })

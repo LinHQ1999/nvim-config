@@ -3,8 +3,7 @@ autocmd TermOpen * startinsert
 autocmd TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=150, on_visual=true}
 " 调整窗口自动对齐布局
 autocmd VimResized * wincmd =
-" rest.nvim 无法在 win 上使用，此处改用 coc-restclient
-autocmd FileType http noremap <buffer>go <Plug>RestNvim
+autocmd FileType powershell setl smartindent
 " smartindent 看上去和 coc-pairs 冲突
 autocmd BufRead *.ps1 set nosmartindent
 autocmd FileType javascript,vue,scss,less,typescriptreact,javascriptreact,org,json,typescript setl softtabstop=2 | setl shiftwidth=2
