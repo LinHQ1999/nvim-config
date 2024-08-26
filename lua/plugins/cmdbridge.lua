@@ -1,17 +1,6 @@
 -- 一些调用外部命令行工具的插件
 return {
     {
-        "NTBBloodbath/rest.nvim",
-        ft = "http",
-        opts = {
-            highlight = {
-                enable = true,
-                timeout = 150,
-            },
-            jump_to_request = true,
-        },
-    },
-    {
         "stevearc/conform.nvim",
         cond = false,
         event = { "BufWritePre" },
