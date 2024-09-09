@@ -21,18 +21,13 @@ return {
             ufo.setup()
         end,
         dependencies = {
-            { "kevinhwang91/promise-async" },
+            "kevinhwang91/promise-async",
         },
     },
     {
         "VonHeikemen/lsp-zero.nvim",
         branch = "v3.x",
-        lazy = true,
-        init = function()
-            -- Disable automatic setup, we are doing it manually
-            vim.g.lsp_zero_extend_cmp = 0
-            vim.g.lsp_zero_extend_lspconfig = 0
-        end,
+        lazy = true
     },
     {
         "williamboman/mason.nvim",
@@ -57,12 +52,9 @@ return {
             "L3MON4D3/LuaSnip",
         },
         config = function()
-            local lsp_zero = require("lsp-zero")
             local lspkind = require("lspkind")
             local cmp = require("cmp")
-            local cmp_action = lsp_zero.cmp_action() --Tab 自动完成之类的
-
-            lsp_zero.extend_cmp()
+            local cmp_action = require('lsp-zero').cmp_action() --Tab 自动完成之类的
 
             cmp.setup({
                 formatting = {
@@ -129,8 +121,7 @@ return {
         "williamboman/mason-lspconfig.nvim",
         lazy = true,
         config = function()
-            local lsp_zero = require("lsp-zero")
-
+            local lsp_zero = require('lsp-zero')
             -- 一个简单的工具函数
             local registry = require("mason-registry")
             local get_mason_path = function(package)
@@ -138,17 +129,18 @@ return {
             end
 
             -- 必须在设置各种 lsp 之前调用，所以放这里
-            lsp_zero.extend_lspconfig()
-            -- 用于配置 ufo lsp 折叠
-            lsp_zero.set_server_config({
-                capabilities = {
-                    textDocument = {
-                        foldingRange = {
-                            dynamicRegistration = false,
-                            lineFoldingOnly = true,
-                        },
-                    },
-                },
+            lsp_zero.extend_lspconfig({
+                sign_text = true,
+                capabilities = vim.tbl_deep_extend('force',
+                    require('cmp_nvim_lsp').default_capabilities(),
+                    {
+                        textDocument = {
+                            foldingRange = {
+                                dynamicRegistration = false,
+                                lineFoldingOnly = true,
+                            },
+                        }
+                    })
             })
 
             require("mason-lspconfig").setup({
@@ -227,9 +219,6 @@ return {
             { "hrsh7th/cmp-nvim-lsp-signature-help" },
         },
         config = function()
-            -- This is where all the LSP shenanigans will live
-            local lsp_zero = require("lsp-zero")
-
             vim.api.nvim_create_autocmd('BufWritePre', {
                 callback = function(event)
                     local eslint = vim.lsp.get_clients({ name = 'eslint', bufnr = event.buf })
@@ -243,9 +232,11 @@ return {
                 end
             })
 
+            -- 注意：这里不能放到上面 mason-lspconfig 的懒加载配置中，会导致监听在 server attach 之后，从而无法触发
             --- if you want to know more about lsp-zero and mason.nvim
             --- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md
             -- 这里仅仅是 lsp 可用就加载相应的快捷键，而不是直接全局设置
+            local lsp_zero = require("lsp-zero")
             lsp_zero.on_attach(function(client, bufnr)
                 -- see :help lsp-zero-keybindings
                 -- to learn the available actions
