@@ -27,7 +27,7 @@ return {
     {
         "VonHeikemen/lsp-zero.nvim",
         branch = "v3.x",
-        lazy = true
+        lazy = true -- 由 require 自动调用
     },
     {
         "williamboman/mason.nvim",
@@ -46,6 +46,8 @@ return {
         "hrsh7th/nvim-cmp",
         event = "InsertEnter",
         dependencies = {
+            { "hrsh7th/cmp-nvim-lsp" },
+            { "hrsh7th/cmp-nvim-lsp-signature-help" },
             { "onsails/lspkind.nvim" },
             { "hrsh7th/cmp-buffer" },
             { "hrsh7th/cmp-path" },
@@ -214,10 +216,7 @@ return {
         cmd = { "LspInfo", "LspInstall", "LspStart" },
         event = { "BufReadPre", "BufNewFile" },
         dependencies = {
-            "williamboman/mason-lspconfig.nvim",
-            { "hrsh7th/cmp-nvim-lsp" },
-            { "hrsh7th/cmp-nvim-lsp-signature-help" },
-        },
+            "williamboman/mason-lspconfig.nvim" },
         config = function()
             vim.api.nvim_create_autocmd('BufWritePre', {
                 callback = function(event)
@@ -241,8 +240,8 @@ return {
                 -- see :help lsp-zero-keybindings
                 -- to learn the available actions
                 lsp_zero.default_keymaps({ buffer = bufnr })
-                vim.keymap.set("n", "<up>", function() vim.diagnostic.jump({ count = -1 }) end, { silent = true })
-                vim.keymap.set("n", "<down>", function() vim.diagnostic.jump({ count = 1 }) end, { silent = true })
+                vim.keymap.set("n", "<up>", function() vim.diagnostic.goto_next() end, { silent = true })
+                vim.keymap.set("n", "<down>", function() vim.diagnostic.goto_prev() end, { silent = true })
                 vim.keymap.set("n", "gh", vim.lsp.buf.hover, { silent = true })
                 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { silent = true })
                 vim.keymap.set("n", "<leader>cf", vim.lsp.buf.format, { silent = true })
@@ -293,5 +292,5 @@ return {
         dependencies = {
             "folke/todo-comments.nvim"
         }
-    },
+    }
 }
