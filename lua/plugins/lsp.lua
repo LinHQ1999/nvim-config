@@ -26,8 +26,9 @@ return {
     },
     {
         "VonHeikemen/lsp-zero.nvim",
-        branch = "v3.x",
-        lazy = true -- 由 require 自动调用
+        branch = "v4.x",
+        lazy = true, -- 由 require 自动调用
+        config = false
     },
     {
         "williamboman/mason.nvim",
@@ -120,15 +121,35 @@ return {
         end,
     },
     {
-        "williamboman/mason-lspconfig.nvim",
-        lazy = true,
+        "neovim/nvim-lspconfig",
+        cmd = { "LspInfo", "LspInstall", "LspStart" },
+        event = { "BufReadPre", "BufNewFile" },
+        dependencies = { "williamboman/mason-lspconfig.nvim" },
         config = function()
-            local lsp_zero = require('lsp-zero')
             -- 一个简单的工具函数
             local registry = require("mason-registry")
             local get_mason_path = function(package)
                 return registry.get_package(package):get_install_path()
             end
+
+            vim.api.nvim_create_autocmd('BufWritePre', {
+                callback = function(event)
+                    local eslint = vim.lsp.get_clients({ name = 'eslint', bufnr = event.buf })
+
+                    if vim.tbl_isempty(eslint) then
+                        -- vim.lsp.buf.format()
+                    else
+                        vim.cmd("EslintFixAll")
+                        vim.cmd("w")
+                    end
+                end
+            })
+
+            -- 注意：这里不能放到上面 mason-lspconfig 的懒加载配置中，会导致监听在 server attach 之后，从而无法触发
+            --- if you want to know more about lsp-zero and mason.nvim
+            --- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md
+            -- 这里仅仅是 lsp 可用就加载相应的快捷键，而不是直接全局设置
+            local lsp_zero = require("lsp-zero")
 
             -- 必须在设置各种 lsp 之前调用，所以放这里
             lsp_zero.extend_lspconfig({
@@ -142,7 +163,18 @@ return {
                                 lineFoldingOnly = true,
                             },
                         }
-                    })
+                    }),
+                lsp_attach = function(client, bufnr)
+                    -- see :help lsp-zero-keybindings
+                    -- to learn the available actions
+                    lsp_zero.default_keymaps({ buffer = bufnr })
+                    local opts = { silent = true, buffer = bufnr }
+                    vim.keymap.set("n", "<up>", function() vim.diagnostic.goto_next() end, opts)
+                    vim.keymap.set("n", "<down>", function() vim.diagnostic.goto_prev() end, opts)
+                    vim.keymap.set("n", "gh", vim.lsp.buf.hover, opts)
+                    vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+                    vim.keymap.set("n", "<leader>cf", vim.lsp.buf.format, opts)
+                end
             })
 
             require("mason-lspconfig").setup({
@@ -209,43 +241,6 @@ return {
                     end,
                 },
             })
-        end,
-    },
-    {
-        "neovim/nvim-lspconfig",
-        cmd = { "LspInfo", "LspInstall", "LspStart" },
-        event = { "BufReadPre", "BufNewFile" },
-        dependencies = {
-            "williamboman/mason-lspconfig.nvim" },
-        config = function()
-            vim.api.nvim_create_autocmd('BufWritePre', {
-                callback = function(event)
-                    local eslint = vim.lsp.get_clients({ name = 'eslint', bufnr = event.buf })
-
-                    if vim.tbl_isempty(eslint) then
-                        -- vim.lsp.buf.format()
-                    else
-                        vim.cmd("EslintFixAll")
-                        vim.cmd("w")
-                    end
-                end
-            })
-
-            -- 注意：这里不能放到上面 mason-lspconfig 的懒加载配置中，会导致监听在 server attach 之后，从而无法触发
-            --- if you want to know more about lsp-zero and mason.nvim
-            --- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md
-            -- 这里仅仅是 lsp 可用就加载相应的快捷键，而不是直接全局设置
-            local lsp_zero = require("lsp-zero")
-            lsp_zero.on_attach(function(client, bufnr)
-                -- see :help lsp-zero-keybindings
-                -- to learn the available actions
-                lsp_zero.default_keymaps({ buffer = bufnr })
-                vim.keymap.set("n", "<up>", function() vim.diagnostic.goto_next() end, { silent = true })
-                vim.keymap.set("n", "<down>", function() vim.diagnostic.goto_prev() end, { silent = true })
-                vim.keymap.set("n", "gh", vim.lsp.buf.hover, { silent = true })
-                vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { silent = true })
-                vim.keymap.set("n", "<leader>cf", vim.lsp.buf.format, { silent = true })
-            end)
         end,
     },
     {
