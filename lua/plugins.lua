@@ -8,6 +8,10 @@ vim.g.mapleader = " "
 
 return {
     {
+        'stevearc/dressing.nvim',
+        opts = {},
+    },
+    {
         "windwp/nvim-autopairs",
         event = "InsertEnter",
         config = true,

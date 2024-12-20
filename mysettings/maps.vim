@@ -37,6 +37,7 @@ noremap <silent> <Leader>do <Cmd>diffoff<cr>
 " 根据最新的 coc 配置，不再使用此项
 " inoremap <silent><expr> <tab> CTab()
 inoremap <silent><expr> _tm strftime("%Y-%m-%d")
+nnoremap <silent> <C-/> <Cmd>.s#\v\\+#/#g<cr>
 " 改用 Telescope 吧
 "nnoremap <silent> <Leader>fo <Cmd>call Open_fix()<cr>
 noremap <silent> <Leader>fc <Cmd>call Compiler()<cr>

@@ -71,14 +71,14 @@ return {
                     }),
                 },
                 mapping = cmp.mapping.preset.insert({
-                    ["<Tab>"] = cmp_action.luasnip_supertab(),
+                    ["<Tab>"] = cmp_action.luasnip_supertab(), --[[ cmp_action 来自 lsp_zero ]]
                     ["<S-Tab>"] = cmp_action.luasnip_shift_supertab(),
                     ["<CR>"] = cmp.mapping.confirm({ select = true }),
                     ["<C-Space>"] = cmp.mapping.complete(),
                     ["<C-u>"] = cmp.mapping.scroll_docs(-4),
                     ["<C-d>"] = cmp.mapping.scroll_docs(4),
-                    ["<C-f>"] = cmp_action.luasnip_jump_forward(),
-                    ["<C-b>"] = cmp_action.luasnip_jump_backward(),
+                    ["<C-j>"] = cmp_action.luasnip_jump_forward(),
+                    ["<C-k>"] = cmp_action.luasnip_jump_backward(),
                 }),
                 window = {
                     completion = cmp.config.window.bordered(),
