@@ -164,7 +164,7 @@ return {
                             },
                         }
                     }),
-                lsp_attach = function(client, bufnr)
+                lsp_attach = function(_, bufnr)
                     -- see :help lsp-zero-keybindings
                     -- to learn the available actions
                     lsp_zero.default_keymaps({ buffer = bufnr })
