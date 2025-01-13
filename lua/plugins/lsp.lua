@@ -246,7 +246,7 @@ return {
     {
         "folke/trouble.nvim",
         opts = {}, -- for default options, refer to the configuration section for custom setup.
-        cmd = { "Trouble", "TodoTrouble" },
+        cmd = { "Trouble" },
         keys = {
             {
                 "<leader>xx",
@@ -260,7 +260,7 @@ return {
             },
             {
                 "<leader>xX",
-                "<cmd>TodoTrouble<cr>",
+                "<cmd>Trouble todo<cr>",
                 desc = "Show todo in trouble",
             },
             {
