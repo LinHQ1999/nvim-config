@@ -245,7 +245,7 @@ return {
     },
     {
         "folke/trouble.nvim",
-        opts = {}, -- for default options, refer to the configuration section for custom setup.
+        opts = {},
         cmd = { "Trouble" },
         keys = {
             {
@@ -287,5 +287,13 @@ return {
         dependencies = {
             "folke/todo-comments.nvim"
         }
+    },
+    {
+        'nvim-flutter/flutter-tools.nvim',
+        ft = "dart",
+        dependencies = {
+            'nvim-lua/plenary.nvim',
+            'stevearc/dressing.nvim'
+        },
     }
 }
