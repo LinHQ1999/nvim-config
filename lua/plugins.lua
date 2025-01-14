@@ -9,6 +9,7 @@ vim.g.mapleader = " "
 return {
     {
         'stevearc/dressing.nvim',
+        event = { "VeryLazy" },
         opts = {},
     },
     {

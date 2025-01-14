@@ -76,6 +76,8 @@ noremap <silent> <Leader>ll <Cmd>Telescope loclist<CR>
 noremap <silent> <Leader>lm <Cmd>Telescope marks<CR>
 noremap <silent> <Leader>l/ <Cmd>Telescope current_buffer_fuzzy_find<CR>
 noremap <silent> <Leader>lq <Cmd>Telescope quickfix<CR>
+noremap <silent> <Leader>lh <Cmd>Telescope highlights<CR>
+noremap <silent> <Leader>la <Cmd>Telescope autocommands<CR>
 " noremap <silent> <Leader>l: <Cmd><CR>
 " 2-character Sneak (default)
 nmap ' <Plug>Sneak_s

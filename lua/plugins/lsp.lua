@@ -32,7 +32,13 @@ return {
     },
     {
         "williamboman/mason.nvim",
-        config = true,
+        cmd = { "MasonUpdate", "Mason" },
+        opts = {},
+    },
+    {
+        "williamboman/mason-lspconfig.nvim",
+        dependencies = { "williamboman/mason.nvim" },
+        lazy = true
     },
     {
         "L3MON4D3/LuaSnip",
@@ -124,7 +130,9 @@ return {
         "neovim/nvim-lspconfig",
         cmd = { "LspInfo", "LspInstall", "LspStart" },
         event = { "BufReadPre", "BufNewFile" },
-        dependencies = { "williamboman/mason-lspconfig.nvim" },
+        dependencies = {
+            "williamboman/mason-lspconfig.nvim"
+        },
         config = function()
             -- 一个简单的工具函数
             local registry = require("mason-registry")
