@@ -196,6 +196,7 @@ return {
                     "powershell_es",
                     "html",
                     "vtsls",
+                    "vimls",
                     "cssls",
                     "eslint",
                     "emmet_language_server",
