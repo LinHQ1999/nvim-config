@@ -200,6 +200,8 @@ return {
                     "cssls",
                     "eslint",
                     "emmet_language_server",
+                    "vimls",
+                    "bashls"
                 },
                 -- 启用 lsp 自动配置
                 handlers = {
