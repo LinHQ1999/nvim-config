@@ -6,7 +6,7 @@ autocmd VimResized * wincmd =
 autocmd FileType powershell setl smartindent
 " smartindent 看上去和 coc-pairs 冲突
 autocmd BufRead *.ps1 set nosmartindent
-autocmd FileType javascript,vue,scss,less,typescriptreact,javascriptreact,org,json,typescript setl softtabstop=2 | setl shiftwidth=2
+autocmd FileType javascript,vue,scss,less,typescriptreact,javascriptreact,org,json,typescript,dart setl softtabstop=2 | setl shiftwidth=2
 " (vimwiki)
 " 自动更新日记索引
 autocmd BufWinEnter diary.md execute "VimwikiDiaryGenerateLinks" | w

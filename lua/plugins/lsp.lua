@@ -96,7 +96,9 @@ return {
                     end,
                 },
                 sources = {
+                    { name = "luasnip" },
                     { name = "nvim_lsp" },
+                    { name = "nvim_lsp_signature_help" },
                     {
                         name = "buffer",
                         option = {
@@ -117,8 +119,6 @@ return {
                         },
                     },
                     { name = "path" },
-                    { name = "nvim_lsp_signature_help" },
-                    { name = "luasnip" },
                 },
                 expirment = {
                     ghost_text = true,
@@ -303,5 +303,6 @@ return {
             'nvim-lua/plenary.nvim',
             'stevearc/dressing.nvim'
         },
+        opts = {},
     }
 }
