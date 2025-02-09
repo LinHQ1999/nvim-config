@@ -21,6 +21,7 @@
 " endif
 " let s:p = timer_start(1000 * 60 * 5, 'TrySwitchTheme')
 
+colo catppuccin-latte
 set termguicolors
 set pumblend=10
 set winblend=0

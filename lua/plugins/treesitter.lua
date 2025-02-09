@@ -2,7 +2,7 @@ return {
     {
         'nvim-treesitter/nvim-treesitter',
         build = ':TSUpdate',
-        event = 'BufReadPre',
+        event = 'BufReadPost',
         cmd = { 'TSInstallInfo', 'TSInstall' },
         config = function(_, opts)
             -- 高级选项，巨幅提升 parser 下载速度

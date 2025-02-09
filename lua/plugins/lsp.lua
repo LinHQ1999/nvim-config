@@ -25,12 +25,6 @@ return {
         },
     },
     {
-        "VonHeikemen/lsp-zero.nvim",
-        branch = "v4.x",
-        lazy = true, -- 由 require 自动调用
-        config = false
-    },
-    {
         "williamboman/mason.nvim",
         cmd = { "MasonUpdate", "Mason" },
         opts = {},
@@ -63,7 +57,7 @@ return {
         config = function()
             local lspkind = require("lspkind")
             local cmp = require("cmp")
-            local cmp_action = require('lsp-zero').cmp_action() --Tab 自动完成之类的
+            local cmp_action = require('handmade').cmp_helper
 
             cmp.setup({
                 formatting = {
@@ -77,14 +71,12 @@ return {
                     }),
                 },
                 mapping = cmp.mapping.preset.insert({
-                    ["<Tab>"] = cmp_action.luasnip_supertab(), --[[ cmp_action 来自 lsp_zero ]]
-                    ["<S-Tab>"] = cmp_action.luasnip_shift_supertab(),
-                    ["<CR>"] = cmp.mapping.confirm({ select = true }),
+                    ["<Tab>"] = cmp_action('TAB'),
+                    ["<S-Tab>"] = cmp_action('TAB', true),
+                    ["<CR>"] = cmp_action('CR'),
                     ["<C-Space>"] = cmp.mapping.complete(),
                     ["<C-u>"] = cmp.mapping.scroll_docs(-4),
-                    ["<C-d>"] = cmp.mapping.scroll_docs(4),
-                    ["<C-j>"] = cmp_action.luasnip_jump_forward(),
-                    ["<C-k>"] = cmp_action.luasnip_jump_backward(),
+                    ["<C-d>"] = cmp.mapping.scroll_docs(4)
                 }),
                 window = {
                     completion = cmp.config.window.bordered(),
@@ -129,15 +121,14 @@ return {
     {
         "neovim/nvim-lspconfig",
         cmd = { "LspInfo", "LspInstall", "LspStart" },
-        event = { "BufReadPre", "BufNewFile" },
+        event = { "BufReadPost", "BufNewFile" },
         dependencies = {
             "williamboman/mason-lspconfig.nvim"
         },
         config = function()
             -- 一个简单的工具函数
-            local registry = require("mason-registry")
             local get_mason_path = function(package)
-                return registry.get_package(package):get_install_path()
+                return vim.fs.joinpath(vim.env.MASON, 'packages', package)
             end
 
             vim.api.nvim_create_autocmd('BufWritePre', {
@@ -154,37 +145,49 @@ return {
             })
 
             -- 注意：这里不能放到上面 mason-lspconfig 的懒加载配置中，会导致监听在 server attach 之后，从而无法触发
-            --- if you want to know more about lsp-zero and mason.nvim
-            --- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md
-            -- 这里仅仅是 lsp 可用就加载相应的快捷键，而不是直接全局设置
-            local lsp_zero = require("lsp-zero")
 
-            -- 必须在设置各种 lsp 之前调用，所以放这里
-            lsp_zero.extend_lspconfig({
-                sign_text = true,
-                capabilities = vim.tbl_deep_extend('force',
-                    require('cmp_nvim_lsp').default_capabilities(),
-                    {
-                        textDocument = {
-                            foldingRange = {
-                                dynamicRegistration = false,
-                                lineFoldingOnly = true,
-                            },
-                        }
-                    }),
-                lsp_attach = function(_, bufnr)
-                    -- see :help lsp-zero-keybindings
-                    -- to learn the available actions
-                    lsp_zero.default_keymaps({ buffer = bufnr })
-                    local opts = { silent = true, buffer = bufnr }
-                    vim.keymap.set("n", "<up>", function() vim.diagnostic.goto_next() end, opts)
-                    vim.keymap.set("n", "<down>", function() vim.diagnostic.goto_prev() end, opts)
+            -- :h lspconfig-global-defaults
+            -- 这些东西得写在配置 lsp 服务器前面，即下面的 mason-lspconfig
+            local builtin = require('lspconfig')
+            -- 深拷贝是必要的
+            builtin.util.default_config.capabilities = vim.tbl_deep_extend(
+                'force',
+                builtin.util.default_config.capabilities, -- builitin 是必要的
+                require('cmp_nvim_lsp').default_capabilities(),
+                {
+                    textDocument = {
+                        foldingRange = {
+                            dynamicRegistration = false,
+                            lineFoldingOnly = true,
+                        },
+                    }
+                }
+            )
+
+            vim.api.nvim_create_autocmd("LspAttach", {
+                callback = function(e)
+                    -- :h lsp-config
+                    local client, opts = vim.lsp.get_client_by_id(e.data.client_id), { silent = true, buffer = e.buf }
+                    -- :h lsp-inlay_hint
+                    -- :h lsp-method
+                    -- :h lsp-client
+                    if client and client.supports_method('textDocument/inlayHint') then
+                        vim.lsp.inlay_hint.enable(true)
+                    end
+                    vim.keymap.set("n", "<up>", vim.diagnostic.goto_prev, opts)
+                    vim.keymap.set("n", "<down>", vim.diagnostic.goto_next, opts)
+                    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+                    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+                    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
                     vim.keymap.set("n", "gh", vim.lsp.buf.hover, opts)
+                    vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, opts)
+                    vim.keymap.set('n', '<F2>', vim.lsp.buf.rename, opts)
                     vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
                     vim.keymap.set("n", "<leader>cf", vim.lsp.buf.format, opts)
                 end
             })
 
+            require('handmade').init_lsp()
             require("mason-lspconfig").setup({
                 ensure_installed = {
                     "yamlls",
@@ -209,11 +212,9 @@ return {
                         require("lspconfig")[server_name].setup({})
                     end,
 
-                    -- 覆盖 lua
-                    lua_ls = function()
-                        -- 对 neovim lua 配置特别优化的 opt
-                        require("lspconfig").lua_ls.setup(lsp_zero.nvim_lua_ls())
-                    end,
+                    -- lua_ls 根据配置根目录的 luarc.json 自动配置
+                    -- https://luals.github.io/wiki/configuration/#configuration-file
+
                     powershell_es = function()
                         require("lspconfig").powershell_es.setup({
                             bundle_path = get_mason_path("powershell-editor-services"),

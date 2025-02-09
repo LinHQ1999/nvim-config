@@ -46,8 +46,6 @@ nnoremap <silent> <Leader>fs <Cmd>call Set_it()<cr>
 nnoremap <silent> <Leader>fd <Cmd>exe "e expand('<sfile>:p:h')"."\pack\my\start\myplugin\plugin\one.vim"<cr>
 nnoremap <silent> <Leader>ft <Cmd>call Open_terminal()<cr>
 nnoremap <silent> <Leader>fh <Cmd>tcd %:h<cr>
-" (single plugin maps)
-nnoremap <silent> <Leader>pv <Cmd>Vista coc<cr>
 " (tree)
 nnoremap <silent> <Leader>pd <Cmd>NvimTreeFindFileToggle<cr>
 " (fugitive)
@@ -62,10 +60,11 @@ nnoremap <silent> ]g <Cmd>Gitsigns next_hunk<cr>
 nnoremap <silent> [g <Cmd>Gitsigns prev_hunk<cr>
 nnoremap <silent> <Leader>gr <Cmd>Gitsigns reset_hunk<cr>
 xnoremap <silent> <Leader>gr :'<,'>Gitsigns reset_hunk<cr>
-" (vim-plug)
+" (pluging manager)
 nnoremap <silent> <Leader>pi <Cmd>Lazy install<cr>
 nnoremap <silent> <Leader>pu <Cmd>Lazy update<cr>
 nnoremap <silent> <Leader>pc <Cmd>Lazy clean<cr>
+nnoremap <silent> <Leader>pp <Cmd>Lazy profile<cr>
 " (finder)
 noremap <silent> <Leader>lf <Cmd>Telescope find_files<CR>
 noremap <silent><Leader>lg <Cmd>Telescope live_grep<CR>
