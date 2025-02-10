@@ -131,21 +131,6 @@ return {
                 return vim.fs.joinpath(vim.env.MASON, 'packages', package)
             end
 
-            vim.api.nvim_create_autocmd('BufWritePre', {
-                callback = function(event)
-                    local eslint = vim.lsp.get_clients({ name = 'eslint', bufnr = event.buf })
-
-                    if vim.tbl_isempty(eslint) then
-                        -- vim.lsp.buf.format()
-                    else
-                        vim.cmd("EslintFixAll")
-                        vim.cmd("w")
-                    end
-                end
-            })
-
-            -- 注意：这里不能放到上面 mason-lspconfig 的懒加载配置中，会导致监听在 server attach 之后，从而无法触发
-
             -- :h lspconfig-global-defaults
             -- 这些东西得写在配置 lsp 服务器前面，即下面的 mason-lspconfig
             local builtin = require('lspconfig')
@@ -164,7 +149,24 @@ return {
                 }
             )
 
+            local lsp_group = vim.api.nvim_create_augroup("LSP", { clear = true })
+
+            vim.api.nvim_create_autocmd('BufWritePre', {
+                group = lsp_group,
+                callback = function(event)
+                    local eslint = vim.lsp.get_clients({ name = 'eslint', bufnr = event.buf })
+
+                    if vim.tbl_isempty(eslint) then
+                        -- vim.lsp.buf.format()
+                    else
+                        vim.cmd("EslintFixAll")
+                        vim.cmd("w")
+                    end
+                end
+            })
+
             vim.api.nvim_create_autocmd("LspAttach", {
+                group = lsp_group,
                 callback = function(e)
                     -- :h lsp-config
                     local client, opts = vim.lsp.get_client_by_id(e.data.client_id), { silent = true, buffer = e.buf }
@@ -190,21 +192,8 @@ return {
             require('handmade').init_lsp()
             require("mason-lspconfig").setup({
                 ensure_installed = {
-                    "yamlls",
-                    "volar",
-                    "lemminx",
-                    "tailwindcss",
-                    "lua_ls",
-                    "jsonls",
-                    "powershell_es",
-                    "html",
-                    "vtsls",
-                    "vimls",
-                    "cssls",
-                    "eslint",
-                    "emmet_language_server",
-                    "vimls",
-                    "bashls"
+                    "yamlls", "volar", "lemminx", "tailwindcss", "lua_ls", "jsonls", "powershell_es", "html", "vtsls",
+                    "vimls", "cssls", "eslint", "emmet_language_server", "vimls", "bashls"
                 },
                 -- 启用 lsp 自动配置
                 handlers = {

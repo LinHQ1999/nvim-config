@@ -1,16 +1,19 @@
-" 官方文档推荐
-autocmd TermOpen * startinsert
-autocmd TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=150, on_visual=true}
-" 调整窗口自动对齐布局
-autocmd VimResized * wincmd =
-autocmd FileType powershell setl smartindent
-" smartindent 看上去和 coc-pairs 冲突
-autocmd BufRead *.ps1 set nosmartindent
-autocmd FileType javascript,vue,scss,less,typescriptreact,javascriptreact,org,json,typescript,dart setl softtabstop=2 | setl shiftwidth=2
-" (vimwiki)
-" 自动更新日记索引
-autocmd BufWinEnter diary.md execute "VimwikiDiaryGenerateLinks" | w
-autocmd FileType vimwiki,markdown,text,tex set wrap
+augroup RC
+    autocmd!
+    " 官方文档推荐
+    autocmd TermOpen * startinsert
+    autocmd TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=150, on_visual=true}
+    " 调整窗口自动对齐布局
+    autocmd VimResized * wincmd =
+    autocmd FileType powershell setl smartindent
+    " smartindent 看上去和 coc-pairs 冲突
+    autocmd BufRead *.ps1 set nosmartindent
+    autocmd FileType javascript,vue,scss,less,typescriptreact,javascriptreact,org,json,typescript,dart setl softtabstop=2 | setl shiftwidth=2
+    " (vimwiki)
+    " 自动更新日记索引
+    autocmd BufWinEnter diary.md execute "VimwikiDiaryGenerateLinks" | w
+    autocmd FileType vimwiki,markdown,text,tex set wrap
+augroup END
 
 " 因为包括了 FocusGained，所以需要判断 mode()
 augroup numbertoggle

@@ -18,6 +18,7 @@ set softtabstop=4
 set shiftwidth=4
 set timeoutlen=1500
 set splitbelow
+set splitright
 set ignorecase
 "set hidden
 set cmdheight=1

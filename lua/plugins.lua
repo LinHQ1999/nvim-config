@@ -157,14 +157,16 @@ return {
         },
         dependencies = {
             "folke/todo-comments.nvim",
-            {
-                "nvim-telescope/telescope-fzf-native.nvim",
-                build = "make",
-                config = function()
-                    require("telescope").load_extension("fzf")
-                end,
-            },
+            "nvim-telescope/telescope-fzf-native.nvim",
         },
+    },
+    {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "make",
+        lazy = true,
+        config = function()
+            require("telescope").load_extension("fzf")
+        end,
     },
     {
         "justinmk/vim-sneak",
