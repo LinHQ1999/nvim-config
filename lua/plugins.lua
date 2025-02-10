@@ -15,7 +15,7 @@ return {
     {
         "windwp/nvim-autopairs",
         event = "InsertEnter",
-        config = true,
+        opts = {},
     },
     { "tpope/vim-fugitive", cmd = { "G", "Git", "GcLog", "Gdiffs" } },
     {
@@ -119,17 +119,17 @@ return {
     {
         "kylechui/nvim-surround",
         event = "VeryLazy",
-        config = true,
+        opts = {}
     },
     {
         "numToStr/Comment.nvim",
         event = "VeryLazy",
-        config = true,
+        opts = {}
     },
     {
         "nvim-telescope/telescope.nvim",
         version = "~0.1.0",
-        cmd = { "Telescope", "TodoTelescope" },
+        cmd = { "Telescope" },
         opts = {
             defaults = {
                 mappings = {
@@ -156,7 +156,6 @@ return {
             },
         },
         dependencies = {
-            "folke/todo-comments.nvim",
             "nvim-telescope/telescope-fzf-native.nvim",
         },
     },
@@ -178,9 +177,20 @@ return {
     {
         -- 可以被 trouble 和 telescope 依赖
         "folke/todo-comments.nvim",
-        dependencies = { "nvim-lua/plenary.nvim" },
-        cmd = { "TodoLocList" },
-        opts = {}
+        cmd = { "TodoLocList", "TodoTelescope" },
+        keys = {
+            {
+                "<leader>xX",
+                "<cmd>Trouble todo<cr>",
+                desc = "Show todo in trouble",
+            },
+        },
+        opts = {},
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-telescope/telescope.nvim",
+            "folke/trouble.nvim"
+        },
     },
     { "kyazdani42/nvim-web-devicons", lazy = true },
     { "sainnhe/forest-night",         lazy = true },

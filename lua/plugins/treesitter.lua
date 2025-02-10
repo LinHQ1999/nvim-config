@@ -14,9 +14,7 @@ return {
         end,
         opts = {
             ensurse_installed = {
-                "c", "lua", "go",
-                "typescript", "tsx",
-                "html", "http", "javascript", "jsdoc", "json", "vue"
+                "c", "lua", "go", "typescript", "tsx", 'markdown', "html", "http", "javascript", "jsdoc", "json", "vue"
             },
             highlight = {
                 enable = true
@@ -29,19 +27,9 @@ return {
             }
         },
         dependencies = {
-            {
-                'lukas-reineke/indent-blankline.nvim',
-                main = 'ibl',
-                config = true
-            },
-            {
-                'nvim-treesitter/nvim-treesitter-context',
-                config = true
-            },
-            {
-                'windwp/nvim-ts-autotag',
-                config = true
-            }
+            { 'lukas-reineke/indent-blankline.nvim',     main = 'ibl', opts = {} },
+            { 'nvim-treesitter/nvim-treesitter-context', opts = {} },
+            { 'windwp/nvim-ts-autotag',                  opts = {} }
         }
     },
     {

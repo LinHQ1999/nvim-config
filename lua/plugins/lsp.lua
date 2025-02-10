@@ -260,11 +260,6 @@ return {
                 desc = "Buffer Diagnostics (Trouble)",
             },
             {
-                "<leader>xX",
-                "<cmd>Trouble todo<cr>",
-                desc = "Show todo in trouble",
-            },
-            {
                 "<leader>xv",
                 "<cmd>Trouble symbols toggle focus=false<cr>",
                 desc = "Symbols (Trouble)",
@@ -284,9 +279,6 @@ return {
                 "<cmd>Trouble qflist toggle<cr>",
                 desc = "Quickfix List (Trouble)",
             },
-        },
-        dependencies = {
-            "folke/todo-comments.nvim"
         }
     },
     {
