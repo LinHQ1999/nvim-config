@@ -21,7 +21,7 @@ return {
             ufo.setup()
         end,
         dependencies = {
-            "kevinhwang91/promise-async",
+            { "kevinhwang91/promise-async" },
         },
     },
     {
@@ -37,7 +37,10 @@ return {
     {
         "L3MON4D3/LuaSnip",
         lazy = true,
-        dependencies = { "rafamadriz/friendly-snippets", "saadparwaiz1/cmp_luasnip" },
+        dependencies = {
+            { "rafamadriz/friendly-snippets" },
+            { "saadparwaiz1/cmp_luasnip" }
+        },
         config = function()
             require("luasnip.loaders.from_vscode").lazy_load()
             -- require("luasnip.loaders.from_snipmate").lazy_load({ paths = { "./my_snippets" } })
@@ -132,8 +135,9 @@ return {
             end
 
             -- 这些东西得写在配置 lsp 服务器前面，即下面的 mason-lspconfig
-            require('handmade').add_lsp()
-            require('handmade').override_lsp()
+            local hm = require('handmade')
+            hm.add_lsp()
+            hm.override_lsp()
 
             local lsp_group = vim.api.nvim_create_augroup("LSP", { clear = true })
 

@@ -37,8 +37,8 @@ return {
     {
         "rcarriga/nvim-dap-ui",
         dependencies = {
-            "mfussenegger/nvim-dap",
-            "nvim-neotest/nvim-nio"
+            { "mfussenegger/nvim-dap" },
+            { "nvim-neotest/nvim-nio" }
         },
         keys = {
             { "<leader>dt", function() require("dapui").toggle() end, desc = "切换 Debug 界面" },
@@ -48,7 +48,7 @@ return {
             { "<F10>", function() require("dap").step_over() end, desc = "步过" },
         },
         config = function()
-            vim.fn.sign_define('DapBreakpoint', {text='🛑', texthl='Error', linehl='Pmenu', numhl=''})
+            vim.fn.sign_define('DapBreakpoint', { text = '🛑', texthl = 'Error', linehl = 'Pmenu', numhl = '' })
         end
     }
 }

@@ -57,7 +57,7 @@ return {
     },
     {
         'brenoprata10/nvim-highlight-colors',
-        ft = { 'vue', 'css', 'less', 'html', 'javascriptreact' },
+        ft = { 'vue', 'css', 'less', 'html', 'typescriptreact', 'javascriptreact' },
         opts = {
             render = 'virtual',
             enable_named_colors = false,
