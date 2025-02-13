@@ -176,16 +176,17 @@ return {
                     if client and client.supports_method('textDocument/inlayHint') then
                         vim.lsp.inlay_hint.enable(true)
                     end
-                    vim.keymap.set("n", "<up>", vim.diagnostic.goto_prev, opts)
-                    vim.keymap.set("n", "<down>", vim.diagnostic.goto_next, opts)
-                    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-                    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-                    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-                    vim.keymap.set("n", "gh", vim.lsp.buf.hover, opts)
-                    vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, opts)
-                    vim.keymap.set('n', '<F2>', vim.lsp.buf.rename, opts)
-                    vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-                    vim.keymap.set("n", "<leader>cf", vim.lsp.buf.format, opts)
+                    local map = vim.keymap.set
+                    map("n", "<up>", vim.diagnostic.goto_prev, opts)
+                    map("n", "<down>", vim.diagnostic.goto_next, opts)
+                    map('n', 'gd', vim.lsp.buf.definition, opts)
+                    map('n', 'gD', vim.lsp.buf.declaration, opts)
+                    map('n', 'gi', vim.lsp.buf.implementation, opts)
+                    map("n", "gh", vim.lsp.buf.hover, opts)
+                    map('n', 'gs', vim.lsp.buf.signature_help, opts)
+                    map('n', '<F2>', vim.lsp.buf.rename, opts)
+                    map("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+                    map("n", "<leader>cf", vim.lsp.buf.format, opts)
                 end
             })
 
@@ -211,7 +212,7 @@ return {
                     end,
                     vtsls = function()
                         -- 考虑安装 nvim-vtsls 插件
-                        require("lspconfig")["vtsls"].setup({
+                        require("lspconfig").vtsls.setup({
                             filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
                             settings = {
                                 vtsls = {
