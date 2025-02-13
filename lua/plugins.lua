@@ -4,9 +4,19 @@
 -- lua 插件如果存在非 opts 的选项，则需要在 config 中初始化，写在 init 中如果存在 require() 会导致 lazy 失效 e.g ufo 的配置
 -- dependencies 实际上代表关联启动，具体是 before 还是 after 则智能判断
 
+-- lazy 文档要求这个得在所有 spec 前面
 vim.g.mapleader = " "
 
 return {
+    {
+        "catppuccin/nvim",
+        name = "catppuccin",
+        priority = 999,
+        lazy = false,
+        config = function()
+            vim.cmd([[colorscheme catppuccin-latte]])
+        end
+    },
     {
         'stevearc/dressing.nvim',
         event = { "VeryLazy" },
@@ -199,5 +209,4 @@ return {
     { "sainnhe/forest-night",         lazy = true },
     { "folke/tokyonight.nvim",        lazy = true },
     { "olimorris/onedarkpro.nvim",    lazy = true },
-    { "catppuccin/nvim",              name = "catppuccin", lazy = true },
 }
