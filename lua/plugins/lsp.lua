@@ -131,23 +131,9 @@ return {
                 return vim.fs.joinpath(vim.env.MASON, 'packages', package)
             end
 
-            -- :h lspconfig-global-defaults
             -- 这些东西得写在配置 lsp 服务器前面，即下面的 mason-lspconfig
-            local builtin = require('lspconfig')
-            -- 深拷贝是必要的
-            builtin.util.default_config.capabilities = vim.tbl_deep_extend(
-                'force',
-                builtin.util.default_config.capabilities, -- builitin 是必要的
-                require('cmp_nvim_lsp').default_capabilities(),
-                {
-                    textDocument = {
-                        foldingRange = {
-                            dynamicRegistration = false,
-                            lineFoldingOnly = true,
-                        },
-                    }
-                }
-            )
+            require('handmade').add_lsp()
+            require('handmade').override_lsp()
 
             local lsp_group = vim.api.nvim_create_augroup("LSP", { clear = true })
 
@@ -179,9 +165,10 @@ return {
                     local map = vim.keymap.set
                     map("n", "<up>", vim.diagnostic.goto_prev, opts)
                     map("n", "<down>", vim.diagnostic.goto_next, opts)
-                    map('n', 'gd', vim.lsp.buf.definition, opts)
+                    map('n', 'gd', '<Cmd>Telescope lsp_definitions<CR>', opts)
+                    map('n', 'gr', '<Cmd>Telescope lsp_references<CR>', opts)
                     map('n', 'gD', vim.lsp.buf.declaration, opts)
-                    map('n', 'gi', vim.lsp.buf.implementation, opts)
+                    map('n', 'gi', '<Cmd>Telescope lsp_implementions<CR>', opts)
                     map("n", "gh", vim.lsp.buf.hover, opts)
                     map('n', 'gs', vim.lsp.buf.signature_help, opts)
                     map('n', '<F2>', vim.lsp.buf.rename, opts)
@@ -190,7 +177,6 @@ return {
                 end
             })
 
-            require('handmade').init_lsp()
             require("mason-lspconfig").setup({
                 ensure_installed = {
                     "yamlls", "volar", "lemminx", "tailwindcss", "lua_ls", "jsonls", "powershell_es", "html", "vtsls",
@@ -250,36 +236,12 @@ return {
         opts = {},
         cmd = { "Trouble" },
         keys = {
-            {
-                "<leader>xx",
-                "<cmd>Trouble diagnostics toggle<cr>",
-                desc = "Diagnostics (Trouble)",
-            },
-            {
-                "<leader>xX",
-                "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
-                desc = "Buffer Diagnostics (Trouble)",
-            },
-            {
-                "<leader>xv",
-                "<cmd>Trouble symbols toggle focus=false<cr>",
-                desc = "Symbols (Trouble)",
-            },
-            {
-                "<leader>cl",
-                "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
-                desc = "LSP Definitions / references / ... (Trouble)",
-            },
-            {
-                "<leader>xL",
-                "<cmd>Trouble loclist toggle<cr>",
-                desc = "Location List (Trouble)",
-            },
-            {
-                "<leader>xQ",
-                "<cmd>Trouble qflist toggle<cr>",
-                desc = "Quickfix List (Trouble)",
-            },
+            { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>",                        desc = "Diagnostics (Trouble)", },
+            { "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",           desc = "Buffer Diagnostics (Trouble)", },
+            { "<leader>xv", "<cmd>Trouble symbols toggle focus=false<cr>",                desc = "Symbols (Trouble)", },
+            { "<leader>cl", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", desc = "LSP Definitions / references / ... (Trouble)", },
+            { "<leader>xL", "<cmd>Trouble loclist toggle<cr>",                            desc = "Location List (Trouble)", },
+            { "<leader>xQ", "<cmd>Trouble qflist toggle<cr>",                             desc = "Quickfix List (Trouble)", },
         }
     },
     {

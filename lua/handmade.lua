@@ -54,7 +54,40 @@ return {
             end, { "i", "s" })
         end
     end,
-    init_lsp = function()
+    override_lsp = function()
+        local cfg = require("lspconfig")
+
+        -- :h nvim_open_win
+        vim.diagnostic.config({
+            float = {
+                border = "rounded"
+            }
+        })
+
+        -- :h lspconfig-global-defaults
+        -- 深拷贝是必要的
+        cfg.util.default_config = vim.tbl_deep_extend(
+            'force',
+            cfg.util.default_config, -- builitin 是必要的
+            { capabilities = require('cmp_nvim_lsp').default_capabilities() },
+            {
+                -- :h lsp-handlers
+                handlers = {
+                    ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' }),
+                    ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' }),
+                },
+                capabilities = {
+                    textdocument = {
+                        foldingrange = {
+                            dynamicregistration = false,
+                            linefoldingonly = true,
+                        },
+                    }
+                }
+            }
+        )
+    end,
+    add_lsp = function()
         local configs_all = require('lspconfig.configs')
         if not configs_all.ahkv2 and vim.env.AHKLS then
             local lsp, interpreter = unpack(vim.split(vim.env.AHKLS, ";"))
