@@ -72,12 +72,12 @@ return {
                 lualine_c = { { "filename", newfile_status = true, path = 1 } },
                 lualine_x = { "diagnostics", "encoding", "fileformat", "filetype" },
                 lualine_y = { "%2p%%❆ %-3L" },
-                lualine_z = { "%3l:%-2c" },
+                lualine_z = { "location" },
             },
             inactive_sections = {
                 lualine_c = { { "filename", path = 1 } },
                 lualine_x = {},
-                lualine_y = { "%2p%%❆ %-3L", "%3l:%-2c" },
+                lualine_y = { "%2p%%❆ %-3L", "location" },
             },
             tabline = {
                 lualine_a = {
@@ -104,9 +104,12 @@ return {
             },
             extensions = {
                 "fugitive",
+                "lazy",
+                "mason",
+                "nvim-dap-ui",
                 "nvim-tree",
                 "quickfix",
-                "lazy",
+                "trouble",
             },
         },
         config = function(_, opts)
