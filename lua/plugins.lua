@@ -19,7 +19,7 @@ return {
     },
     {
         'stevearc/dressing.nvim',
-        event = { "VeryLazy" },
+        event = "VeryLazy",
         opts = {},
     },
     {
@@ -122,12 +122,11 @@ return {
                 "trouble",
             },
         },
-        config = function(_, opts)
-            require("lualine").setup(opts)
-            vim.opt.showmode = false
-            vim.opt.laststatus = 2
-            vim.opt.showtabline = 2
-        end,
+        init = function()
+            vim.o.showmode = false
+            vim.o.laststatus = 2
+            vim.o.showtabline = 2
+        end
     },
     {
         "kylechui/nvim-surround",
@@ -192,11 +191,7 @@ return {
         "folke/todo-comments.nvim",
         cmd = { "TodoLocList", "TodoTelescope" },
         keys = {
-            {
-                "<leader>xX",
-                "<cmd>Trouble todo<cr>",
-                desc = "Show todo in trouble",
-            },
+            { "<leader>xX", "<cmd>Trouble todo<cr>", desc = "Show todo in trouble", }
         },
         opts = {},
         dependencies = {
