@@ -2,7 +2,9 @@
 -- 如果同时指定了 opts 和 config，则需要在 config 中显式调用 setup
 -- 非 lua 插件，除了 basic.vim 之外的配置需要写在 init 中
 -- lua 插件如果存在非 opts 的选项，则需要在 config 中初始化，写在 init 中如果存在 require() 会导致 lazy 失效 e.g ufo 的配置
--- dependencies 实际上代表关联启动，具体是 before 还是 after 则智能判断
+
+-- dependencies 实际上代表关联启动，具体是 before 还是 after 则智能判断，但只要主插件启动了，它的所有 dependencies 都会启动
+-- 无论是否被主插件 require 到，有时可能会出现没有 require 但提前启动的情况。
 
 -- lazy 文档要求这个得在所有 spec 前面
 vim.g.mapleader = " "
