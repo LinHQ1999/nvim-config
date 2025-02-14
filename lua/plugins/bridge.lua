@@ -1,4 +1,4 @@
--- 一些调用外部命令行工具的插件
+-- 一些调用外部命令行工具或者 API 的插件
 return {
     {
         "stevearc/conform.nvim",
@@ -50,5 +50,14 @@ return {
         config = function()
             vim.fn.sign_define('DapBreakpoint', { text = '🛑', texthl = 'Error', linehl = 'Pmenu', numhl = '' })
         end
+    },
+    {
+        "olimorris/codecompanion.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-treesitter/nvim-treesitter",
+        },
+        opts = {},
+        event = "InsertEnter"
     }
 }

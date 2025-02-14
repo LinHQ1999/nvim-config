@@ -5,6 +5,7 @@
 
 -- dependencies 实际上代表关联启动，具体是 before 还是 after 则智能判断，但只要主插件启动了，它的所有 dependencies 无论是否被主插件 require 到都会启动，
 -- 有时可能会出现没有 require 但提前启动的情况。
+-- 另一个常见用例是 nvim-treesitter 某个插件非常慢，没必要放在 nvim-treesitter 的 dependencies 里一起启动，而是可以指定别的事件如 'VeryLazy' 单独启动。
 
 -- lazy 文档要求这个得在所有 spec 前面
 vim.g.mapleader = " "

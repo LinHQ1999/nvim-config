@@ -25,39 +25,17 @@ return {
                 disable = {
                     "javascript"
                 }
-            },
-            textobjects = {
-                select = {
-                    enable = true,
-
-                    lookahead = true,
-
-                    keymaps = {
-                        ["af"] = "@function.outer",
-                        ["if"] = "@function.inner",
-                        ["ac"] = "@class.outer",
-                        ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-                        ["as"] = { query = "@local.scope", query_group = "locals", desc = "Select language scope" },
-                    },
-                    selection_modes = {
-                        ['@parameter.outer'] = 'v', -- charwise
-                        ['@function.outer'] = 'V',  -- linewise
-                        ['@class.outer'] = '<c-v>', -- blockwise
-                    },
-                    include_surrounding_whitespace = true,
-                },
-            },
+            }
         },
         dependencies = {
-            { 'lukas-reineke/indent-blankline.nvim',        main = 'ibl', opts = {} },
-            { 'nvim-treesitter/nvim-treesitter-context',    opts = {} },
-            { 'nvim-treesitter/nvim-treesitter-textobjects' },
-            { 'windwp/nvim-ts-autotag',                     opts = {} },
+            { 'lukas-reineke/indent-blankline.nvim',     main = 'ibl', opts = {} },
+            { 'nvim-treesitter/nvim-treesitter-context', opts = {} },
+            { 'windwp/nvim-ts-autotag',                  opts = {} },
         }
     },
     {
         'brenoprata10/nvim-highlight-colors',
-        ft = { 'vue', 'css', 'less', 'html', 'typescriptreact', 'javascriptreact' },
+        ft = { 'vue', 'css', 'less', 'html', 'typescriptreact', 'javascriptreact', 'dart' },
         opts = {
             render = 'virtual',
             enable_named_colors = false,
