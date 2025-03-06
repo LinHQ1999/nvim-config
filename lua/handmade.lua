@@ -77,10 +77,10 @@ return {
                     ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' }),
                 },
                 capabilities = {
-                    textdocument = {
-                        foldingrange = {
-                            dynamicregistration = false,
-                            linefoldingonly = true,
+                    textDocument = {
+                        foldingRange = {
+                            dynamicRegistration = false,
+                            lineFoldingOnly = true,
                         },
                     }
                 }
