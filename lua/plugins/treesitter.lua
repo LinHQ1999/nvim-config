@@ -14,7 +14,7 @@ return {
         end,
         opts = {
             ensurse_installed = {
-                "go", "typescript", "tsx", "html", "http", "javascript", "jsdoc", "json", "vue"
+                "go", "typescript", "tsx", "html", "http", "javascript", "styled", "jsdoc", "json", "vue", "yaml", "toml"
             },
             highlight = {
                 enable = true,
