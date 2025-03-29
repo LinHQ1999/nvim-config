@@ -60,8 +60,9 @@ return {
         -- :h nvim_open_win
         vim.diagnostic.config({
             float = {
-                border = "rounded"
-            }
+                border = 'rounded'
+            },
+            virtual_lines = true
         })
 
         -- :h lspconfig-global-defaults
@@ -71,11 +72,6 @@ return {
             cfg.util.default_config, -- builitin 是必要的
             { capabilities = require('cmp_nvim_lsp').default_capabilities() },
             {
-                -- :h lsp-handlers
-                handlers = {
-                    ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' }),
-                    ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' }),
-                },
                 capabilities = {
                     textDocument = {
                         foldingRange = {

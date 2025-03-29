@@ -163,18 +163,18 @@ return {
                     -- :h lsp-inlay_hint
                     -- :h lsp-method
                     -- :h lsp-client
-                    if client and client.supports_method('textDocument/inlayHint') then
+                    if client and client:supports_method('textDocument/inlayHint') then
                         vim.lsp.inlay_hint.enable(true)
                     end
                     local map = vim.keymap.set
-                    map("n", "<up>", vim.diagnostic.goto_prev, opts)
-                    map("n", "<down>", vim.diagnostic.goto_next, opts)
+                    map("n", "<up>", function() vim.diagnostic.jump({ float = true, count = -1 }) end, opts)
+                    map("n", "<down>", function() vim.diagnostic.jump({ float = true, count = 1 }) end, opts)
                     map('n', 'gd', '<Cmd>Telescope lsp_definitions<CR>', opts)
                     map('n', 'gr', '<Cmd>Telescope lsp_references<CR>', opts)
                     map('n', 'gD', vim.lsp.buf.declaration, opts)
                     map('n', 'gi', '<Cmd>Telescope lsp_implementions<CR>', opts)
-                    map("n", "gh", vim.lsp.buf.hover, opts)
-                    map('n', 'gs', vim.lsp.buf.signature_help, opts)
+                    map("n", "gh", function() vim.lsp.buf.hover({ border = 'rounded' }) end, opts)
+                    map('n', 'gs', function() vim.lsp.buf.signature_help({ border = 'rounded' }) end, opts)
                     map('n', '<F2>', vim.lsp.buf.rename, opts)
                     map("n", "<leader>ca", vim.lsp.buf.code_action, opts)
                     map("n", "<leader>cf", vim.lsp.buf.format, opts)
