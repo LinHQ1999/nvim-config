@@ -203,6 +203,14 @@ return {
             "folke/trouble.nvim"
         },
     },
+    {
+        "folke/snacks.nvim",
+        priority = 1000,
+        opts = {
+            bigfile = { enabled = true },
+            indent = { enabled = true },
+        },
+    },
     { "kyazdani42/nvim-web-devicons", lazy = true },
     { "sainnhe/forest-night",         lazy = true },
     { "folke/tokyonight.nvim",        lazy = true },
