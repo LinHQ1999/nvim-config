@@ -70,7 +70,7 @@ return {
         cfg.util.default_config = vim.tbl_deep_extend(
             'force',
             cfg.util.default_config, -- builitin 是必要的
-            { capabilities = require('cmp_nvim_lsp').default_capabilities() },
+            { capabilities = require('blink.cmp').get_lsp_capabilities() },
             {
                 capabilities = {
                     textDocument = {
