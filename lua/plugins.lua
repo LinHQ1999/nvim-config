@@ -46,7 +46,16 @@ return {
         event = "InsertEnter",
         opts = {},
     },
-    { "tpope/vim-fugitive", cmd = { "G", "Git", "GcLog", "Gdiffs" } },
+    {
+        "tpope/vim-fugitive",
+        keys = {
+            { "<Leader>gs",  "<Cmd>G<cr>" },
+            { "<Leader>gps", "<Cmd>Git push<cr>" },
+            { "<Leader>gpl", "<Cmd>Git pull<cr>" },
+            { "<Leader>gla", "<Cmd>Gclog<cr>" },
+        },
+        cmd = { "G", "Git", "GcLog", "Gdiffs" }
+    },
     {
         "lewis6991/gitsigns.nvim",
         event = "VeryLazy",
@@ -63,7 +72,7 @@ return {
         "nvim-lua/plenary.nvim",
         lazy = true,
     },
-    { "fatih/vim-go",       ft = { "go", "gomod" } },
+    { "fatih/vim-go",                 ft = { "go", "gomod" } },
     {
         "kyazdani42/nvim-tree.lua",
         cmd = "NvimTreeFindFileToggle",

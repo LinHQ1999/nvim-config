@@ -51,10 +51,6 @@ nnoremap <silent> <Leader>fh <Cmd>tcd %:h<cr>
 nnoremap <silent> <Leader>pd <Cmd>NvimTreeFindFileToggle<cr>
 " (fugitive)
 " lazygit 快捷键不在此处配置
-nnoremap <silent> <Leader>gs <Cmd>G<cr>
-nnoremap <silent> <Leader>gps <Cmd>Git push<cr>
-nnoremap <silent> <Leader>gpl <Cmd>Git pull<cr>
-nnoremap <silent> <Leader>gla <Cmd>Gclog<cr>
 nnoremap <silent> <Leader>gll <Cmd>exec "Git log -L ".line('.').",".line('.').":% --no-merges --oneline"<cr>
 nnoremap <silent> <Leader>gls :Git log -p --no-merges -S"<cword>" %<cr>
 " (gitsigns)
