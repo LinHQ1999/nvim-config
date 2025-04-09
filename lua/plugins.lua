@@ -21,9 +21,9 @@ return {
         opts = {
             bigfile = { enabled = true },
             indent = { enabled = true },
-            lazygit = { enabled = true },
             notifier = {
-                timeout = 2500
+                timeout = 2500,
+                top_down = false
             },
         },
     },
