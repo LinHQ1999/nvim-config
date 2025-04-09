@@ -76,7 +76,7 @@ return {
             snippets = { preset = 'luasnip' },
             signature = { enabled = true },
             sources = {
-                default = { 'lsp', 'path', 'snippets', 'buffer' },
+                default = { 'lsp', 'buffer', 'path', 'snippets' },
             },
             fuzzy = { implementation = "prefer_rust_with_warning" }
         },
@@ -212,10 +212,6 @@ return {
     {
         'nvim-flutter/flutter-tools.nvim',
         ft = "dart",
-        dependencies = {
-            'nvim-lua/plenary.nvim',
-            'stevearc/dressing.nvim'
-        },
         opts = {},
     }
 }

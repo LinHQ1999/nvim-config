@@ -12,6 +12,22 @@ vim.g.mapleader = " "
 
 return {
     {
+        "folke/snacks.nvim",
+        priority = 1000,
+        lazy = false,
+        keys = {
+            { "<leader>gg", function() Snacks.lazygit() end, desc = "启动 lazygit" }
+        },
+        opts = {
+            bigfile = { enabled = true },
+            indent = { enabled = true },
+            lazygit = { enabled = true },
+            notifier = {
+                timeout = 2500
+            },
+        },
+    },
+    {
         "catppuccin/nvim",
         name = "catppuccin",
         priority = 999,
@@ -145,6 +161,20 @@ return {
         "nvim-telescope/telescope.nvim",
         version = "~0.1.0",
         cmd = { "Telescope" },
+        keys = {
+            { "<Leader>lf", "<Cmd>Telescope find_files<CR>" },
+            { "<Leader>lg", "<Cmd>Telescope live_grep<CR>" },
+            { "<Leader>lb", "<Cmd>Telescope buffers<CR>" },
+            { "<Leader>lr", "<Cmd>Telescope oldfiles<CR>" },
+            { "<Leader>lv", "<Cmd>Telescope vim_options<CR>" },
+            { "<Leader>ll", "<Cmd>Telescope loclist<CR>" },
+            { "<Leader>lm", "<Cmd>Telescope marks<CR>" },
+            { "<Leader>l/", "<Cmd>Telescope current_buffer_fuzzy_find<CR>" },
+            { "<Leader>lq", "<Cmd>Telescope quickfix<CR>" },
+            { "<Leader>lh", "<Cmd>Telescope highlights<CR>" },
+            { "<Leader>la", "<Cmd>Telescope autocommands<CR>" },
+            { "<F1>",       "<Cmd>Telescope help_tags<CR>" },
+        },
         opts = {
             defaults = {
                 mappings = {
@@ -198,17 +228,8 @@ return {
         },
         opts = {},
         dependencies = {
-            "nvim-lua/plenary.nvim",
             "nvim-telescope/telescope.nvim",
             "folke/trouble.nvim"
-        },
-    },
-    {
-        "folke/snacks.nvim",
-        priority = 1000,
-        opts = {
-            bigfile = { enabled = true },
-            indent = { enabled = true },
         },
     },
     { "kyazdani42/nvim-web-devicons", lazy = true },

@@ -50,6 +50,7 @@ nnoremap <silent> <Leader>fh <Cmd>tcd %:h<cr>
 " (tree)
 nnoremap <silent> <Leader>pd <Cmd>NvimTreeFindFileToggle<cr>
 " (fugitive)
+" lazygit 快捷键不在此处配置
 nnoremap <silent> <Leader>gs <Cmd>G<cr>
 nnoremap <silent> <Leader>gps <Cmd>Git push<cr>
 nnoremap <silent> <Leader>gpl <Cmd>Git pull<cr>
@@ -66,19 +67,6 @@ nnoremap <silent> <Leader>pi <Cmd>Lazy install<cr>
 nnoremap <silent> <Leader>pu <Cmd>Lazy update<cr>
 nnoremap <silent> <Leader>pc <Cmd>Lazy clean<cr>
 nnoremap <silent> <Leader>pp <Cmd>Lazy profile<cr>
-" (finder)
-noremap <silent> <Leader>lf <Cmd>Telescope find_files<CR>
-noremap <silent><Leader>lg <Cmd>Telescope live_grep<CR>
-noremap <silent> <Leader>lb <Cmd>Telescope buffers<CR>
-noremap <silent> <Leader>lr <Cmd>Telescope oldfiles<CR>
-noremap <silent> <Leader>lv <Cmd>Telescope vim_options<CR>
-noremap <silent> <Leader>ll <Cmd>Telescope loclist<CR>
-noremap <silent> <Leader>lm <Cmd>Telescope marks<CR>
-noremap <silent> <Leader>l/ <Cmd>Telescope current_buffer_fuzzy_find<CR>
-noremap <silent> <Leader>lq <Cmd>Telescope quickfix<CR>
-noremap <silent> <Leader>lh <Cmd>Telescope highlights<CR>
-noremap <silent> <Leader>la <Cmd>Telescope autocommands<CR>
-noremap <silent> <F1> <Cmd>Telescope help_tags<CR>
 " noremap <silent> <Leader>l: <Cmd><CR>
 " 2-character Sneak (default)
 nmap ' <Plug>Sneak_s
