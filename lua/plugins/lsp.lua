@@ -39,7 +39,6 @@ return {
         lazy = true,
         dependencies = {
             { "rafamadriz/friendly-snippets" },
-            { "saadparwaiz1/cmp_luasnip" }
         },
         config = function()
             require("luasnip.loaders.from_vscode").lazy_load()
@@ -47,79 +46,41 @@ return {
         end,
     },
     {
-        "hrsh7th/nvim-cmp",
+        'saghen/blink.cmp',
         event = "InsertEnter",
-        dependencies = {
-            { "hrsh7th/cmp-nvim-lsp" },
-            { "hrsh7th/cmp-nvim-lsp-signature-help" },
-            { "onsails/lspkind.nvim" },
-            { "hrsh7th/cmp-buffer" },
-            { "hrsh7th/cmp-path" },
-            "L3MON4D3/LuaSnip",
-        },
-        config = function()
-            local lspkind = require("lspkind")
-            local cmp = require("cmp")
-            local cmp_action = require('handmade').cmp_helper
 
-            cmp.setup({
-                formatting = {
-                    format = lspkind.cmp_format({
-                        mode = "symbol_text", -- show only symbol annotations
-                        maxwidth = 50,        -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-                        -- can also be a function to dynamically calculate max width such as
-                        -- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
-                        ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
-                        show_labelDetails = true,
-                    }),
+        -- use a release tag to download pre-built binaries
+        version = '1.*',
+
+        opts = {
+            keymap = { preset = 'enter' },
+            appearance = {
+                -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+                -- Adjusts spacing to ensure icons are aligned
+                nerd_font_variant = 'normal'
+            },
+            completion = {
+                ghost_text = {
+                    enabled = true,
                 },
-                mapping = cmp.mapping.preset.insert({
-                    ["<Tab>"] = cmp_action('TAB'),
-                    ["<S-Tab>"] = cmp_action('TAB', true),
-                    ["<CR>"] = cmp_action('CR'),
-                    ["<C-Space>"] = cmp.mapping.complete(),
-                    ["<C-u>"] = cmp.mapping.scroll_docs(-4),
-                    ["<C-d>"] = cmp.mapping.scroll_docs(4)
-                }),
-                window = {
-                    completion = cmp.config.window.bordered(),
-                    documentation = cmp.config.window.bordered(),
+                menu = {
+                    border = "rounded"
                 },
-                snippet = {
-                    expand = function(args)
-                        require("luasnip").lsp_expand(args.body)
-                    end,
-                },
-                sources = {
-                    { name = "luasnip" },
-                    { name = "nvim_lsp" },
-                    { name = "nvim_lsp_signature_help" },
-                    {
-                        name = "buffer",
-                        option = {
-                            get_bufnrs = function()
-                                local bufs = {}
-                                for _, win in ipairs(vim.api.nvim_list_wins()) do
-                                    local buf = vim.api.nvim_win_get_buf(win)
-                                    -- 限制大于 1M 的文件
-                                    if
-                                        vim.api.nvim_buf_get_offset(buf, vim.api.nvim_buf_line_count(buf))
-                                        <= 1024 * 256
-                                    then
-                                        bufs[buf] = true
-                                    end
-                                end
-                                return vim.tbl_keys(bufs)
-                            end,
-                        },
+                documentation = {
+                    window = {
+                        border = "rounded"
                     },
-                    { name = "path" },
-                },
-                expirment = {
-                    ghost_text = true,
-                },
-            })
-        end,
+                    auto_show = true
+                }
+            },
+            snippets = { preset = 'luasnip' },
+            signature = { enabled = true },
+            sources = {
+                default = { 'lsp', 'buffer', 'path', 'snippets' },
+            },
+            fuzzy = { implementation = "prefer_rust_with_warning" }
+        },
+        opts_extend = { "sources.default" }
     },
     {
         "neovim/nvim-lspconfig",
@@ -251,10 +212,6 @@ return {
     {
         'nvim-flutter/flutter-tools.nvim',
         ft = "dart",
-        dependencies = {
-            'nvim-lua/plenary.nvim',
-            'stevearc/dressing.nvim'
-        },
         opts = {},
     }
 }

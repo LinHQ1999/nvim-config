@@ -40,7 +40,8 @@ lua << EOF
 local alias = {
     wxml = "vue",
     wxss = "css",
-    less = "scss"
+    less = "scss",
+    arb = "json"
 }
 
 vim.filetype.add ({

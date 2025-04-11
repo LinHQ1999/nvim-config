@@ -12,6 +12,22 @@ vim.g.mapleader = " "
 
 return {
     {
+        "folke/snacks.nvim",
+        priority = 1000,
+        lazy = false,
+        keys = {
+            { "<leader>gg", function() Snacks.lazygit() end, desc = "启动 lazygit" }
+        },
+        opts = {
+            bigfile = { enabled = true },
+            indent = { enabled = true },
+            notifier = {
+                timeout = 2500,
+                top_down = false
+            },
+        },
+    },
+    {
         "catppuccin/nvim",
         name = "catppuccin",
         priority = 999,
@@ -30,7 +46,16 @@ return {
         event = "InsertEnter",
         opts = {},
     },
-    { "tpope/vim-fugitive", cmd = { "G", "Git", "GcLog", "Gdiffs" } },
+    {
+        "tpope/vim-fugitive",
+        keys = {
+            { "<Leader>gs",  "<Cmd>G<cr>" },
+            { "<Leader>gps", "<Cmd>Git push<cr>" },
+            { "<Leader>gpl", "<Cmd>Git pull<cr>" },
+            { "<Leader>gla", "<Cmd>Gclog<cr>" },
+        },
+        cmd = { "G", "Git", "GcLog", "Gdiffs" }
+    },
     {
         "lewis6991/gitsigns.nvim",
         event = "VeryLazy",
@@ -47,7 +72,7 @@ return {
         "nvim-lua/plenary.nvim",
         lazy = true,
     },
-    { "fatih/vim-go",       ft = { "go", "gomod" } },
+    { "fatih/vim-go",                 ft = { "go", "gomod" } },
     {
         "kyazdani42/nvim-tree.lua",
         cmd = "NvimTreeFindFileToggle",
@@ -145,6 +170,20 @@ return {
         "nvim-telescope/telescope.nvim",
         version = "~0.1.0",
         cmd = { "Telescope" },
+        keys = {
+            { "<Leader>lf", "<Cmd>Telescope find_files<CR>" },
+            { "<Leader>lg", "<Cmd>Telescope live_grep<CR>" },
+            { "<Leader>lb", "<Cmd>Telescope buffers<CR>" },
+            { "<Leader>lr", "<Cmd>Telescope oldfiles<CR>" },
+            { "<Leader>lv", "<Cmd>Telescope vim_options<CR>" },
+            { "<Leader>ll", "<Cmd>Telescope loclist<CR>" },
+            { "<Leader>lm", "<Cmd>Telescope marks<CR>" },
+            { "<Leader>l/", "<Cmd>Telescope current_buffer_fuzzy_find<CR>" },
+            { "<Leader>lq", "<Cmd>Telescope quickfix<CR>" },
+            { "<Leader>lh", "<Cmd>Telescope highlights<CR>" },
+            { "<Leader>la", "<Cmd>Telescope autocommands<CR>" },
+            { "<F1>",       "<Cmd>Telescope help_tags<CR>" },
+        },
         opts = {
             defaults = {
                 mappings = {
@@ -198,7 +237,6 @@ return {
         },
         opts = {},
         dependencies = {
-            "nvim-lua/plenary.nvim",
             "nvim-telescope/telescope.nvim",
             "folke/trouble.nvim"
         },

@@ -28,7 +28,6 @@ return {
             }
         },
         dependencies = {
-            { 'lukas-reineke/indent-blankline.nvim',     main = 'ibl', opts = {} },
             { 'nvim-treesitter/nvim-treesitter-context', opts = {} },
             { 'windwp/nvim-ts-autotag',                  opts = {} },
         }
