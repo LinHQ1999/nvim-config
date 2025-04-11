@@ -67,6 +67,7 @@ return {
 
         -- :h lspconfig-global-defaults
         -- 深拷贝是必要的
+        -- TODO: 迁移至 vim.lsp.config 写法，见 :h lsp-config
         cfg.util.default_config = vim.tbl_deep_extend(
             'force',
             cfg.util.default_config, -- builitin 是必要的
@@ -74,6 +75,9 @@ return {
             {
                 capabilities = {
                     textDocument = {
+                        semanticTokens = {
+                            multilineTokenSupport = true,
+                        },
                         foldingRange = {
                             dynamicRegistration = false,
                             lineFoldingOnly = true,
