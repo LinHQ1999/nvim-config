@@ -144,7 +144,7 @@ return {
 
             require("mason-lspconfig").setup({
                 ensure_installed = {
-                    "yamlls", "volar", "lemminx", "tailwindcss", "lua_ls", "jsonls", "powershell_es", "html", "vtsls",
+                    "yamlls", "vue_ls", "lemminx", "tailwindcss", "lua_ls", "jsonls", "powershell_es", "html", "vtsls",
                     "vimls", "cssls", "eslint", "emmet_language_server", "vimls", "bashls"
                 },
                 -- 启用 lsp 自动配置
