@@ -68,10 +68,10 @@ if exists('g:goneovim')
     let &guifont = "FantasqueSansMono NFM:h14,FantasqueSansM_Nerd_Font:h12"
 elseif exists('g:neovide')
     " neovide 的字体回退都在 guifont，gfw 不支持
-    let &guifont = "FantasqueSansM Nerd Font Mono,霞鹜新晰黑:h14"
+    let &guifont = "FantasqueSansM Nerd Font Mono,霞鹜新晰黑:h" . (has('mac') ?  '18' : '14')
 
     " 窗口透明 & 输入时隐藏鼠标
-    let g:neovide_transparency = 0.9
+    let g:neovide_opacity = has('mac') ? 0.7 : 0.9
     let g:neovide_hide_mouse_when_typing = v:true
 
     " 减少一点阴影深度
@@ -91,6 +91,12 @@ elseif exists('g:neovide')
     let g:neovide_cursor_animate_in_insert_mode = v:true
     " 跳转到 cmd 时是否使用动画
     let g:neovide_cursor_animate_command_line = v:false
+
+    if has('mac')
+        let g:neovide_input_macos_option_key_is_meta = 'both'
+        let g:neovide_window_blurred = v:true
+    endif
+
     " 更长的拖尾
     " let g:neovide_cursor_trail_length=0.1
     " 更慢的动画
