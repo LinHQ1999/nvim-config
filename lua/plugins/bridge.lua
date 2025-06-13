@@ -55,5 +55,19 @@ return {
         "olimorris/codecompanion.nvim",
         opts = {},
         event = "InsertEnter"
-    }
+    },
+    {
+        "mistweaverco/kulala.nvim",
+        keys = {
+            { "<leader>rs", desc = "发送请求" },
+            { "<leader>ra", desc = "发送所有请求" },
+            { "<leader>rb", desc = "Open scratchpad" },
+        },
+        ft = { "http", "rest" },
+        opts = {
+            global_keymaps = true,
+            global_keymaps_prefix = "<leader>r",
+            kulala_keymaps_prefix = "",
+        },
+    },
 }
