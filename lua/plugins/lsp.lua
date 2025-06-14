@@ -110,7 +110,7 @@ return {
                     if vim.tbl_isempty(eslint) then
                         -- vim.lsp.buf.format()
                     else
-                        vim.cmd("EslintFixAll")
+                        vim.cmd("LspEslintFixAll")
                         vim.cmd("w")
                     end
                 end
