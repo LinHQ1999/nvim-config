@@ -100,21 +100,8 @@ return {
             hm.add_lsp()
             hm.override_lsp()
 
-            local lsp_group = vim.api.nvim_create_augroup("LSP", { clear = true })
-
-            vim.api.nvim_create_autocmd('BufWritePre', {
-                group = lsp_group,
-                callback = function(event)
-                    local eslint = vim.lsp.get_clients({ name = 'eslint', bufnr = event.buf })
-
-                    if vim.tbl_isempty(eslint) then
-                        -- vim.lsp.buf.format()
-                    else
-                        vim.cmd("LspEslintFixAll")
-                        vim.cmd("w")
-                    end
-                end
-            })
+            local lsp_group = vim.api.nvim_create_augroup("LSP", {})
+            local lsp_group_rpt = vim.api.nvim_create_augroup("LSP.NOCLEAR", { clear = false })
 
             vim.api.nvim_create_autocmd("LspAttach", {
                 group = lsp_group,
@@ -127,6 +114,28 @@ return {
                     if client and client:supports_method('textDocument/inlayHint') then
                         vim.lsp.inlay_hint.enable(true)
                     end
+
+                    -- eslint 不支持格式化，但提供一个 LspEslintFixAll 来实现类似的效果
+                    if client and (client:supports_method('textDocument/formatting') or client.name == 'eslint') then
+                        vim.api.nvim_create_autocmd('BufWritePre', {
+                            buffer = e.buf,
+                            group = lsp_group_rpt,
+                            callback = function()
+                                -- 这里允许多次注册，小心不要重复
+                                -- 同样，也不要调用异步的格式化方法
+                                if client.name == 'eslint' then
+                                    vim.cmd([[LspEslintFixAll]])
+                                else
+                                    vim.lsp.buf.format({
+                                        bufnr = e.buf,
+                                        id = client.id,
+                                        timeout_ms = 900
+                                    })
+                                end
+                            end
+                        })
+                    end
+
                     local map = vim.keymap.set
                     map("n", "<up>", function() vim.diagnostic.jump({ float = true, count = -1 }) end, opts)
                     map("n", "<down>", function() vim.diagnostic.jump({ float = true, count = 1 }) end, opts)
