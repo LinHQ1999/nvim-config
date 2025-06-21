@@ -35,8 +35,12 @@ return {
         },
         dependencies = {
             { 'nvim-treesitter/nvim-treesitter-context', opts = {} },
-            { 'windwp/nvim-ts-autotag',                  opts = {} },
         }
+    },
+    {
+        'windwp/nvim-ts-autotag',
+        ft = { 'vue', 'html', 'typescriptreact', 'javascriptreact', 'xml' },
+        opts = {}
     },
     {
         'brenoprata10/nvim-highlight-colors',
