@@ -90,15 +90,8 @@ return {
             "williamboman/mason-lspconfig.nvim"
         },
         config = function()
-            -- 一个简单的工具函数
-            local get_mason_path = function(package)
-                return vim.fs.joinpath(vim.env.MASON, 'packages', package)
-            end
-
             -- 这些东西得写在配置 lsp 服务器前面，即下面的 mason-lspconfig
-            local hm = require('handmade')
-            hm.add_lsp()
-            hm.override_lsp()
+            require('handmade'):config_lsp()
 
             local lsp_group = vim.api.nvim_create_augroup("LSP", {})
             local lsp_group_rpt = vim.api.nvim_create_augroup("LSP.NOCLEAR", { clear = false })
@@ -155,66 +148,6 @@ return {
                 ensure_installed = {
                     "yamlls", "vue_ls", "lemminx", "tailwindcss", "lua_ls", "jsonls", "powershell_es", "html", "vtsls",
                     "vimls", "cssls", "eslint", "emmet_language_server", "vimls", "bashls"
-                },
-                -- 启用 lsp 自动配置
-                handlers = {
-                    function(server_name)
-                        require("lspconfig")[server_name].setup({})
-                    end,
-
-                    -- lua_ls 根据配置根目录的 luarc.json 自动配置
-                    -- https://luals.github.io/wiki/configuration/#configuration-file
-
-                    powershell_es = function()
-                        require("lspconfig").powershell_es.setup({
-                            bundle_path = get_mason_path("powershell-editor-services"),
-                        })
-                    end,
-                    vtsls = function()
-                        -- 考虑安装 nvim-vtsls 插件
-                        require("lspconfig").vtsls.setup({
-                            filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
-                            settings = {
-                                typescript = {
-                                    inlayHints = {
-                                        parameterTypes = { enabled = "literal" },
-                                        parameterNames = { enabled = true },
-                                        variableTypes  = { enabled = true },
-                                    }
-                                },
-                                javascript = {
-                                    inlayHints = {
-                                        parameterTypes = { enabled = "literal" },
-                                        parameterNames = { enabled = true },
-                                        variableTypes  = { enabled = true },
-                                    }
-                                },
-                                vtsls = {
-                                    tsserver = {
-                                        globalPlugins = {
-                                            {
-                                                name = "@vue/typescript-plugin",
-                                                location = vim.fs.joinpath(
-                                                    get_mason_path("vue-language-server"),
-                                                    "node_modules",
-                                                    "@vue",
-                                                    "language-server"
-                                                ),
-                                                languages = { "vue" },
-                                                configNamespace = "typescript",
-                                                enableForWorkspaceTypeScriptVersions = true,
-                                            },
-                                        },
-                                    },
-                                    expirmental = {
-                                        completion = {
-                                            enableServerSideFuzzyMatch = true
-                                        }
-                                    }
-                                },
-                            },
-                        })
-                    end,
                 },
             })
         end,
