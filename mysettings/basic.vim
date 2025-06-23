@@ -10,16 +10,13 @@ set fileencodings=ucs-bom,utf-8,gb18030,gbk,gb2312
 set cursorline
 " set showmatch
 set matchpairs+=<:>
-set number
-set relativenumber
+set number relativenumber
 "set autoindent
-" set smartindent
-set expandtab
-set softtabstop=4
-set shiftwidth=4
+"set smartindent
+" 负数自动和 shiftwidth 取一样的值
+set shiftwidth=4 softtabstop=-1 expandtab
 set timeoutlen=1500
-set splitbelow
-set splitright
+set splitbelow splitright
 set ignorecase
 "set hidden
 set cmdheight=1

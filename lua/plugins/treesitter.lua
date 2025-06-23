@@ -2,8 +2,14 @@ return {
     {
         'nvim-treesitter/nvim-treesitter',
         build = ':TSUpdate',
-        event = { "BufReadPost", "BufNewFile" },
+        event = { "BufReadPost", "BufNewFile", "VeryLazy" },
         cmd = { 'TSInstallInfo', 'TSInstall' },
+        init = function(plugin)
+            -- 抄一抄，某种 workaround
+            -- https://github.com/LazyVim/LazyVim/blob/ec5981dfb1222c3bf246d9bcaa713d5cfa486fbd/lua/lazyvim/plugins/treesitter.lua#L21-L29
+            require("lazy.core.loader").add_to_rtp(plugin)
+            require("nvim-treesitter.query_predicates")
+        end,
         config = function(_, opts)
             -- 高级选项，巨幅提升 parser 下载速度
             -- 要求 curl, tar, 且可以在非 admin 下创建 SymbolicLink
@@ -29,8 +35,12 @@ return {
         },
         dependencies = {
             { 'nvim-treesitter/nvim-treesitter-context', opts = {} },
-            { 'windwp/nvim-ts-autotag',                  opts = {} },
         }
+    },
+    {
+        'windwp/nvim-ts-autotag',
+        ft = { 'vue', 'html', 'typescriptreact', 'javascriptreact', 'xml' },
+        opts = {}
     },
     {
         'brenoprata10/nvim-highlight-colors',

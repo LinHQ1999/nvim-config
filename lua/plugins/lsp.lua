@@ -175,6 +175,20 @@ return {
                         require("lspconfig").vtsls.setup({
                             filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
                             settings = {
+                                typescript = {
+                                    inlayHints = {
+                                        parameterTypes = { enabled = "literal" },
+                                        parameterNames = { enabled = true },
+                                        variableTypes  = { enabled = true },
+                                    }
+                                },
+                                javascript = {
+                                    inlayHints = {
+                                        parameterTypes = { enabled = "literal" },
+                                        parameterNames = { enabled = true },
+                                        variableTypes  = { enabled = true },
+                                    }
+                                },
                                 vtsls = {
                                     tsserver = {
                                         globalPlugins = {
