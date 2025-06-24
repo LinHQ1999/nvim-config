@@ -60,12 +60,20 @@ M.get_mason_path = function(package)
 end
 
 M.config_lsp = function(self)
-    local cfg = require("lspconfig")
-
     -- :h nvim_open_win
     vim.diagnostic.config({
+        severity_sort = true,
         float = {
-            border = 'rounded'
+            border = 'rounded',
+            source = 'if_many'
+        },
+        signs = {
+            text = {
+                [vim.diagnostic.severity.ERROR] = '󰅚 ',
+                [vim.diagnostic.severity.WARN] = '󰀪 ',
+                [vim.diagnostic.severity.INFO] = '󰋽 ',
+                [vim.diagnostic.severity.HINT] = '󰌶 ',
+            }
         },
         virtual_lines = true
     })
