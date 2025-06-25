@@ -241,6 +241,7 @@ return {
             "folke/trouble.nvim"
         },
     },
+    { "nmac427/guess-indent.nvim",    opts = {} },
     { "kyazdani42/nvim-web-devicons", lazy = true },
     { "sainnhe/forest-night",         lazy = true },
     { "folke/tokyonight.nvim",        lazy = true },
