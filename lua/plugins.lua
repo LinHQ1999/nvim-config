@@ -75,7 +75,14 @@ return {
     { "fatih/vim-go",                 ft = { "go", "gomod" } },
     {
         "kyazdani42/nvim-tree.lua",
-        cmd = "NvimTreeFindFileToggle",
+        cmd = { "NvimTreeFindFileToggle" },
+        dependencies = {
+            {
+                "antosha417/nvim-lsp-file-operations",
+                main = "lsp-file-operations",
+                opts = {}
+            }
+        },
         opts = {
             disable_netrw = true,
             open_on_tab = false,

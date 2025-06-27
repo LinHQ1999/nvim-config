@@ -101,23 +101,19 @@ M.config_lsp = function(self)
         bundle_path = self.get_mason_path("powershell-editor-services"),
     })
 
+    local inlayCfg = {
+        parameterNames = { enabled = "literals" },
+        parameterTypes = { enabled = true },
+        variableTypes = { enabled = true },
+        propertyDeclarationTypes = { enabled = true },
+        functionLikeReturnTypes = { enabled = true },
+        enumMemberValues = { enabled = true },
+    }
     vim.lsp.config('vtsls', {
         filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
         settings = {
-            typescript = {
-                inlayHints = {
-                    parameterNames = { enabled = "literal" },
-                    parameterTypes = { enabled = true },
-                    variableTypes  = { enabled = true },
-                }
-            },
-            javascript = {
-                inlayHints = {
-                    parameterNames = { enabled = "literal" },
-                    parameterTypes = { enabled = true },
-                    variableTypes  = { enabled = true },
-                }
-            },
+            typescript = { inlayHints = inlayCfg },
+            javascript = { inlayHints = inlayCfg },
             vtsls = {
                 tsserver = {
                     globalPlugins = {

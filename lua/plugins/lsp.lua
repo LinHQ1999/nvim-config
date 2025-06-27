@@ -101,15 +101,16 @@ return {
                 callback = function(e)
                     -- :h lsp-config
                     local client, opts = vim.lsp.get_client_by_id(e.data.client_id), { silent = true, buffer = e.buf }
+                    if not client then return end
                     -- :h lsp-inlay_hint
                     -- :h lsp-method
                     -- :h lsp-client
-                    if client and client:supports_method('textDocument/inlayHint') then
+                    if client:supports_method('textDocument/inlayHint') then
                         vim.lsp.inlay_hint.enable(true)
                     end
 
                     -- eslint 不支持格式化，但提供一个 LspEslintFixAll 来实现类似的效果
-                    if client and (client:supports_method('textDocument/formatting') or client.name == 'eslint') then
+                    if client:supports_method('textDocument/formatting') or client.name == 'eslint' then
                         vim.api.nvim_create_autocmd('BufWritePre', {
                             buffer = e.buf,
                             group = lsp_group_rpt,
@@ -132,15 +133,21 @@ return {
                     local map = vim.keymap.set
                     map("n", "<up>", function() vim.diagnostic.jump({ float = true, count = -1 }) end, opts)
                     map("n", "<down>", function() vim.diagnostic.jump({ float = true, count = 1 }) end, opts)
-                    map('n', 'gd', '<Cmd>Telescope lsp_definitions<CR>', opts)
-                    map('n', 'gr', '<Cmd>Telescope lsp_references<CR>', opts)
+                    map('n', 'gd', [[<Cmd>Telescope lsp_definitions<CR>]], opts)
+                    map('n', 'gr', [[<Cmd>Telescope lsp_references<CR>]], opts)
                     map('n', 'gD', vim.lsp.buf.declaration, opts)
-                    map('n', 'gi', '<Cmd>Telescope lsp_implementions<CR>', opts)
+                    map('n', 'gi', [[<Cmd>Telescope lsp_implementions<CR>]], opts)
                     map("n", "gh", function() vim.lsp.buf.hover({ border = 'rounded' }) end, opts)
                     map('n', 'gs', function() vim.lsp.buf.signature_help({ border = 'rounded' }) end, opts)
                     map('n', '<F2>', vim.lsp.buf.rename, opts)
                     map("n", "<leader>ca", vim.lsp.buf.code_action, opts)
                     map("n", "<leader>cf", vim.lsp.buf.format, opts)
+
+                    -- 调用 vtsls 专用方法
+                    if client.name == 'vtsls' then
+                        map("n", "<leader>ci", [[<Cmd>VtsExec organize_imports<cr>]], opts)
+                        map("n", "<leader>cm", [[<Cmd>VtsExec add_missing_imports<cr>]], opts)
+                    end
                 end
             })
 
@@ -167,7 +174,19 @@ return {
     },
     {
         'nvim-flutter/flutter-tools.nvim',
-        ft = "dart",
+        ft = { "dart" },
         opts = {},
+    },
+    {
+        'yioneko/nvim-vtsls',
+        opts = {
+            -- automatically trigger renaming of extracted symbol
+            refactor_auto_rename = true,
+            refactor_move_to_file = {
+                -- If dressing.nvim is installed, telescope will be used for selection prompt. Use this to customize
+                -- the opts for telescope picker.
+                telescope_opts = function(items, default) end,
+            }
+        }
     }
 }
