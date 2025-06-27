@@ -5,6 +5,7 @@ augroup RC
     autocmd TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=150, on_visual=true}
     " 调整窗口自动对齐布局
     autocmd VimResized * wincmd =
+    autocmd FileType go,gomod setl tabstop=4
     autocmd FileType javascript,vue,scss,less,typescriptreact,javascriptreact,org,json,typescript,dart setl shiftwidth=2
     " (vimwiki)
     " 自动更新日记索引

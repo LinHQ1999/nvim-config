@@ -147,6 +147,10 @@ return {
                     if client.name == 'vtsls' then
                         map("n", "<leader>ci", [[<Cmd>VtsExec organize_imports<cr>]], opts)
                         map("n", "<leader>cm", [[<Cmd>VtsExec add_missing_imports<cr>]], opts)
+                    elseif client.name == 'gopls' then
+                        map("n", "<leader>gta", [[<Cmd>GoTagAdd json<cr>]], opts)
+                        map("n", "<leader>gtr", [[<Cmd>GoTagRm json<cr>]], opts)
+                        map("n", "<leader>gtc", [[<Cmd>GoTagClear<cr>]], opts)
                     end
                 end
             })
@@ -179,14 +183,19 @@ return {
     },
     {
         'yioneko/nvim-vtsls',
-        opts = {
-            -- automatically trigger renaming of extracted symbol
-            refactor_auto_rename = true,
-            refactor_move_to_file = {
-                -- If dressing.nvim is installed, telescope will be used for selection prompt. Use this to customize
-                -- the opts for telescope picker.
-                telescope_opts = function(items, default) end,
-            }
-        }
+        ft = { "typescriptreact", "javascriptreact", "typescript", "javascript", "vue", "html" },
+        config = function()
+            -- 注意，这里是 config 而不是常规的 setup，如果用 opts 则会报错
+            -- 另外由于未知原因，指定 cmd lazy 会报错
+            require('vtsls').config({
+                refactor_auto_rename = true,
+            })
+        end
+    },
+    {
+        "olexsmir/gopher.nvim",
+        ft = { "go", "gomod" },
+        build = ":GoInstallDeps",
+        opts = {},
     }
 }

@@ -72,7 +72,6 @@ return {
         "nvim-lua/plenary.nvim",
         lazy = true,
     },
-    { "fatih/vim-go",                 ft = { "go", "gomod" } },
     {
         "kyazdani42/nvim-tree.lua",
         cmd = { "NvimTreeFindFileToggle" },
