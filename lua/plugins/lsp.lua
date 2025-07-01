@@ -31,7 +31,6 @@ return {
     },
     {
         "williamboman/mason-lspconfig.nvim",
-        dependencies = { "williamboman/mason.nvim" },
         lazy = true
     },
     {
@@ -87,7 +86,7 @@ return {
         cmd = { "LspInfo", "LspInstall", "LspStart" },
         event = { "BufReadPost", "BufNewFile" },
         dependencies = {
-            "williamboman/mason-lspconfig.nvim"
+            "williamboman/mason.nvim" -- 必须的 dep，否则未加载时 $MASON 为空 handmade get_mason_path 会失败
         },
         config = function()
             -- 这些东西得写在配置 lsp 服务器前面，即下面的 mason-lspconfig
