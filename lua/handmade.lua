@@ -101,6 +101,23 @@ M.config_lsp = function(self)
         bundle_path = self.get_mason_path("powershell-editor-services"),
     })
 
+    vim.lsp.config('gopls', {
+        settings = {
+            gopls = {
+                ["ui.semanticTokens"] = true,
+                ["ui.inlayHints.hints"] = {
+                    assignVariableTypes = true,
+                    compositeLiteralFields = true,
+                    compositeLiteralTypes = true,
+                    constantValues = true,
+                    functionTypeParameters = true,
+                    parameterNames = true,
+                    rangeVariableTypes = true
+                }
+            }
+        }
+    })
+
     local inlayCfg = {
         parameterNames = { enabled = "literals" },
         parameterTypes = { enabled = true },
