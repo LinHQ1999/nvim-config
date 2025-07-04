@@ -7,19 +7,17 @@ return {
     {
         "kevinhwang91/nvim-ufo",
         event = "VeryLazy", -- 不能为 BufReadPre，见  https://github.com/kevinhwang91/nvim-ufo/issues/47#issuecomment-1248773096
-        config = function()
-            local ufo = require("ufo")
-
-            vim.o.foldcolumn = "0"
+        keys = {
+            { "zR", function() require('ufo').openAllFolds() end, desc = "开启所有 fold" },
+            { "zM", function() require('ufo').closeAllFolds() end, desc = "关闭所有 fold" },
+        },
+        init = function()
+            vim.o.foldcolumn = "1"
             vim.o.foldlevel = 99
             vim.o.foldlevelstart = 99
             vim.o.foldenable = true
-
-            vim.keymap.set("n", "zR", ufo.openAllFolds)
-            vim.keymap.set("n", "zM", ufo.closeAllFolds)
-
-            ufo.setup()
         end,
+        opts = {},
         dependencies = {
             { "kevinhwang91/promise-async" },
         },
