@@ -47,8 +47,6 @@ nnoremap <silent> <Leader>fs <Cmd>call Set_it()<cr>
 nnoremap <silent> <Leader>fd <Cmd>exe "e expand('<sfile>:p:h')"."\pack\my\start\myplugin\plugin\one.vim"<cr>
 nnoremap <silent> <Leader>ft <Cmd>call Open_terminal()<cr>
 nnoremap <silent> <Leader>fh <Cmd>tcd %:h<cr>
-" (tree)
-nnoremap <silent> <Leader>pd <Cmd>NvimTreeFindFileToggle<cr>
 " (fugitive)
 " lazygit 快捷键不在此处配置
 nnoremap <silent> <Leader>gll <Cmd>exec "Git log -L ".line('.').",".line('.').":% --no-merges --oneline"<cr>

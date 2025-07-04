@@ -41,7 +41,7 @@ return {
         priority = 999,
         lazy = false,
         config = function()
-            vim.cmd([[colorscheme catppuccin-latte]])
+            vim.cmd("colorscheme catppuccin-latte")
         end
     },
     {
@@ -82,13 +82,8 @@ return {
     },
     {
         "kyazdani42/nvim-tree.lua",
-        cmd = { "NvimTreeFindFileToggle" },
-        dependencies = {
-            {
-                "antosha417/nvim-lsp-file-operations",
-                main = "lsp-file-operations",
-                opts = {}
-            }
+        keys = {
+            { "<leader>pd", "<Cmd>NvimTreeFindFileToggle<cr>", desc = "开关 NvimTree" }
         },
         opts = {
             disable_netrw = true,
@@ -181,61 +176,6 @@ return {
         opts = {}
     },
     {
-        "nvim-telescope/telescope.nvim",
-        version = "~0.1.0",
-        cmd = { "Telescope" },
-        keys = {
-            { "<Leader>lf", "<Cmd>Telescope find_files<CR>" },
-            { "<Leader>lg", "<Cmd>Telescope live_grep<CR>" },
-            { "<Leader>lb", "<Cmd>Telescope buffers<CR>" },
-            { "<Leader>lr", "<Cmd>Telescope oldfiles<CR>" },
-            { "<Leader>lv", "<Cmd>Telescope vim_options<CR>" },
-            { "<Leader>ll", "<Cmd>Telescope loclist<CR>" },
-            { "<Leader>lm", "<Cmd>Telescope marks<CR>" },
-            { "<Leader>l/", "<Cmd>Telescope current_buffer_fuzzy_find<CR>" },
-            { "<Leader>lq", "<Cmd>Telescope quickfix<CR>" },
-            { "<Leader>lh", "<Cmd>Telescope highlights<CR>" },
-            { "<Leader>la", "<Cmd>Telescope autocommands<CR>" },
-            { "<F1>",       "<Cmd>Telescope help_tags<CR>" },
-        },
-        opts = {
-            defaults = {
-                mappings = {
-                    i = {
-                        ["<C-u>"] = false,
-                    },
-                },
-                preview = {
-                    filesize_limit = 1,
-                    treesitter = {
-                        disable = { "javascript", "css" },
-                    },
-                },
-            },
-            pickers = {
-                live_grep = {
-                    debounce = 500,
-                    glob_pattern = {
-                        "!*.{bundle,min}.{js,css}",
-                        "!*-lock.*",
-                        "!{built,lib,plugin,*vnc,rdp,v,node_modules}/",
-                    },
-                },
-            },
-        },
-        dependencies = {
-            "nvim-telescope/telescope-fzf-native.nvim",
-        },
-    },
-    {
-        "nvim-telescope/telescope-fzf-native.nvim",
-        build = "make",
-        lazy = true,
-        config = function()
-            require("telescope").load_extension("fzf")
-        end,
-    },
-    {
         "justinmk/vim-sneak",
         event = "VeryLazy",
         init = function()
@@ -243,15 +183,13 @@ return {
         end,
     },
     {
-        -- 可以被 trouble 和 telescope 依赖
         "folke/todo-comments.nvim",
-        cmd = { "TodoLocList", "TodoTelescope" },
+        cmd = { "TodoLocList" },
         keys = {
             { "<leader>xX", "<cmd>Trouble todo<cr>", desc = "Show todo in trouble", }
         },
         opts = {},
         dependencies = {
-            "nvim-telescope/telescope.nvim",
             "folke/trouble.nvim"
         },
     },
