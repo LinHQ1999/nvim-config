@@ -1,7 +1,10 @@
 -- config = true 等于 require('foo').setup({})
+
 -- 如果同时指定了 opts 和 config，则需要在 config 中显式调用 setup
+-- 如果显式调用需要指定 option，那最好先在 opts 中定义，因为可以自动和别处的 opts 定义合并
+
 -- 非 lua 插件，除了 basic.vim 之外的配置需要写在 init 中
--- lua 插件如果存在非 opts 的选项，则需要在 config 中初始化，写在 init 中如果存在 require() 会导致 lazy 失效 e.g ufo 的配置
+-- lua 插件如果存在非 opts 的选项，则需要在 config 中初始化，写在 init 中如果存在 require('foo') 会导致 lazy 失效 e.g ufo 的配置
 
 -- dependencies 实际上代表关联启动，具体是 before 还是 after 则智能判断，但只要主插件启动了，它的所有 dependencies 无论是否被主插件 require 到都会启动，
 -- 有时可能会出现没有 require 但提前启动的情况。
@@ -16,16 +19,21 @@ return {
         priority = 1000,
         lazy = false,
         keys = {
-            { "<leader>gg", function() Snacks.lazygit() end, desc = "启动 lazygit" }
+            { "<leader>gg", function() Snacks.lazygit() end, desc = "启动 lazygit" },
+            { "<leader>ms", function() Snacks.notifier.show_history() end, desc = "消息历史" }
         },
         opts = {
             bigfile = { enabled = true },
             indent = { enabled = true },
             notifier = {
-                timeout = 2500,
+                timeout = 500,
                 top_down = false
             },
         },
+        config = function(_, opts)
+            require('handmade').reg_lsp_progress()
+            require('snacks').setup(opts)
+        end
     },
     {
         "catppuccin/nvim",
