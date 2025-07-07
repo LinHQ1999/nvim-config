@@ -78,24 +78,19 @@ M.config_lsp = function(self)
         virtual_lines = true
     })
 
-    -- 深拷贝是必要的
-    vim.lsp.config('*', vim.tbl_deep_extend(
-        'force',
-        { capabilities = require('blink.cmp').get_lsp_capabilities() },
-        {
-            capabilities = {
-                textDocument = {
-                    semanticTokens = {
-                        multilineTokenSupport = true,
-                    },
-                    foldingRange = {
-                        dynamicRegistration = false,
-                        lineFoldingOnly = true,
-                    },
-                }
+    vim.lsp.config('*', {
+        capabilities = {
+            textDocument = {
+                semanticTokens = {
+                    multilineTokenSupport = true,
+                },
+                foldingRange = {
+                    dynamicRegistration = false,
+                    lineFoldingOnly = true,
+                },
             }
         }
-    ))
+    })
 
     vim.lsp.config('powershell_es', {
         bundle_path = self.get_mason_path("powershell-editor-services"),

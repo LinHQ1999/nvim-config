@@ -77,11 +77,18 @@ return {
             },
             fuzzy = { implementation = "prefer_rust_with_warning" }
         },
-        opts_extend = { "sources.default" }
+        opts_extend = { "sources.default" },
+        config = function(_, opts)
+            local cmp = require('blink.cmp')
+            -- 拆分 require 以确保不和 lspconfig 一起启动
+            vim.lsp.config('*', { capabilities = cmp.get_lsp_capabilities() })
+            cmp.setup(opts)
+        end
     },
     {
         "neovim/nvim-lspconfig",
         cmd = { "LspInfo", "LspInstall", "LspStart" },
+        -- FIX: 这里不能懒加载，否则第一次编辑的文件高亮异常
         event = { "BufReadPost", "BufNewFile" },
         dependencies = {
             "williamboman/mason.nvim" -- 必须的 dep，否则未加载时 $MASON 为空 handmade get_mason_path 会失败
@@ -153,6 +160,7 @@ return {
             })
 
             require("mason-lspconfig").setup({
+                auto_enable = false,
                 ensure_installed = {
                     "yamlls", "vue_ls", "lemminx", "tailwindcss", "lua_ls", "jsonls", "powershell_es", "html", "vtsls",
                     "vimls", "cssls", "eslint", "emmet_language_server", "vimls", "bashls"
