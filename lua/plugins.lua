@@ -20,18 +20,48 @@ return {
         lazy = false,
         keys = {
             { "<leader>gg", function() Snacks.lazygit() end, desc = "启动 lazygit" },
-            { "<leader>ms", function() Snacks.notifier.show_history() end, desc = "消息历史" }
+            { "<leader>ms", function() Snacks.notifier.show_history() end, desc = "消息历史" },
+            -- 下面是 picker 专用快捷键
+            { "<leader>lf", function() Snacks.picker.smart() end, desc = "文件（Explorer & 最近）" },
+            { "<leader>lr", function() Snacks.picker.recent() end, desc = "文件（最近）" },
+            { "<leader>lg", function() Snacks.picker.grep() end, desc = "内容搜索" },
+            { "<leader>lb", function() Snacks.picker.buffers() end, desc = "Buffer 搜索" },
+            { "<leader>l/", function() Snacks.picker.lines() end, desc = "文件内搜索" },
+            { "<F1>", function() Snacks.picker.help() end, desc = "Manual 搜索" },
+            { "<leader>l:", function() Snacks.picker.command_history() end, desc = "Ex 命令搜索" },
+            { "<leader>lq", function() Snacks.picker.qflist() end, desc = "Quickfix 搜索" },
+            { "<leader>ll", function() Snacks.picker.loclist() end, desc = "loclist 搜索" },
+            { "<leader>lp", function() Snacks.picker.lazy() end, desc = "查看插件定义" },
+            { "<leader>lh", function() Snacks.picker.highlights() end, desc = "Highlights 搜索" },
+            { "<leader>lc", function() Snacks.picker.projects() end, desc = "CD 路径搜索" },
         },
         opts = {
             bigfile = { enabled = true },
             indent = { enabled = true },
             notifier = {
-                timeout = 500,
+                timeout = 1500,
                 top_down = false
             },
+            picker = {
+                layout = { preset = function() return vim.o.columns >= 120 and "telescope" or "vertical" end },
+                matcher = { frecency = true },
+                win = {
+                    input = {
+                        keys = {
+                            ["<Esc>"] = { "close", mode = { "n", "i" } },
+                            ["<Up>"] = { "history_back", mode = { "n", "i" } },
+                            ["<Down>"] = { "history_forward", mode = { "n", "i" } },
+                            ["<C-u>"] = { "<c-s-u>", mode = { "i" }, expr = true, desc = "Delete all" },
+                        }
+                    }
+                }
+            },
+            statuscolumn = {}
         },
         config = function(_, opts)
-            require('handmade').reg_lsp_progress()
+            local hm = require('handmade')
+            hm.reg_lsp_progress()
+            hm.reg_nvim_tree_rename()
             require('snacks').setup(opts)
         end
     },
@@ -184,14 +214,11 @@ return {
     },
     {
         "folke/todo-comments.nvim",
-        cmd = { "TodoLocList" },
         keys = {
-            { "<leader>xX", "<cmd>Trouble todo<cr>", desc = "Show todo in trouble", }
+            { "<leader>xX", "<cmd>Trouble todo<cr>",                      desc = "Show todo in trouble" },
+            { "<leader>lt", function() Snacks.picker.todo_comments() end, desc = "Show todo in trouble", }
         },
         opts = {},
-        dependencies = {
-            "folke/trouble.nvim"
-        },
     },
     { "nmac427/guess-indent.nvim",    opts = {} },
     { "kyazdani42/nvim-web-devicons", lazy = true },

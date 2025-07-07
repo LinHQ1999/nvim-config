@@ -207,21 +207,39 @@ M.reg_lsp_progress = function()
                     break
                 end
             end
-
             local msg = {} ---@type string[]
             progress[client.id] = vim.tbl_filter(function(v)
                 return table.insert(msg, v.msg) or not v.done
             end, p)
 
             local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+
             vim.notify(table.concat(msg, "\n"), vim.log.levels.INFO, {
                 id = "lsp_progress",
                 title = client.name,
                 opts = function(notif)
-                    notif.icon = #progress[client.id] == 0 and " "
+                    notif.icon = #progress[client.id] == 0
+                        and " "
                         or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
+                    -- FIX: LSP 问题，有头绪了修
                 end,
             })
+        end,
+    })
+end
+
+M.reg_nvim_tree_rename = function()
+    local prev = { new_name = "", old_name = "" } -- Prevents duplicate events
+    vim.api.nvim_create_autocmd("User", {
+        pattern = "NvimTreeSetup",
+        callback = function()
+            local events = require("nvim-tree.api").events
+            events.subscribe(events.Event.NodeRenamed, function(data)
+                if prev.new_name ~= data.new_name or prev.old_name ~= data.old_name then
+                    data = data
+                    Snacks.rename.on_rename_file(data.old_name, data.new_name)
+                end
+            end)
         end,
     })
 end

@@ -12,7 +12,7 @@ return {
             { "zM", function() require('ufo').closeAllFolds() end, desc = "关闭所有 fold" },
         },
         init = function()
-            vim.o.foldcolumn = "1"
+            vim.o.foldcolumn = "0"
             vim.o.foldlevel = 99
             vim.o.foldlevelstart = 99
             vim.o.foldenable = true
@@ -130,10 +130,10 @@ return {
                     local map = vim.keymap.set
                     map("n", "<up>", function() vim.diagnostic.jump({ float = true, count = -1 }) end, opts)
                     map("n", "<down>", function() vim.diagnostic.jump({ float = true, count = 1 }) end, opts)
-                    map('n', 'gd', [[<Cmd>Telescope lsp_definitions<CR>]], opts)
-                    map('n', 'gr', [[<Cmd>Telescope lsp_references<CR>]], opts)
-                    map('n', 'gD', vim.lsp.buf.declaration, opts)
-                    map('n', 'gi', [[<Cmd>Telescope lsp_implementions<CR>]], opts)
+                    map('n', 'gd', function() Snacks.picker.lsp_definitions() end, opts)
+                    map('n', 'gr', function() Snacks.picker.lsp_references() end, opts)
+                    map('n', 'gD', function() Snacks.picker.lsp_declarations() end, opts)
+                    map('n', 'gi', function() Snacks.picker.lsp_implementations() end, opts)
                     map("n", "gh", function() vim.lsp.buf.hover({ border = 'rounded' }) end, opts)
                     map('n', 'gs', function() vim.lsp.buf.signature_help({ border = 'rounded' }) end, opts)
                     map('n', '<F2>', vim.lsp.buf.rename, opts)

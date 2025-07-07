@@ -11,8 +11,7 @@
   ],
   "workspace.checkThirdParty": false,
   "workspace.library": [
-    "$VIMRUNTIME",
-    "lua"
+    "$VIMRUNTIME"
   ],
   "hint.enable": true
 }
