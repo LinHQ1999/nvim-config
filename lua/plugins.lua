@@ -15,7 +15,7 @@ vim.g.mapleader = " "
 
 return {
     {
-        "folke/snacks.nvim",
+        "folke/snacks.nvim", -- 放个链接方便看文档：https://github.com/folke/snacks.nvim#-features
         priority = 1000,
         lazy = false,
         keys = {
@@ -60,6 +60,7 @@ return {
                 }
             },
             statuscolumn = {},
+            input = {},
             words = { debounce = 1000 }
         },
         config = function(_, opts)
@@ -77,11 +78,6 @@ return {
         config = function()
             vim.cmd("colorscheme catppuccin-latte")
         end
-    },
-    {
-        'stevearc/dressing.nvim',
-        event = "VeryLazy",
-        opts = {},
     },
     {
         "windwp/nvim-autopairs",
