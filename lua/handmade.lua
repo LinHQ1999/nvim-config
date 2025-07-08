@@ -54,12 +54,13 @@ M.cmp_helper = function(mode, shift)
     end
 end
 
+---获取 package 路径
 M.get_mason_path = function(package)
-    -- 获取 package 路径
     return vim.fs.joinpath(vim.env.MASON, 'packages', package)
 end
 
-M.config_lsp = function(self)
+---配置额外的 LS 功能
+M.config_lsp = function()
     -- :h nvim_open_win
     vim.diagnostic.config({
         severity_sort = true,
@@ -78,6 +79,7 @@ M.config_lsp = function(self)
         virtual_lines = true
     })
 
+    -- :h lsp-config
     vim.lsp.config('*', {
         capabilities = {
             textDocument = {
@@ -90,66 +92,6 @@ M.config_lsp = function(self)
                 },
             }
         }
-    })
-
-    vim.lsp.config('powershell_es', {
-        bundle_path = self.get_mason_path("powershell-editor-services"),
-    })
-
-    vim.lsp.config('gopls', {
-        settings = {
-            gopls = {
-                ["ui.semanticTokens"] = true,
-                ["ui.inlayHints.hints"] = {
-                    assignVariableTypes = true,
-                    compositeLiteralFields = true,
-                    compositeLiteralTypes = true,
-                    constantValues = true,
-                    functionTypeParameters = true,
-                    parameterNames = true,
-                    rangeVariableTypes = true
-                }
-            }
-        }
-    })
-
-    local inlayCfg = {
-        parameterNames = { enabled = "literals" },
-        parameterTypes = { enabled = true },
-        variableTypes = { enabled = true },
-        propertyDeclarationTypes = { enabled = true },
-        functionLikeReturnTypes = { enabled = true },
-        enumMemberValues = { enabled = true },
-    }
-    vim.lsp.config('vtsls', {
-        filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
-        settings = {
-            typescript = { inlayHints = inlayCfg },
-            javascript = { inlayHints = inlayCfg },
-            vtsls = {
-                tsserver = {
-                    globalPlugins = {
-                        {
-                            name = "@vue/typescript-plugin",
-                            location = vim.fs.joinpath(
-                                self.get_mason_path("vue-language-server"),
-                                "node_modules",
-                                "@vue",
-                                "language-server"
-                            ),
-                            languages = { "vue" },
-                            configNamespace = "typescript",
-                            enableForWorkspaceTypeScriptVersions = true,
-                        },
-                    },
-                },
-                expirmental = {
-                    completion = {
-                        enableServerSideFuzzyMatch = true
-                    }
-                }
-            },
-        },
     })
 
     if vim.env.AHKLS then
@@ -173,7 +115,7 @@ M.config_lsp = function(self)
     end
 end
 
--- 平替 fidget.nvim 显示 lsp 进度信息
+---平替 fidget.nvim 显示 lsp 进度信息
 M.reg_lsp_progress = function()
     ---@type table<number, {token:lsp.ProgressToken, msg:string, done:boolean}[]>
     local progress = vim.defaulttable()
@@ -223,6 +165,7 @@ M.reg_lsp_progress = function()
     })
 end
 
+---处理文件重命名通知 LS
 M.reg_nvim_tree_rename = function()
     local prev = { new_name = "", old_name = "" } -- Prevents duplicate events
     vim.api.nvim_create_autocmd("User", {
@@ -238,4 +181,5 @@ M.reg_nvim_tree_rename = function()
         end,
     })
 end
+
 return M

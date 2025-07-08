@@ -95,9 +95,12 @@ return {
         dependencies = {
             "williamboman/mason.nvim" -- 必须的 dep，否则未加载时 $MASON 为空 handmade get_mason_path 会失败
         },
+        init = function()
+            vim.o.updatetime = 2000
+        end,
         config = function()
             -- 这些东西得写在配置 lsp 服务器前面，即下面的 mason-lspconfig
-            require('handmade'):config_lsp()
+            require('handmade').config_lsp()
 
             local lsp_group = vim.api.nvim_create_augroup("LSP", {})
             local lsp_group_rpt = vim.api.nvim_create_augroup("LSP.NOCLEAR", { clear = false })
@@ -114,6 +117,14 @@ return {
                     if client:supports_method('textDocument/inlayHint') then
                         vim.lsp.inlay_hint.enable(true)
                     end
+
+                    -- 允许光标悬停高亮
+                    vim.api.nvim_create_autocmd('CursorHold',
+                        { buffer = e.buf, callback = function() vim.lsp.buf.document_highlight() end })
+                    vim.api.nvim_create_autocmd('CursorHoldI',
+                        { buffer = e.buf, callback = function() vim.lsp.buf.document_highlight() end })
+                    vim.api.nvim_create_autocmd('CursorMoved',
+                        { buffer = e.buf, callback = function() vim.lsp.buf.clear_references() end })
 
                     -- eslint 不支持格式化，但提供一个 LspEslintFixAll 来实现类似的效果
                     if client:supports_method('textDocument/formatting') or client.name == 'eslint' then
