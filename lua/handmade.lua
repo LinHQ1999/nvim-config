@@ -6,6 +6,7 @@
 
 local M = {}
 
+---cmp 专用，当前未使用
 M.cmp_helper = function(mode, shift)
     local cmp = require('cmp')
     local luasnip = require('luasnip')
@@ -165,7 +166,7 @@ M.reg_lsp_progress = function()
     })
 end
 
----处理文件重命名通知 LS
+---处理文件重命名通知 LS 重构
 M.reg_nvim_tree_rename = function()
     local prev = { new_name = "", old_name = "" } -- Prevents duplicate events
     vim.api.nvim_create_autocmd("User", {
