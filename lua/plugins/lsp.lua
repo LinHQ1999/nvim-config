@@ -88,8 +88,10 @@ return {
     {
         "neovim/nvim-lspconfig",
         cmd = { "LspInfo", "LspInstall", "LspStart" },
-        -- FIX: 这里不能懒加载，否则第一次编辑的文件高亮异常
-        event = { "BufReadPost", "BufNewFile" },
+        -- ref: https://github.com/LazyVim/LazyVim/issues/6151#issuecomment-2943642988
+        -- ref: https://github.com/LazyVim/LazyVim/pull/6053#issue-3049755158
+        -- TODO: 检查是否有更好的解决方案
+        event = { "BufReadPre", "BufNewFile", "BufWritePre" },
         dependencies = {
             "williamboman/mason.nvim" -- 必须的 dep，否则未加载时 $MASON 为空 handmade get_mason_path 会失败
         },
