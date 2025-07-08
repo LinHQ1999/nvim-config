@@ -44,7 +44,7 @@ return {
     },
     {
         'saghen/blink.cmp',
-        event = "InsertEnter",
+        event = { "InsertEnter" },
 
         -- use a release tag to download pre-built binaries
         version = '1.*',
@@ -74,6 +74,17 @@ return {
             signature = { enabled = true },
             sources = {
                 default = { 'lsp', 'buffer', 'path', 'snippets' },
+                providers = {
+                    buffer = {
+                        opts = {
+                            get_bufnrs = function()
+                                return vim.tbl_filter(function(bufnr)
+                                    return vim.bo[bufnr].buftype == ''
+                                end, vim.api.nvim_list_bufs())
+                            end
+                        }
+                    }
+                }
             },
             fuzzy = { implementation = "prefer_rust_with_warning" }
         },
