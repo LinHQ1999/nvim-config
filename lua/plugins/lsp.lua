@@ -173,7 +173,6 @@ return {
             })
 
             require("mason-lspconfig").setup({
-                auto_enable = false,
                 ensure_installed = {
                     "yamlls", "vue_ls", "lemminx", "tailwindcss", "lua_ls", "jsonls", "powershell_es", "html", "vtsls",
                     "vimls", "cssls", "eslint", "emmet_language_server", "vimls", "bashls"
