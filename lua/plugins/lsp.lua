@@ -78,12 +78,6 @@ return {
             fuzzy = { implementation = "prefer_rust_with_warning" }
         },
         opts_extend = { "sources.default" },
-        config = function(_, opts)
-            local cmp = require('blink.cmp')
-            -- 拆分 require 以确保不和 lspconfig 一起启动
-            vim.lsp.config('*', { capabilities = cmp.get_lsp_capabilities() })
-            cmp.setup(opts)
-        end
     },
     {
         "neovim/nvim-lspconfig",
