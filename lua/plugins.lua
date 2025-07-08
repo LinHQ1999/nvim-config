@@ -21,6 +21,8 @@ return {
         keys = {
             { "<leader>gg", function() Snacks.lazygit() end, desc = "启动 lazygit" },
             { "<leader>ms", function() Snacks.notifier.show_history() end, desc = "消息历史" },
+            { "g]", function() Snacks.words.jump(1, true) end, desc = "跳转下一个 Symbol" },
+            { "g[", function() Snacks.words.jump(-1, true) end, desc = "跳转上一个 Symbol" },
             -- 下面是 picker 专用快捷键
             { "<leader>lf", function() Snacks.picker.smart() end, desc = "文件（Explorer & 最近）" },
             { "<leader>lr", function() Snacks.picker.recent() end, desc = "文件（最近）" },
@@ -57,7 +59,8 @@ return {
                     }
                 }
             },
-            statuscolumn = {}
+            statuscolumn = {},
+            words = { debounce = 1000 }
         },
         config = function(_, opts)
             local hm = require('handmade')
