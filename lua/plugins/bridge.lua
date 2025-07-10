@@ -41,7 +41,7 @@ return {
             { "nvim-neotest/nvim-nio" }
         },
         keys = {
-            { "<leader>dt", function() require("dapui").toggle() end, desc = "切换 Debug 界面" },
+            { "<leader>dd", function() require("dapui").toggle() end, desc = "切换 Debug 界面" },
             { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "切换断点" },
             { "<F5>", function() require("dap").continue() end, desc = "下一断点" },
             { "<F8>", function() require("dap").step_into() end, desc = "步入" },

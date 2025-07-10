@@ -71,7 +71,7 @@ elseif exists('g:neovide')
     let &guifont = "FantasqueSansM Nerd Font Mono,霞鹜新晰黑:h" . (has('mac') ?  '18' : '14')
 
     " 窗口透明 & 输入时隐藏鼠标
-    let g:neovide_opacity = has('mac') ? 0.7 : 0.9
+    let g:neovide_opacity = has('mac') ? 0.8 : 0.9
     let g:neovide_hide_mouse_when_typing = v:true
 
     " 减少一点阴影深度
