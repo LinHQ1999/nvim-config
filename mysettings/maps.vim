@@ -7,7 +7,6 @@ inoremap <C-v> <C-o>"+p
 noremap \ :
 nnoremap / /\v
 nnoremap ? ?\v
-nnoremap <silent> <leader>n <Cmd>noh<CR>
 noremap <silent> <C-F5> <Cmd>:edit!<CR>
 " (cmd mode)
 cnoremap <A-b> <C-Left>
