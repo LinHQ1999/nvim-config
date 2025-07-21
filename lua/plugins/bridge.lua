@@ -53,7 +53,18 @@ return {
     },
     {
         "olimorris/codecompanion.nvim",
-        opts = {},
+        enable = false,
+        opts = {
+            adapters = {
+                deepseek = function()
+                    return require("codecompanion.adapters").extend("deepseek", {
+                        env = {
+                            api_key = ""
+                        }
+                    })
+                end
+            },
+        },
         event = "InsertEnter"
     },
     {
