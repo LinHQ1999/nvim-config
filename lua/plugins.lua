@@ -56,6 +56,7 @@ return {
                             ["<Up>"] = { "history_back", mode = { "n", "i" } },
                             ["<Down>"] = { "history_forward", mode = { "n", "i" } },
                             ["<C-u>"] = { "<c-s-u>", mode = { "i" }, expr = true, desc = "Delete all" },
+                            ["<C-x>"] = { "edit_split", mode = { "i", "n" } },
                         }
                     }
                 }
