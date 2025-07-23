@@ -30,10 +30,10 @@ set diffopt+=vertical,linematch:60,algorithm:histogram
 set jumpoptions+=stack
 " set winborder=rounded " 暂时插件支持不好
 
-if has('win32') || has('win64')
+if has('win32') || has('win64') || &shell =~ 'pwsh'
     let &shell = executable('pwsh') ? 'pwsh' : 'powershell'
     let &shellcmdflag = '-NoProfile -NoProfileLoadTime -NoLogo -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();$PSDefaultParameterValues[''Out-File:Encoding'']=''utf8'';Remove-Alias -Force -ErrorAction SilentlyContinue tee;'
-    let &shellredir = '2>&1 | %%{ "$_" } | Out-File %s; exit $LastExitCode'
-    let &shellpipe  = '2>&1 | %%{ "$_" } | tee %s; exit $LastExitCode'
+    let &shellredir = '2>&1 | foreach { "$_" } | Out-File %s; exit $LastExitCode'
+    let &shellpipe  = '2>&1 | foreach { "$_" } | tee %s; exit $LastExitCode'
     set shellquote= shellxquote=
 endif
