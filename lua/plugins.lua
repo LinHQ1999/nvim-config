@@ -37,6 +37,7 @@ return {
             { "<leader>lh", function() Snacks.picker.highlights() end, desc = "Highlights 搜索" },
             { "<leader>lc", function() Snacks.picker.projects() end, desc = "CD 路径搜索" },
             { "<leader>la", function() Snacks.picker.autocmds() end, desc = "Autocmds 搜索" },
+            { "<leader>lm", function() Snacks.picker.keymaps() end, desc = "搜索快捷键" },
         },
         opts = {
             bigfile = { enabled = true },
