@@ -1,0 +1,35 @@
+snippet enr "New espanso replace"
+  - trigger: $1
+    replace: $0
+
+snippet enr "New espanso form"
+  - trigger: $1
+    form: |
+      $0
+
+snippet evclip "Espanso clipboard extension"
+  vars:
+    - name: $0
+      type: clipboard
+
+snippet evdate "Espanso date extension"
+  vars:
+    - name: $1
+      type: date
+      params:
+        format: "${0: %H:%M}"
+
+snippet evchoice "Espanso date extension"
+  vars:
+    - name: $1
+      type: choice
+      params:
+        values:
+          - "$0"
+
+snippet evg "Espanso global vars"
+  global_vars:
+    - name: $1
+      type: echo
+      params:
+        echo: "$0"
