@@ -2,7 +2,8 @@
 inoremap fj <Esc> 
 
 " 方便粘贴
-inoremap <C-v> <C-o>"+p
+inoremap <C-v> <C-r><C-p>+
+inoremap <D-v> <C-r><C-p>+
 
 noremap \ :
 nnoremap / /\v
