@@ -121,15 +121,15 @@ return {
                     end
 
                     -- eslint 不支持格式化，但提供一个 LspEslintFixAll 来实现类似的效果
-                    if client:supports_method('textDocument/formatting') or client.name == 'eslint' then
+                    if client:supports_method('textDocument/formatting') then
                         vim.api.nvim_create_autocmd('BufWritePre', {
                             buffer = e.buf,
                             group = lsp_group_rpt,
                             callback = function()
                                 -- 这里允许多次注册，小心不要重复
                                 -- 同样，也不要调用异步的格式化方法
-                                if client.name == 'eslint' then
-                                    vim.cmd([[LspEslintFixAll]])
+                                if client.name == 'eslint' and vim.fn.exists('LspEslintFixAll') > 0 then
+                                    vim.cmd("LspEslintFixAll")
                                 else
                                     vim.lsp.buf.format({
                                         bufnr = e.buf,
