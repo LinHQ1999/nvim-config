@@ -95,7 +95,7 @@ return {
         cmd = { "LspInfo", "LspInstall", "LspStart" },
         -- ref: https://github.com/LazyVim/LazyVim/issues/6151#issuecomment-2943642988
         -- ref: https://github.com/LazyVim/LazyVim/pull/6053#issue-3049755158
-        -- TODO: 检查是否有更好的解决方案
+        -- PERF: 检查是否有更好的解决方案
         event = { "BufReadPre", "BufNewFile", "BufWritePre" },
         dependencies = {
             "williamboman/mason.nvim" -- 必须的 dep，否则未加载时 $MASON 为空 handmade get_mason_path 会失败
@@ -143,6 +143,7 @@ return {
                 end
             })
 
+            -- PERF: https://github.com/mason-org/mason-lspconfig.nvim/pull/595
             require("mason-lspconfig").setup({
                 ensure_installed = {
                     "yamlls", "vue_ls", "lemminx", "tailwindcss", "lua_ls", "jsonls", "powershell_es", "html", "vtsls",
