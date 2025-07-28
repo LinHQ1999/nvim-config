@@ -79,7 +79,7 @@ return {
                         opts = {
                             get_bufnrs = function()
                                 return vim.tbl_filter(function(bufnr)
-                                    return vim.bo[bufnr].buftype == ''
+                                    return vim.bo[bufnr].buftype == '' or vim.bo[bufnr].buftype == 'help'
                                 end, vim.api.nvim_list_bufs())
                             end
                         }
