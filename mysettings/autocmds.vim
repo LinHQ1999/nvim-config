@@ -26,20 +26,24 @@ if exists('g:neovide')
         autocmd! 
         autocmd InsertEnter * execute "let g:neovide_input_ime=v:true"
         autocmd InsertLeave * execute "let g:neovide_input_ime=v:false"
+        " 为 lazygit 启用输入法适配
+        autocmd TermOpen * execute "let g:neovide_input_ime=v:true"
+        autocmd TermClose * execute "let g:neovide_input_ime=v:true"
         autocmd CmdlineEnter [:/\?=] execute "let g:neovide_input_ime=v:true"
         autocmd CmdlineLeave [:/\?=] execute "let g:neovide_input_ime=v:false"
     augroup END
 endif
 
 " 添加一些文件类型别名
-" 注意，这里和 treesitter 的类型别名不一样，但效果应该差不多:
+" NOTE: 这里和 treesitter 的类型别名不一样，但效果应该差不多:
 " https://github.com/nvim-treesitter/nvim-treesitter/blob/master/README.md#using-an-existing-parser-for-another-filetype
 lua << EOF
 local alias = {
     wxml = "vue",
     wxss = "css",
     less = "scss",
-    arb = "json"
+    arb = "json",
+    ah2 = "autohotkey"
 }
 
 vim.filetype.add ({

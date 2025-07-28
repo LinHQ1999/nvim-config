@@ -79,7 +79,7 @@ return {
                         opts = {
                             get_bufnrs = function()
                                 return vim.tbl_filter(function(bufnr)
-                                    return vim.bo[bufnr].buftype == ''
+                                    return vim.bo[bufnr].buftype == '' or vim.bo[bufnr].buftype == 'help'
                                 end, vim.api.nvim_list_bufs())
                             end
                         }
@@ -105,7 +105,6 @@ return {
             require('handmade').config_lsp()
 
             local lsp_group = vim.api.nvim_create_augroup("LSP", {})
-            local lsp_group_rpt = vim.api.nvim_create_augroup("LSP.NOCLEAR", { clear = false })
 
             vim.api.nvim_create_autocmd("LspAttach", {
                 group = lsp_group,
@@ -120,27 +119,6 @@ return {
                         vim.lsp.inlay_hint.enable(true)
                     end
 
-                    -- eslint 不支持格式化，但提供一个 LspEslintFixAll 来实现类似的效果
-                    if client:supports_method('textDocument/formatting') then
-                        vim.api.nvim_create_autocmd('BufWritePre', {
-                            buffer = e.buf,
-                            group = lsp_group_rpt,
-                            callback = function()
-                                -- 这里允许多次注册，小心不要重复
-                                -- 同样，也不要调用异步的格式化方法
-                                if client.name == 'eslint' and vim.fn.exists('LspEslintFixAll') > 0 then
-                                    vim.cmd("LspEslintFixAll")
-                                else
-                                    vim.lsp.buf.format({
-                                        bufnr = e.buf,
-                                        id = client.id,
-                                        timeout_ms = 900
-                                    })
-                                end
-                            end
-                        })
-                    end
-
                     local map = vim.keymap.set
                     map("n", "<up>", function() vim.diagnostic.jump({ float = true, count = -1 }) end, opts)
                     map("n", "<down>", function() vim.diagnostic.jump({ float = true, count = 1 }) end, opts)
@@ -152,7 +130,6 @@ return {
                     map('n', 'gs', function() vim.lsp.buf.signature_help({ border = 'rounded' }) end, opts)
                     map('n', '<F2>', vim.lsp.buf.rename, opts)
                     map("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-                    map("n", "<leader>cf", vim.lsp.buf.format, opts)
 
                     -- 调用 vtsls 专用方法
                     if client.name == 'vtsls' then

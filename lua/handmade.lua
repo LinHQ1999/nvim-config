@@ -6,55 +6,6 @@
 
 local M = {}
 
----cmp 专用，当前未使用
-M.cmp_helper = function(mode, shift)
-    local cmp = require('cmp')
-    local luasnip = require('luasnip')
-
-    -- helper 备用
-    local has_words_before = function()
-        unpack = unpack or table.unpack
-        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-    end
-
-    if mode == 'CR' then
-        return cmp.mapping(function(fallback)
-            if cmp.visible() then
-                if luasnip.expandable() then
-                    luasnip.expand()
-                else
-                    cmp.confirm({
-                        select = true,
-                        -- 如果补全时光标在单词中间，直接替换光标后整个单词而不是追加补全
-                        behavior = cmp.ConfirmBehavior.Replace
-                    })
-                end
-            else
-                fallback()
-            end
-        end)
-    elseif mode == 'TAB' then
-        return cmp.mapping(function(fallback)
-            local operator, jumpmode
-            if (shift) then
-                operator, jumpmode = 'select_prev_item', -1
-            else
-                operator, jumpmode = 'select_next_item', 1
-            end
-            -- 让 snip 跳转优先级高于补全，此时仍可用 <C-n> 进行补全选择
-            if luasnip.locally_jumpable(jumpmode) then
-                vim.print(operator, jumpmode)
-                luasnip.jump(jumpmode)
-            elseif cmp.visible() then
-                cmp[operator]()
-            else
-                fallback()
-            end
-        end, { "i", "s" })
-    end
-end
-
 ---获取 package 路径
 M.get_mason_path = function(package)
     return vim.fs.joinpath(vim.env.MASON, 'packages', package)
