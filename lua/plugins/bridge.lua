@@ -2,35 +2,30 @@
 return {
     {
         "stevearc/conform.nvim",
-        cond = false,
         event = { "BufWritePre" },
         cmd = { "ConformInfo" },
         keys = {
-            {
-                -- Customize or remove this keymap to your liking
-                "<leader>cf",
-                function()
-                    require("conform").format({ async = true, lsp_fallback = true })
-                end,
-                mode = "",
-                desc = "Format buffer",
-            },
+            { "<leader>cf", function() require("conform").format() end, desc = "Conform 格式化", },
         },
         opts = {
             formatters_by_ft = {
-                lua = { "stylua" },
-                python = { "isort", "black" },
-                javascript = { "eslint_d", "eslint" },
-                typescript = { "prettierd", "eslint" },
-                vue = { "eslint_d", "eslint" },
-                html = { "prettierd", "prettier", "eslint" },
+                -- NOTE: 这里实际上可以用 conform.format 中的 { id, name, filter, formatting_options } 参数
+                -- 见 https://github.com/stevearc/conform.nvim/issues/565#issuecomment-2453052532
+                -- 这里没定义的那就是用 lsp 了
+                python = { "black" },
+                yaml = { "yamlfmt" },
+                go = { "goimports" },
             },
-            -- Set up format-on-save
-            format_on_save = { timeout_ms = 2500, lsp_fallback = true },
-            -- format_after_save = { lsp_fallback = true },
+            default_format_opts = {
+                timeout_ms = 3500,
+                lsp_format = "first",    -- 最先用 lsp 格式化一次
+                stop_after_first = false -- lsp 激活的有 vtsls + eslint，则两个都用
+            },
+            -- 和 conform.format(opts) 一致
+            format_on_save = {},
         },
         init = function()
-            -- 让 = 也可以格式化
+            -- 让 =、gq 也可以格式化
             vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
         end,
     },
