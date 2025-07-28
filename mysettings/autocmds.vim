@@ -26,6 +26,9 @@ if exists('g:neovide')
         autocmd! 
         autocmd InsertEnter * execute "let g:neovide_input_ime=v:true"
         autocmd InsertLeave * execute "let g:neovide_input_ime=v:false"
+        " 为 lazygit 启用输入法适配
+        autocmd TermOpen * execute "let g:neovide_input_ime=v:true"
+        autocmd TermClose * execute "let g:neovide_input_ime=v:true"
         autocmd CmdlineEnter [:/\?=] execute "let g:neovide_input_ime=v:true"
         autocmd CmdlineLeave [:/\?=] execute "let g:neovide_input_ime=v:false"
     augroup END
