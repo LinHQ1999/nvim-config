@@ -1,6 +1,6 @@
 " `:options` for all available options.
 filetype plugin indent on
-" https://github.com/nvim-treesitter/nvim-treesitter/issues/5896#issuecomment-1910818227
+" NOTE: https://github.com/nvim-treesitter/nvim-treesitter/issues/5896#issuecomment-1910818227
 " syntax enable
 set title
 set grepprg=rg\ --vimgrep
