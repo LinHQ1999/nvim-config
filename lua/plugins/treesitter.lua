@@ -5,8 +5,7 @@ return {
         event = { "BufReadPost", "BufNewFile", "VeryLazy" },
         cmd = { 'TSInstallInfo', 'TSInstall' },
         init = function(plugin)
-            -- 抄一抄，某种 workaround
-            -- https://github.com/LazyVim/LazyVim/blob/ec5981dfb1222c3bf246d9bcaa713d5cfa486fbd/lua/lazyvim/plugins/treesitter.lua#L21-L29
+            -- NOTE: https://github.com/LazyVim/LazyVim/blob/ec5981dfb1222c3bf246d9bcaa713d5cfa486fbd/lua/lazyvim/plugins/treesitter.lua#L21-L29
             require("lazy.core.loader").add_to_rtp(plugin)
             require("nvim-treesitter.query_predicates")
         end,
