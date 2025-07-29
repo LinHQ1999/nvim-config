@@ -17,7 +17,14 @@ return {
             vim.o.foldlevelstart = 99
             vim.o.foldenable = true
         end,
-        opts = {},
+        opts = {
+            provider_selector = function(_, ft)
+                -- NOTE: git 类型直接启用 syntax 折叠好看文件名，关闭 ufo 不然是 indent 模式
+                if ft == 'git' then
+                    return ''
+                end
+            end
+        },
         dependencies = {
             { "kevinhwang91/promise-async" },
         },
