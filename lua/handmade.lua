@@ -107,9 +107,10 @@ M.reg_lsp_progress = function()
                 id = "lsp_progress",
                 title = client.name,
                 opts = function(notif)
+                    -- WARN: luv 定义 -> 未来需要手动在 .luarc.json 中指定 workspace.userThirdParty
                     notif.icon = #progress[client.id] == 0
                         and " "
-                        or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1] -- WARN: LSP 问题，有头绪了修
+                        or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
                 end,
             })
         end,
