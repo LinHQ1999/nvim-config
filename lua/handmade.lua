@@ -109,8 +109,7 @@ M.reg_lsp_progress = function()
                 opts = function(notif)
                     notif.icon = #progress[client.id] == 0
                         and " "
-                        or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
-                    -- FIX: LSP 问题，有头绪了修
+                        or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1] -- WARN: LSP 问题，有头绪了修
                 end,
             })
         end,
