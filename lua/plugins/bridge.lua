@@ -2,7 +2,7 @@
 return {
     {
         "stevearc/conform.nvim",
-        event = { "BufWritePre" },
+        event = { "VeryLazy" },
         cmd = { "ConformInfo" },
         keys = {
             { "<leader>cf", function() require("conform").format() end, desc = "Conform 格式化", },
@@ -15,6 +15,8 @@ return {
                 python = { "black" },
                 yaml = { "yamlfmt" },
                 go = { "goimports" },
+                bash = { "shfmt" },
+                sh = { "shfmt" },
             },
             default_format_opts = {
                 timeout_ms = 3500,
