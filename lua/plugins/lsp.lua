@@ -127,11 +127,6 @@ return {
                     end
 
                     local map = vim.keymap.set
-                    -- NOTE: 防止与 after/ftplugin/git.lua 冲突
-                    if vim.bo.filetype ~= "git" then
-                        map("n", "<up>", function() vim.diagnostic.jump({ float = true, count = -1 }) end, opts)
-                        map("n", "<down>", function() vim.diagnostic.jump({ float = true, count = 1 }) end, opts)
-                    end
                     map('n', 'gd', function() Snacks.picker.lsp_definitions() end, opts)
                     map('n', 'gr', function() Snacks.picker.lsp_references() end, opts)
                     map('n', 'gD', function() Snacks.picker.lsp_declarations() end, opts)
