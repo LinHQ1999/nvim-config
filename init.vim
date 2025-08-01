@@ -4,8 +4,6 @@
 "mysettings/ui.vim
 "mysettings/maps.vim
 "mysettings/autocmds.vim
-"mysettings/firenvim.vim
-"mysettings/ngconsole.vim
 " ----------------gf 快速跳转通道----------------
 
 lua << EOF
