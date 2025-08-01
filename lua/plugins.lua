@@ -99,6 +99,13 @@ return {
     {
         "lewis6991/gitsigns.nvim",
         event = "VeryLazy",
+        keys = {
+            { "]g",         "<Cmd>Gitsigns nav_hunk next<CR>" },
+            { "[g",         "<Cmd>Gitsigns nav_hunk prev<CR>" },
+            { "<leader>gr", "<Cmd>Gitsigns reset_hunk<CR>" },
+            { "<leader>ga", "<Cmd>Gitsigns stage_hunk<CR>" },
+            { "<leader>gr", ":'<,'>Gitsigns reset_hunk<CR>",  mode = "x" },
+        },
         opts = {
             current_line_blame = true,
             signcolumn = true,

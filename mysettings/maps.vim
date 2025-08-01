@@ -51,11 +51,6 @@ nnoremap <silent> <Leader>fh <Cmd>tcd %:h<cr>
 " lazygit 快捷键不在此处配置
 xnoremap <silent> <Leader>gll :\<C-u>exec "Git log -L ".line("'<").",".line("'>").":% --no-merges --pretty=short"<cr>
 nnoremap <silent> <Leader>gls <Cmd>exec expandcmd("Git log -p --no-merges -S<cword> --no-merges --pretty=short")<cr>
-" (gitsigns)
-nnoremap <silent> ]g <Cmd>Gitsigns next_hunk<cr>
-nnoremap <silent> [g <Cmd>Gitsigns prev_hunk<cr>
-nnoremap <silent> <Leader>gr <Cmd>Gitsigns reset_hunk<cr>
-xnoremap <silent> <Leader>gr :'<,'>Gitsigns reset_hunk<cr>
 " (pluging manager)
 nnoremap <silent> <Leader>pi <Cmd>Lazy install<cr>
 nnoremap <silent> <Leader>pu <Cmd>Lazy update<cr>
