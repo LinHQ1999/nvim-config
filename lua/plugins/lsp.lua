@@ -109,44 +109,7 @@ return {
         },
         config = function()
             -- 这些东西得写在配置 lsp 服务器前面，即下面的 mason-lspconfig
-            require('handmade').config_lsp()
-
-            local lsp_group = vim.api.nvim_create_augroup("LSP", {})
-
-            vim.api.nvim_create_autocmd("LspAttach", {
-                group = lsp_group,
-                callback = function(e)
-                    -- :h lsp-config
-                    local client, opts = vim.lsp.get_client_by_id(e.data.client_id), { silent = true, buffer = e.buf }
-                    if not client then return end
-                    -- :h lsp-inlay_hint
-                    -- :h lsp-method
-                    -- :h lsp-client
-                    if client:supports_method('textDocument/inlayHint') then
-                        vim.lsp.inlay_hint.enable(true)
-                    end
-
-                    local map = vim.keymap.set
-                    map('n', 'gd', function() Snacks.picker.lsp_definitions() end, opts)
-                    map('n', 'gr', function() Snacks.picker.lsp_references() end, opts)
-                    map('n', 'gD', function() Snacks.picker.lsp_declarations() end, opts)
-                    map('n', 'gi', function() Snacks.picker.lsp_implementations() end, opts)
-                    map("n", "gh", function() vim.lsp.buf.hover({ border = 'rounded' }) end, opts)
-                    map('n', 'gs', function() vim.lsp.buf.signature_help({ border = 'rounded' }) end, opts)
-                    map('n', '<F2>', vim.lsp.buf.rename, opts)
-                    map("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-
-                    -- 调用 vtsls 专用方法
-                    if client.name == 'vtsls' then
-                        map("n", "<leader>ci", [[<Cmd>VtsExec organize_imports<cr>]], opts)
-                        map("n", "<leader>cm", [[<Cmd>VtsExec add_missing_imports<cr>]], opts)
-                    elseif client.name == 'gopls' then
-                        map("n", "<leader>gta", [[<Cmd>GoTagAdd json<cr>]], opts)
-                        map("n", "<leader>gtr", [[<Cmd>GoTagRm json<cr>]], opts)
-                        map("n", "<leader>gtc", [[<Cmd>GoTagClear<cr>]], opts)
-                    end
-                end
-            })
+            require('handmade'):config_lsp(true)
 
             -- PERF: https://github.com/mason-org/mason-lspconfig.nvim/pull/595
             require("mason-lspconfig").setup({

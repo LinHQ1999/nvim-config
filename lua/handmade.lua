@@ -6,13 +6,52 @@
 
 local M = {}
 
----获取 package 路径
-M.get_mason_path = function(package)
+-- 获取 package 路径
+function M.get_mason_path(package)
     return vim.fs.joinpath(vim.env.MASON, 'packages', package)
 end
 
----配置额外的 LS 功能
-M.config_lsp = function()
+-- 配置 lsp 相关的快捷键
+function M.config_lsp_mapping()
+    local lsp_group = vim.api.nvim_create_augroup("LSP", {})
+    vim.api.nvim_create_autocmd("LspAttach", {
+        group = lsp_group,
+        callback = function(e)
+            -- :h lsp-config
+            local client, opts = vim.lsp.get_client_by_id(e.data.client_id), { silent = true, buffer = e.buf }
+            if not client then return end
+            -- :h lsp-inlay_hint
+            -- :h lsp-method
+            -- :h lsp-client
+            if client:supports_method('textDocument/inlayHint') then
+                vim.lsp.inlay_hint.enable(true)
+            end
+
+            local map = vim.keymap.set
+            map('n', 'gd', function() Snacks.picker.lsp_definitions() end, opts)
+            map('n', 'gr', function() Snacks.picker.lsp_references() end, opts)
+            map('n', 'gD', function() Snacks.picker.lsp_declarations() end, opts)
+            map('n', 'gi', function() Snacks.picker.lsp_implementations() end, opts)
+            map("n", "gh", function() vim.lsp.buf.hover({ border = 'rounded' }) end, opts)
+            map('n', 'gs', function() vim.lsp.buf.signature_help({ border = 'rounded' }) end, opts)
+            map('n', '<F2>', vim.lsp.buf.rename, opts)
+            map("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+
+            -- 调用 vtsls 专用方法
+            if client.name == 'vtsls' then
+                map("n", "<leader>ci", [[<Cmd>VtsExec organize_imports<cr>]], opts)
+                map("n", "<leader>cm", [[<Cmd>VtsExec add_missing_imports<cr>]], opts)
+            elseif client.name == 'gopls' then
+                map("n", "<leader>gta", [[<Cmd>GoTagAdd json<cr>]], opts)
+                map("n", "<leader>gtr", [[<Cmd>GoTagRm json<cr>]], opts)
+                map("n", "<leader>gtc", [[<Cmd>GoTagClear<cr>]], opts)
+            end
+        end
+    })
+end
+
+-- 配置额外的 LS 功能
+function M:config_lsp(with_mapping)
     -- :h nvim_open_win
     vim.diagnostic.config({
         severity_sort = true,
@@ -31,20 +70,10 @@ M.config_lsp = function()
         virtual_lines = true
     })
 
-    -- :h lsp-config
-    vim.lsp.config('*', {
-        capabilities = {
-            textDocument = {
-                semanticTokens = {
-                    multilineTokenSupport = true,
-                },
-                foldingRange = {
-                    dynamicRegistration = false,
-                    lineFoldingOnly = true,
-                },
-            }
-        }
-    })
+    local cfgs = require('lsp_overrides')
+    for k, v in pairs(cfgs) do
+        vim.lsp.config(k, v)
+    end
 
     if vim.env.AHKLS then
         local lsp, interpreter = unpack(vim.split(vim.env.AHKLS, ";"))
@@ -65,10 +94,14 @@ M.config_lsp = function()
         })
         vim.lsp.enable('ahkv2')
     end
+
+    if with_mapping then
+        self.config_lsp_mapping()
+    end
 end
 
----平替 fidget.nvim 显示 lsp 进度信息
-M.reg_lsp_progress = function()
+-- 平替 fidget.nvim 显示 lsp 进度信息
+function M.reg_lsp_progress()
     ---@type table<number, {token:lsp.ProgressToken, msg:string, done:boolean}[]>
     local progress = vim.defaulttable()
     vim.api.nvim_create_autocmd("LspProgress", {
@@ -117,8 +150,8 @@ M.reg_lsp_progress = function()
     })
 end
 
----处理文件重命名通知 LS 重构
-M.reg_nvim_tree_rename = function()
+-- 处理文件重命名通知 LS 重构
+function M.reg_nvim_tree_rename()
     local prev = { new_name = "", old_name = "" } -- Prevents duplicate events
     vim.api.nvim_create_autocmd("User", {
         pattern = "NvimTreeSetup",
