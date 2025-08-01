@@ -84,6 +84,10 @@ M.vtsls = {
     },
 }
 
+M.bashls = {
+    filetypes = { "bash", "sh", "zsh" },
+}
+
 M.powershell_es = {
     bundle_path = require('handmade').get_mason_path("powershell-editor-services"),
 }
