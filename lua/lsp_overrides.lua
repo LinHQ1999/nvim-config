@@ -1,5 +1,5 @@
--- NOTE: 之所以要放这里而不是 lsp/，是因为 rtp 中 nvim-lspconfig/lsp 在 .config/lsp 之后加载，会覆盖
--- tbl_deep_extend 行为作为数组用的 table 会被覆盖：E.g. { "a",  "b" } 会被 { "a" } 覆盖为 { "a" }
+-- NOTE: 如果想放 lsp/ 下，需要放到 after/lsp/ 中，否则 rtp 在前会被 nvim-lspconfig/lsp 覆盖掉
+-- https://www.reddit.com/r/neovim/comments/1jxv6c0/comment/mmuxvfn/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
 -- 见 :h lsp-config
 
 local M = {}

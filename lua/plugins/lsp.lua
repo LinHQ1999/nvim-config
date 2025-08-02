@@ -51,11 +51,10 @@ return {
     },
     {
         'saghen/blink.cmp',
-        event = { "InsertEnter" },
 
         -- use a release tag to download pre-built binaries
         version = '1.*',
-
+        lazy = true,
         opts = {
             keymap = { preset = 'enter' },
             appearance = {
@@ -105,6 +104,7 @@ return {
         -- PERF: 检查是否有更好的解决方案
         event = { "BufReadPre", "BufNewFile", "BufWritePre" },
         dependencies = {
+            "saghen/blink.cmp",       -- 确保 vim.lsp.config 在 enable 前
             "williamboman/mason.nvim" -- 必须的 dep，否则未加载时 $MASON 为空 handmade get_mason_path 会失败
         },
         config = function()
