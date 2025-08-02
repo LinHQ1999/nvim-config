@@ -29,6 +29,7 @@ set wildoptions+=fuzzy
 set diffopt+=vertical,linematch:60,algorithm:histogram
 set jumpoptions+=stack
 " set winborder=rounded " 暂时插件支持不好
+set undofile
 
 if has('win32') || has('win64') || &shell =~ 'pwsh'
     let &shell = executable('pwsh') ? 'pwsh' : 'powershell'
