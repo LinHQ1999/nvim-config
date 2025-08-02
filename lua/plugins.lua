@@ -92,7 +92,7 @@ return {
             { "<Leader>gs",  "<Cmd>G<cr>" },
             { "<Leader>gps", "<Cmd>Git push<cr>" },
             { "<Leader>gpl", "<Cmd>Git pull<cr>" },
-            { "<Leader>glf", "<Cmd>Gclog %<cr>" },
+            { "<Leader>glf", "<Cmd>Gclog --follow %<cr>" },
         },
         cmd = { "G", "Git", "GcLog", "Gdiffs" }
     },
