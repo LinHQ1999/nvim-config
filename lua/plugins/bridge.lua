@@ -17,6 +17,8 @@ return {
                 go = { "goimports" },
                 bash = { "shfmt" },
                 sh = { "shfmt" },
+                typescriptreact = { "eslint_d" }, -- WARN: Windows 上 eslint-lsp 无法格式化，用 eslint_d
+                typescript = { "eslint_d" }
             },
             default_format_opts = {
                 timeout_ms = 3500,

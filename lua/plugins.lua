@@ -56,7 +56,6 @@ return {
                             ["<Up>"] = { "history_back", mode = { "n", "i" } },
                             ["<Down>"] = { "history_forward", mode = { "n", "i" } },
                             ["<C-u>"] = { "<c-s-u>", mode = { "i" }, expr = true, desc = "Delete all" },
-                            ["<C-x>"] = { "edit_split", mode = { "i", "n" } },
                         }
                     }
                 }
@@ -75,9 +74,14 @@ return {
     {
         "catppuccin/nvim",
         name = "catppuccin",
-        priority = 999,
-        lazy = false,
-        config = function()
+        priority = 1000,
+        opts = {
+            styles = {
+                properties = { "italic" }
+            }
+        },
+        config = function(_, opts)
+            require("catppuccin").setup(opts)
             vim.cmd("colorscheme catppuccin-latte")
         end
     },
@@ -142,6 +146,20 @@ return {
                 enable = true,
                 show_on_dirs = true,
             },
+            on_attach = function(bufnr)
+                local api = require("nvim-tree.api")
+
+                local function opts(desc)
+                    return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+                end
+
+                -- default mappings
+                api.config.mappings.default_on_attach(bufnr)
+
+                -- custom mappings
+                vim.keymap.set("n", "<C-s>", api.node.open.horizontal, opts("兼容 Snacks split"))
+                vim.keymap.set("n", "?", api.tree.toggle_help, opts("Help"))
+            end
         },
     },
     {
