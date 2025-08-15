@@ -1,6 +1,12 @@
-snippet atme "ATME style commit"
-  feat: [${1:`getreg('+')`}] 
+snippet atmefeat "ATME style commit"
+  feat: [${2:`matchstr(fugitive#Head(), '/.\+$')[1:]`}] 
 
-  [QA: ${0: Verify|None}]
-  follow: https://ccnu-lab.atlassian.net/browse/${1}
+  [QA: ${1:None}]
+  follow: https://ccnu-lab.atlassian.net/browse/${2}$0
+
+snippet atmefix "ATME style commit"
+  fix: [${2:`matchstr(fugitive#Head(), '/.\+$')[1:]`}] 
+
+  [QA: ${1:Verify}]
+  follow: https://ccnu-lab.atlassian.net/browse/${2}$0
 
