@@ -39,7 +39,7 @@ function M.config_lsp_mapping()
 
             -- 调用 vtsls 专用方法
             if client.name == 'vtsls' then
-                map("n", "<leader>ci", [[<Cmd>VtsExec organize_imports<cr>]], opts)
+                map("n", "<leader>ci", [[<Cmd>VtsExec remove_unused<cr>]], opts)
                 map("n", "<leader>cm", [[<Cmd>VtsExec add_missing_imports<cr>]], opts)
             elseif client.name == 'gopls' then
                 map("n", "<leader>gta", [[<Cmd>GoTagAdd json<cr>]], opts)
