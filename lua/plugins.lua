@@ -41,6 +41,7 @@ return {
         },
         opts = {
             bigfile = { enabled = true },
+            quickfile = { enabled = true },
             indent = { enabled = true },
             notifier = {
                 timeout = 1500,

@@ -23,6 +23,25 @@ return {
                 disable = {
                     "javascript"
                 }
+            },
+            textobjects = {
+                select = {
+                    enable = true,
+                    lookahead = true,
+                    keymaps = {
+                        ["af"] = "@function.outer",
+                        ["if"] = "@function.inner",
+                        ["ao"] = "@block.outer",
+                        ["io"] = "@block.inner",
+                        ["av"] = "@assignment.outer",
+                        ["iv"] = "@assignment.inner",
+                    },
+                    selection_modes = {
+                        ['@function.outer'] = 'V',
+                        ['@block.outer'] = 'V',
+                    },
+                    include_surrounding_whitespace = true,
+                },
             }
         },
         config = function(_, opts)
@@ -34,7 +53,8 @@ return {
             require("nvim-treesitter.configs").setup(opts)
         end,
         dependencies = {
-            { 'nvim-treesitter/nvim-treesitter-context', opts = {} },
+            { 'nvim-treesitter/nvim-treesitter-context',    opts = {} },
+            { 'nvim-treesitter/nvim-treesitter-textobjects' }
         }
     },
     {
@@ -51,5 +71,5 @@ return {
             enable_tailwind = false,
             virtual_symbol = '❆ ',
         }
-    }
+    },
 }
