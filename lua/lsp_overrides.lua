@@ -38,6 +38,7 @@ M.gopls = {
 M.vtsls = {
     filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
     settings = {
+        -- https://github.com/yioneko/vtsls/blob/main/packages/service/configuration.schema.json
         typescript = {
             inlayHints = {
                 parameterNames = { enabled = "literals" },
@@ -46,6 +47,9 @@ M.vtsls = {
                 propertyDeclarationTypes = { enabled = true },
                 -- functionLikeReturnTypes = { enabled = true },
                 enumMemberValues = { enabled = true },
+            },
+            format = {
+                semicolons = "insert"
             }
         },
         javascript = {
