@@ -37,6 +37,9 @@ elseif exists('g:neovide')
         let g:neovide_input_macos_option_key_is_meta = 'both'
         let g:neovide_window_blurred = v:true
     endif
+elseif exists('g:gui_vimr')
+    let &guifont =  "FantasqueSansM_Nerd_Font_Regular:h18"
+    " vimr 既不支持回退列表也不支持 guifontwide
 else
     " 借助 gfw 实现 cjk 字符显示，gvim，nvim-qt 通用，
     " 但 nvim-qt 不支持回退列表，分别只能指定一个
