@@ -20,19 +20,19 @@ augroup numbertoggle
   autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | setl nornu | endif
 augroup END
 
-" neovide 可以自动进行输入法切换，但搜索时也无法输入中文，先禁用
-if exists('g:neovide') 
-    augroup ime_input
-        autocmd! 
-        autocmd InsertEnter * execute "let g:neovide_input_ime=v:true"
-        autocmd InsertLeave * execute "let g:neovide_input_ime=v:false"
-        " 为 lazygit 启用输入法适配
-        autocmd TermOpen * execute "let g:neovide_input_ime=v:true"
-        autocmd TermClose * execute "let g:neovide_input_ime=v:true"
-        autocmd CmdlineEnter [:/\?=] execute "let g:neovide_input_ime=v:true"
-        autocmd CmdlineLeave [:/\?=] execute "let g:neovide_input_ime=v:false"
-    augroup END
-endif
+" neovide 可以自动进行输入法切换，但在 mac 上 bug 有点多，先禁用
+" if exists('g:neovide') 
+"     augroup ime_input
+"         autocmd! 
+"         autocmd InsertEnter * execute "let g:neovide_input_ime=v:true"
+"         autocmd InsertLeave * execute "let g:neovide_input_ime=v:false"
+"         " 为 lazygit 启用输入法适配
+"         autocmd TermOpen * execute "let g:neovide_input_ime=v:true"
+"         autocmd TermClose * execute "let g:neovide_input_ime=v:true"
+"         autocmd CmdlineEnter [:/\?=] execute "let g:neovide_input_ime=v:true"
+"         autocmd CmdlineLeave [:/\?=] execute "let g:neovide_input_ime=v:false"
+"     augroup END
+" endif
 
 " 添加一些文件类型别名
 " NOTE: 这里和 treesitter 的类型别名不一样，但效果应该差不多:
