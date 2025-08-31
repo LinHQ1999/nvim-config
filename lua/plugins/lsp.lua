@@ -111,7 +111,6 @@ return {
             -- 这些东西得写在配置 lsp 服务器前面，即下面的 mason-lspconfig
             require('handmade'):config_lsp(true)
 
-            -- PERF: https://github.com/mason-org/mason-lspconfig.nvim/pull/595
             require("mason-lspconfig").setup({
                 ensure_installed = {
                     "yamlls", "vue_ls", "lemminx", "tailwindcss", "lua_ls", "jsonls", "powershell_es", "html", "vtsls",
