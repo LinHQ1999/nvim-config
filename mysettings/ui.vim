@@ -9,7 +9,7 @@ if exists('g:goneovim')
     let &guifont = "FantasqueSansMono NFM:h14,FantasqueSansM_Nerd_Font:h12"
 elseif exists('g:neovide')
     " neovide 的字体回退都在 guifont，gfw 不支持
-    let &guifont = "GoMono Nerd Font Mono,霞鹜文楷等宽:h" . (has('mac') ?  '18' : '14')
+    let &guifont = "IosevkaTermSlab Nerd Font Mono,霞鹜文楷等宽:h" . (has('mac') ?  '20' : '16')
 
     " 窗口透明 & 输入时隐藏鼠标
     let g:neovide_opacity = has('mac') ? 0.8 : 0.9
