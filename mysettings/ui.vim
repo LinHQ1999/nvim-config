@@ -6,10 +6,10 @@ set termguicolors pumblend=10 winblend=0
 " 由于一部分字体设置在 ginit 中死都不生效，所以挪到这里来
 if exists('g:goneovim')
     " goneovim 它现在不支持任何字体回退，gfw 会导致字体图标失效
-    let &guifont = "FantasqueSansMono NFM:h14,FantasqueSansM_Nerd_Font:h12"
+    let &guifont = $NVIM_GUI_FONT
 elseif exists('g:neovide')
     " neovide 的字体回退都在 guifont，gfw 不支持
-    let &guifont = "IosevkaTermSlab Nerd Font Mono,霞鹜文楷等宽:h" . (has('mac') ?  '20' : '16')
+    let &guifont = $NVIM_GUI_FONT
 
     " 窗口透明 & 输入时隐藏鼠标
     let g:neovide_opacity = has('mac') ? 0.8 : 0.9
@@ -43,7 +43,7 @@ elseif exists('g:gui_vimr')
 else
     " 借助 gfw 实现 cjk 字符显示，gvim，nvim-qt 通用，
     " 但 nvim-qt 不支持回退列表，分别只能指定一个
-    let &guifont = "GoMono Nerd Font Mono:h12"
-    let &guifontwide = "霞鹜文楷等宽"
+    let &guifont = $NVIM_GUI_FONT
+    let &guifontwide = $NVIM_GUI_FONT_WIDE
 endif
 
