@@ -5,7 +5,13 @@ return {
         event = { "VeryLazy" },
         cmd = { "ConformInfo" },
         keys = {
-            { "<leader>cf", function() require("conform").format() end, desc = "Conform 格式化", },
+            {
+                "<leader>cf",
+                function()
+                    require("conform").format({ async = true })
+                end,
+                desc = "Conform 格式化",
+            },
         },
         opts = {
             formatters_by_ft = {
@@ -25,8 +31,8 @@ return {
                 lsp_format = "first",    -- 最先用 lsp 格式化一次
                 stop_after_first = false -- lsp 激活的有 vtsls + eslint，则两个都用
             },
-            -- 和 conform.format(opts) 一致
-            format_on_save = {},
+            -- 和 conform.format(opts) 一致，会传给它，但现在似乎有 bug 需要手动传
+            format_after_save = { async = true },
         },
         init = function()
             -- 让 =、gq 也可以格式化
