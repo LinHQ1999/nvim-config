@@ -21,7 +21,8 @@ return {
             indent = {
                 enable = true,
                 disable = {
-                    "javascript"
+                    "javascript",
+                    "typescript"
                 }
             },
             textobjects = {
