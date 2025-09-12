@@ -89,7 +89,7 @@ M.vtsls = {
 }
 
 M.bashls = {
-    filetypes = { "bash", "sh", "zsh" },
+    filetypes = { "bash", "zsh" },
 }
 
 M.powershell_es = {
