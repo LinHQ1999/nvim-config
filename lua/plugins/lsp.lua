@@ -99,15 +99,15 @@ return {
     {
         "neovim/nvim-lspconfig",
         cmd = { "LspInfo", "LspInstall", "LspStart" },
-        -- ref: https://github.com/LazyVim/LazyVim/issues/6151#issuecomment-2943642988
-        -- ref: https://github.com/LazyVim/LazyVim/pull/6053#issue-3049755158
-        -- PERF: 检查是否有更好的解决方案
-        event = { "BufReadPre", "BufNewFile", "BufWritePre" },
+        event = { "BufReadPost", "BufNewFile", "BufWritePre" },
         dependencies = {
             "saghen/blink.cmp",       -- https://github.com/LazyVim/LazyVim/issues/5405#issuecomment-2593284102
             "williamboman/mason.nvim" -- 必须的 dep，否则未加载时 $MASON 为空 handmade get_mason_path 会失败
         },
-        config = function()
+        -- NOTE: 采用 folk 的 方案（相比 BufReadPre）
+        -- REF: https://github.com/LazyVim/LazyVim/issues/6456#issuecomment-3307108576
+        -- REF: https://github.com/LazyVim/LazyVim/commit/75a3809e15a0ecff9adc46c6cd3aaac51d99b561#diff-a0920a251d78a12e9598cacc20f73324759a994fd02d07823ebb34ab019f26e3R121
+        config = vim.schedule_wrap(function()
             -- 这些东西得写在配置 lsp 服务器前面，即下面的 mason-lspconfig
             require('handmade'):config_lsp(true)
 
@@ -117,7 +117,7 @@ return {
                     "vimls", "cssls", "eslint", "emmet_language_server", "vimls", "bashls"
                 },
             })
-        end,
+        end),
     },
     {
         "folke/trouble.nvim",
