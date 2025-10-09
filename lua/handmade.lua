@@ -8,7 +8,7 @@ local M = {}
 
 -- 获取 package 路径
 function M.get_mason_path(package)
-    return vim.fs.joinpath(vim.env.MASON, 'packages', package)
+    return vim.fs.joinpath(vim.env.MASON, "packages", package)
 end
 
 -- 配置 lsp 相关的快捷键
@@ -19,34 +19,48 @@ function M.config_lsp_mapping()
         callback = function(e)
             -- :h lsp-config
             local client, opts = vim.lsp.get_client_by_id(e.data.client_id), { silent = true, buffer = e.buf }
-            if not client then return end
+            if not client then
+                return
+            end
             -- :h lsp-inlay_hint
             -- :h lsp-method
             -- :h lsp-client
-            if client:supports_method('textDocument/inlayHint') then
+            if client:supports_method("textDocument/inlayHint") then
                 vim.lsp.inlay_hint.enable(true)
             end
 
             local map = vim.keymap.set
-            map('n', 'gd', function() Snacks.picker.lsp_definitions() end, opts)
-            map('n', 'gr', function() Snacks.picker.lsp_references() end, opts)
-            map('n', 'gD', function() Snacks.picker.lsp_declarations() end, opts)
-            map('n', 'gi', function() Snacks.picker.lsp_implementations() end, opts)
-            map("n", "gh", function() vim.lsp.buf.hover({ border = 'rounded' }) end, opts)
-            map('n', 'gs', function() vim.lsp.buf.signature_help({ border = 'rounded' }) end, opts)
-            map('n', '<F2>', vim.lsp.buf.rename, opts)
+            map("n", "gd", function()
+                Snacks.picker.lsp_definitions()
+            end, opts)
+            map("n", "gr", function()
+                Snacks.picker.lsp_references()
+            end, opts)
+            map("n", "gD", function()
+                Snacks.picker.lsp_declarations()
+            end, opts)
+            map("n", "gi", function()
+                Snacks.picker.lsp_implementations()
+            end, opts)
+            map("n", "gh", function()
+                vim.lsp.buf.hover({ border = "rounded" })
+            end, opts)
+            map("n", "gs", function()
+                vim.lsp.buf.signature_help({ border = "rounded" })
+            end, opts)
+            map("n", "<F2>", vim.lsp.buf.rename, opts)
             map("n", "<leader>ca", vim.lsp.buf.code_action, opts)
 
             -- 调用 vtsls 专用方法
-            if client.name == 'vtsls' then
+            if client.name == "vtsls" then
                 map("n", "<leader>ci", [[<Cmd>VtsExec remove_unused<cr>]], opts)
                 map("n", "<leader>cm", [[<Cmd>VtsExec add_missing_imports<cr>]], opts)
-            elseif client.name == 'gopls' then
+            elseif client.name == "gopls" then
                 map("n", "<leader>gta", [[<Cmd>GoTagAdd json<cr>]], opts)
                 map("n", "<leader>gtr", [[<Cmd>GoTagRm json<cr>]], opts)
                 map("n", "<leader>gtc", [[<Cmd>GoTagClear<cr>]], opts)
             end
-        end
+        end,
     })
 end
 
@@ -56,43 +70,43 @@ function M:config_lsp(with_mapping)
     vim.diagnostic.config({
         severity_sort = true,
         float = {
-            border = 'rounded',
-            source = 'if_many'
+            border = "rounded",
+            source = "if_many",
         },
         signs = {
             text = {
-                [vim.diagnostic.severity.ERROR] = '󰅚 ',
-                [vim.diagnostic.severity.WARN] = '󰀪 ',
-                [vim.diagnostic.severity.INFO] = '󰋽 ',
-                [vim.diagnostic.severity.HINT] = '󰌶 ',
-            }
+                [vim.diagnostic.severity.ERROR] = "󰅚 ",
+                [vim.diagnostic.severity.WARN] = "󰀪 ",
+                [vim.diagnostic.severity.INFO] = "󰋽 ",
+                [vim.diagnostic.severity.HINT] = "󰌶 ",
+            },
         },
-        virtual_lines = true
+        virtual_lines = true,
     })
 
-    local cfgs = require('lsp_overrides')
+    local cfgs = require("lsp_overrides")
     for k, v in pairs(cfgs) do
         vim.lsp.config(k, v)
     end
 
     if vim.env.AHKLS then
         local lsp, interpreter = unpack(vim.split(vim.env.AHKLS, ";"))
-        vim.lsp.config('ahkv2', {
+        vim.lsp.config("ahkv2", {
             autostart = true,
             cmd = {
                 "node",
-                vim.fs.joinpath(lsp, 'server', 'dist', 'server.js'),
-                "--stdio"
+                vim.fs.joinpath(lsp, "server", "dist", "server.js"),
+                "--stdio",
             },
             filetypes = { "ahk", "autohotkey", "ah2" },
             init_options = {
                 locale = "zh-cn",
-                InterpreterPath = vim.fs.joinpath(interpreter, 'v2', 'AutoHotkey.exe'),
+                InterpreterPath = vim.fs.joinpath(interpreter, "v2", "AutoHotkey.exe"),
             },
             single_file_support = true,
             flags = { debounce_text_changes = 500 },
         })
-        vim.lsp.enable('ahkv2')
+        vim.lsp.enable("ahkv2")
     end
 
     if with_mapping then
@@ -141,8 +155,7 @@ function M.reg_lsp_progress()
                 title = client.name,
                 opts = function(notif)
                     -- WARN: luv 定义 -> 未来需要手动在 .luarc.json 中指定 workspace.userThirdParty
-                    notif.icon = #progress[client.id] == 0
-                        and " "
+                    notif.icon = #progress[client.id] == 0 and " "
                         or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
                 end,
             })
@@ -165,6 +178,16 @@ function M.reg_nvim_tree_rename()
             end)
         end,
     })
+end
+
+-- parser table 转换 filetype
+function M.lang2ft(lang)
+    return vim.iter(lang)
+        :map(function(grammer)
+            return vim.treesitter.language.get_filetypes(grammer)
+        end)
+        :flatten()
+        :totable()
 end
 
 return M

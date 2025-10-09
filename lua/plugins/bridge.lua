@@ -23,13 +23,14 @@ return {
                 go = { "goimports" },
                 bash = { "shfmt" },
                 sh = { "shfmt" },
-                typescriptreact = { name = "vtsls", "eslint_d" }, -- WARN: 避免不一致，不用 eslint-lsp 格式化
-                typescript = { "eslint_d" }
+                -- 这两个同时需要 lsp 和 eslint_d
+                typescriptreact = { lsp_format = "first", "eslint_d" },
+                typescript = { lsp_format = "first", "eslint_d" },
             },
             default_format_opts = {
                 timeout_ms = 3500,
-                lsp_format = "first",    -- 最先用 lsp 格式化一次
-                stop_after_first = false -- lsp 激活的有 vtsls + eslint，则两个都用
+                lsp_format = "fallback",
+                stop_after_first = false,
             },
             -- 和 conform.format(opts) 一致，会传给它，但现在似乎有 bug 需要手动传
             format_on_save = {
@@ -45,18 +46,48 @@ return {
         "rcarriga/nvim-dap-ui",
         dependencies = {
             { "mfussenegger/nvim-dap" },
-            { "nvim-neotest/nvim-nio" }
+            { "nvim-neotest/nvim-nio" },
         },
         keys = {
-            { "<leader>dd", function() require("dapui").toggle() end, desc = "切换 Debug 界面" },
-            { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "切换断点" },
-            { "<F5>", function() require("dap").continue() end, desc = "下一断点" },
-            { "<F8>", function() require("dap").step_into() end, desc = "步入" },
-            { "<F10>", function() require("dap").step_over() end, desc = "步过" },
+            {
+                "<leader>dd",
+                function()
+                    require("dapui").toggle()
+                end,
+                desc = "切换 Debug 界面",
+            },
+            {
+                "<leader>db",
+                function()
+                    require("dap").toggle_breakpoint()
+                end,
+                desc = "切换断点",
+            },
+            {
+                "<F5>",
+                function()
+                    require("dap").continue()
+                end,
+                desc = "下一断点",
+            },
+            {
+                "<F8>",
+                function()
+                    require("dap").step_into()
+                end,
+                desc = "步入",
+            },
+            {
+                "<F10>",
+                function()
+                    require("dap").step_over()
+                end,
+                desc = "步过",
+            },
         },
         config = function()
-            vim.fn.sign_define('DapBreakpoint', { text = '🛑', texthl = 'Error', linehl = 'Pmenu', numhl = '' })
-        end
+            vim.fn.sign_define("DapBreakpoint", { text = "🛑", texthl = "Error", linehl = "Pmenu", numhl = "" })
+        end,
     },
     {
         "olimorris/codecompanion.nvim",
@@ -67,14 +98,14 @@ return {
                     deepseek = function()
                         return require("codecompanion.adapters").extend("deepseek", {
                             env = {
-                                api_key = ""
-                            }
+                                api_key = "",
+                            },
                         })
-                    end
-                }
+                    end,
+                },
             },
         },
-        event = "InsertEnter"
+        event = "InsertEnter",
     },
     {
         "mistweaverco/kulala.nvim",
