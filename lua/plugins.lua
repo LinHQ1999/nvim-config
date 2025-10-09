@@ -24,7 +24,7 @@ return {
             { "g]", function() Snacks.words.jump(1, true) end, desc = "跳转下一个 Symbol" },
             { "g[", function() Snacks.words.jump(-1, true) end, desc = "跳转上一个 Symbol" },
             -- 下面是 picker 专用快捷键
-            { "<leader>lf", function() Snacks.picker.smart() end, desc = "文件（Explorer & 最近）" },
+            { "<leader>lf", function() Snacks.picker.files() end, desc = "文件（Explorer & 最近）" },
             { "<leader>lr", function() Snacks.picker.recent() end, desc = "文件（最近）" },
             { "<leader>lg", function() Snacks.picker.grep() end, desc = "内容搜索" },
             { "<leader>lb", function() Snacks.picker.buffers() end, desc = "Buffer 搜索" },

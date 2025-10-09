@@ -23,7 +23,7 @@ return {
                 go = { "goimports" },
                 bash = { "shfmt" },
                 sh = { "shfmt" },
-                typescriptreact = { "eslint_d" }, -- WARN: Windows 上 eslint-lsp 无法格式化，用 eslint_d
+                typescriptreact = { name = "vtsls", "eslint_d" }, -- WARN: 避免不一致，不用 eslint-lsp 格式化
                 typescript = { "eslint_d" }
             },
             default_format_opts = {
@@ -32,7 +32,9 @@ return {
                 stop_after_first = false -- lsp 激活的有 vtsls + eslint，则两个都用
             },
             -- 和 conform.format(opts) 一致，会传给它，但现在似乎有 bug 需要手动传
-            format_on_save = {},
+            format_on_save = {
+                undojoin = true
+            },
         },
         init = function()
             -- 让 =、gq 也可以格式化

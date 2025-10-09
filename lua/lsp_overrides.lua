@@ -18,6 +18,12 @@ M['*'] = {
     }
 }
 
+M.eslint = {
+    settings = {
+        format = false
+    }
+}
+
 M.gopls = {
     settings = {
         gopls = {
