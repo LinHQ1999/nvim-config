@@ -90,24 +90,6 @@ return {
         end,
     },
     {
-        "olimorris/codecompanion.nvim",
-        enable = false,
-        opts = {
-            adapters = {
-                http = {
-                    deepseek = function()
-                        return require("codecompanion.adapters").extend("deepseek", {
-                            env = {
-                                api_key = "",
-                            },
-                        })
-                    end,
-                },
-            },
-        },
-        event = "InsertEnter",
-    },
-    {
         "mistweaverco/kulala.nvim",
         keys = {
             { "<leader>rs", desc = "发送请求" },
