@@ -56,7 +56,8 @@ M.vtsls = {
             },
             format = {
                 semicolons = "insert"
-            }
+            },
+            preferGoToSourceDefinition = true
         },
         javascript = {
             inlayHints = {
