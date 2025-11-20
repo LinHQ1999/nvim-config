@@ -248,6 +248,18 @@ return {
         },
         opts = {},
     },
+    {
+        'MeanderingProgrammer/render-markdown.nvim',
+        ft = { "markdown" },
+        opts = {
+            preset = "obsidian",
+            completions = {
+                lsp = {
+                    enabled = true
+                }
+            }
+        },
+    },
     { "nmac427/guess-indent.nvim",    opts = {} },
     { "kyazdani42/nvim-web-devicons", lazy = true },
     { "sainnhe/forest-night",         lazy = true },

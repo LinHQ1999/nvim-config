@@ -10,7 +10,7 @@ return {
             local ts = require("nvim-treesitter")
 
             local lang = { "go", "typescript", "tsx", "html", "http", "javascript", "styled", "jsdoc", "json", "vue",
-                "yaml", "toml", }
+                "yaml", "toml", "markdown", "markdown-inline", "latex" }
             ts.install(lang)
 
             vim.api.nvim_create_autocmd("FileType", {
