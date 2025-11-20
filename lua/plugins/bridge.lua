@@ -34,7 +34,7 @@ return {
             },
             -- 和 conform.format(opts) 一致，会传给它，但现在似乎有 bug 需要手动传
             format_on_save = {
-                undojoin = true
+                undojoin = false
             },
         },
         init = function()
