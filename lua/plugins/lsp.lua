@@ -101,7 +101,7 @@ return {
         cmd = { "LspInfo", "LspInstall", "LspStart" },
         event = { "BufReadPost", "BufNewFile", "BufWritePre" },
         dependencies = {
-            "saghen/blink.cmp",       -- https://github.com/LazyVim/LazyVim/issues/5405#issuecomment-2593284102
+            "saghen/blink.cmp",       -- Blink 自动更新 capability 但需要在 lsp 启动前，https://github.com/LazyVim/LazyVim/issues/5405#issuecomment-2593284102
             "williamboman/mason.nvim" -- 必须的 dep，否则未加载时 $MASON 为空 handmade get_mason_path 会失败
         },
         -- NOTE: 采用 folk 的 方案（相比 BufReadPre）
