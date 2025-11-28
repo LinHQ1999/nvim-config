@@ -10,7 +10,7 @@ set grepprg=rg\ --vimgrep
 "set mouse=i
 "set encoding=utf-8
 set fileencodings=ucs-bom,utf-8,gb18030,gbk,gb2312
-set cursorline
+set cursorline cursorcolumn
 " set showmatch
 set matchpairs+=<:>
 set number relativenumber
@@ -33,6 +33,8 @@ set diffopt+=vertical,linematch:60,algorithm:histogram
 set jumpoptions+=stack
 " set winborder=rounded " 暂时插件支持不好
 set undofile
+set scrolloff=8
+set switchbuf=usetab,vsplit
 
 if has('win32') || has('win64') || &shell =~ 'pwsh'
     let &shell = executable('pwsh') ? 'pwsh' : 'powershell'
