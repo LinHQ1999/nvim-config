@@ -174,8 +174,8 @@ return {
             },
             sections = {
                 lualine_b = { "branch", "diff" },
-                lualine_c = { { "filename", newfile_status = true, path = 1 }, "lsp_status", },
-                lualine_x = { "diagnostics", "encoding", "fileformat", "filetype" },
+                lualine_c = { { "filename", newfile_status = true, path = 1 } },
+                lualine_x = { "diagnostics", "encoding", "fileformat", "lsp_status", "filetype" },
                 lualine_y = { "%2p%%❆ %-3L" },
                 lualine_z = { "location" },
             },

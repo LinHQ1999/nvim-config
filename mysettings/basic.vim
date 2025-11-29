@@ -26,14 +26,14 @@ set cmdheight=1
 set nobackup
 "set nowritebackup
 set foldopen-=search
-" set nowrap
-set showbreak=\|>\ 
+set nowrap
+"set showbreak=\|>\ 
 set wildoptions+=fuzzy
 set diffopt+=vertical,linematch:60,algorithm:histogram
 set jumpoptions+=stack
 " set winborder=rounded " 暂时插件支持不好
 set undofile
-set scrolloff=8
+set sidescrolloff=5 scrolloff=8
 set switchbuf=usetab,vsplit
 
 if has('win32') || has('win64') || &shell =~ 'pwsh'
