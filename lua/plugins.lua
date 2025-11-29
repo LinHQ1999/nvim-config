@@ -174,7 +174,7 @@ return {
             },
             sections = {
                 lualine_b = { "branch", "diff" },
-                lualine_c = { { "filename", newfile_status = true, path = 1 } },
+                lualine_c = { { "filename", newfile_status = true, path = 1 }, "lsp_status", },
                 lualine_x = { "diagnostics", "encoding", "fileformat", "filetype" },
                 lualine_y = { "%2p%%❆ %-3L" },
                 lualine_z = { "location" },
@@ -221,6 +221,11 @@ return {
             vim.o.showmode = false
             vim.o.laststatus = 2
             vim.o.showtabline = 2
+        end,
+        config = function(_, opts)
+            -- 注意 component 里有 require 直接调用会报错
+            table.insert(opts.sections.lualine_c, 1, require('handmade').codecompanion_progress())
+            require('lualine').setup(opts)
         end
     },
     {

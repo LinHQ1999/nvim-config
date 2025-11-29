@@ -103,4 +103,54 @@ return {
             kulala_keymaps_prefix = "",
         },
     },
+    { "ravitemer/mcphub.nvim", lazy = true },
+    {
+        "olimorris/codecompanion.nvim",
+        cmd = { "CodeCompanionChat", "CodeCompanionCmd", "CodeCompanionActions", "CodeCompanion" },
+        tag = "v17.33.0",
+        opts = {
+            adapters = {
+                acp = {
+                    claude_code = function()
+                        return require("codecompanion.adapters").extend("claude_code", {
+                            env = {
+                                ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY"),
+                            },
+                        })
+                    end,
+                },
+            },
+            strategies = {
+                chat = {
+                    adapter = {
+                        name = "deepseek",
+                        model = "deepseek-chat",
+                    }
+                },
+                inline = {
+                    adapter = {
+                        name = "deepseek",
+                        model = "deepseek-reasoner"
+                    },
+                },
+                cmd = {
+                    adapter = {
+                        name = "deepseek",
+                        model = "deepseek-chat"
+                    },
+                }
+            },
+            extensions = {
+                mcphub = {
+                    callback = "mcphub.extensions.codecompanion",
+                    opts = {
+                        make_vars = true,
+                        make_slash_commands = true,
+                        show_result_in_chat = true
+                    }
+                }
+            },
+            language = "Chinese",
+        }
+    }
 }
