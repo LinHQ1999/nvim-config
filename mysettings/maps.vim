@@ -1,4 +1,4 @@
-" 见 plugins.lua let mapleader = " "
+" leader-key 定义位置见 plugins.lua let mapleader = " "
 inoremap fj <Esc> 
 
 " 方便粘贴
@@ -20,13 +20,14 @@ noremap <silent> <A-h> <C-w>h
 noremap <silent> <A-j> <C-w>j
 noremap <silent> <A-k> <C-w>k
 noremap <silent> <A-l> <C-w>l
-noremap <silent> <A-S-h> <C-w>H
-noremap <silent> <A-S-j> <C-w>J
-noremap <silent> <A-S-k> <C-w>K
-noremap <silent> <A-S-l> <C-w>L
+noremap <silent> <A-H> <C-w>H
+noremap <silent> <A-J> <C-w>J
+noremap <silent> <A-K> <C-w>K
+noremap <silent> <A-L> <C-w>L
+noremap <silent> <A-w> <C-w>c
 " (buffer jump & tab jump)
-noremap <silent> <C-S-Up> <Cmd>tabnew<cr>
-noremap <silent> <C-S-Down> <Cmd>tabclose<cr>
+noremap <silent> <A-t> <Cmd>tabnew<cr>
+noremap <silent> <A-W> <Cmd>tabclose<cr>
 noremap <silent> <leader><left> <Cmd>bdelete<cr>
 " (diff)
 noremap <silent> <Leader>dt <Cmd>diffthis<cr>
