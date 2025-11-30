@@ -19,6 +19,7 @@ function M.config_lsp_mapping()
         callback = function(e)
             -- :h lsp-config
             local client, opts = vim.lsp.get_client_by_id(e.data.client_id), { silent = true, buffer = e.buf }
+
             if not client then
                 return
             end
@@ -30,16 +31,16 @@ function M.config_lsp_mapping()
             end
 
             local map = vim.keymap.set
-            map("n", "gd", function()
+            map("n", "grd", function()
                 Snacks.picker.lsp_definitions()
             end, opts)
-            map("n", "gr", function()
+            map("n", "grr", function()
                 Snacks.picker.lsp_references()
             end, opts)
-            map("n", "gD", function()
+            map("n", "grD", function()
                 Snacks.picker.lsp_declarations()
             end, opts)
-            map("n", "gi", function()
+            map("n", "gri", function()
                 Snacks.picker.lsp_implementations()
             end, opts)
             map("n", "gh", function()

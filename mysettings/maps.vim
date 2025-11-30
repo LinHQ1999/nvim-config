@@ -55,7 +55,6 @@ nnoremap <silent> <Leader>pi <Cmd>Lazy install<cr>
 nnoremap <silent> <Leader>pu <Cmd>Lazy update<cr>
 nnoremap <silent> <Leader>pc <Cmd>Lazy clean<cr>
 nnoremap <silent> <Leader>pp <Cmd>Lazy profile<cr>
-" noremap <silent> <Leader>l: <Cmd><CR>
 " 2-character Sneak (default)
 nmap ' <Plug>Sneak_s
 nmap <BS> <Plug>Sneak_S
