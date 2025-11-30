@@ -46,7 +46,10 @@ return {
             },
         },
         config = function(_, opts)
-            local keymaps = {
+            local select = require("nvim-treesitter-textobjects.select")
+            local move = require("nvim-treesitter-textobjects.move")
+
+            local select_keys = {
                 ["af"] = "@function.outer",
                 ["if"] = "@function.inner",
                 ["ao"] = "@block.outer",
@@ -55,11 +58,24 @@ return {
                 ["iv"] = "@assignment.inner",
             }
 
-            for k, p in pairs(keymaps) do
+            for k, p in pairs(select_keys) do
                 vim.keymap.set({ "x", "o" }, k, function()
-                    require "nvim-treesitter-textobjects.select".select_textobject(p, "textobjects")
+                    select.select_textobject(p, "textobjects")
                 end)
             end
+
+            vim.keymap.set({ "n", "x", "o" }, "[]", function()
+                move.goto_previous_end("@function.outer", "textobjects")
+            end)
+            vim.keymap.set({ "n", "x", "o" }, "[[", function()
+                move.goto_previous_start("@function.outer", "textobjects")
+            end)
+            vim.keymap.set({ "n", "x", "o" }, "][", function()
+                move.goto_next_end("@function.outer", "textobjects")
+            end)
+            vim.keymap.set({ "n", "x", "o" }, "]]", function()
+                move.goto_next_start("@function.outer", "textobjects")
+            end)
 
             require("nvim-treesitter-textobjects").setup(opts)
         end
