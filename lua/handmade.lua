@@ -31,26 +31,12 @@ function M.config_lsp_mapping()
             end
 
             local map = vim.keymap.set
-            map("n", "grd", function()
-                Snacks.picker.lsp_definitions()
-            end, opts)
-            map("n", "grr", function()
-                Snacks.picker.lsp_references()
-            end, opts)
-            map("n", "grD", function()
-                Snacks.picker.lsp_declarations()
-            end, opts)
-            map("n", "gri", function()
-                Snacks.picker.lsp_implementations()
-            end, opts)
-            map("n", "gh", function()
-                vim.lsp.buf.hover({ border = "rounded" })
-            end, opts)
-            map("n", "gs", function()
-                vim.lsp.buf.signature_help({ border = "rounded" })
-            end, opts)
-            map("n", "<F2>", vim.lsp.buf.rename, opts)
-            map("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+            -- :h grr
+            map("n", "gd", function() Snacks.picker.lsp_definitions() end, opts)
+            map("n", "gD", function() Snacks.picker.lsp_declarations() end, opts)
+            map("n", "grr", function() Snacks.picker.lsp_references() end, opts)
+            map("n", "gri", function() Snacks.picker.lsp_implementations() end, opts)
+            map("n", "grt", function() Snacks.picker.lsp_type_definition() end, opts)
 
             -- 调用 vtsls 专用方法
             if client.name == "vtsls" then

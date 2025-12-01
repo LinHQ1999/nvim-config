@@ -31,7 +31,7 @@ set nowrap
 set wildoptions+=fuzzy
 set diffopt+=vertical,linematch:60,algorithm:histogram
 set jumpoptions+=stack
-" set winborder=rounded " 暂时插件支持不好
+set winborder=rounded
 set undofile
 set sidescrolloff=5 scrolloff=8
 set switchbuf=usetab,vsplit

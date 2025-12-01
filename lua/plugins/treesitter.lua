@@ -39,7 +39,7 @@ return {
                 enable = true,
                 lookahead = true,
                 selection_modes = {
-                    ['@function.outer'] = 'V',
+                    ['@function.outer'] = 'v',
                     ['@block.outer'] = 'V',
                 },
                 include_surrounding_whitespace = true,

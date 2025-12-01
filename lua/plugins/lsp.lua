@@ -68,13 +68,7 @@ return {
                 ghost_text = {
                     enabled = true,
                 },
-                menu = {
-                    border = "rounded"
-                },
                 documentation = {
-                    window = {
-                        border = "rounded"
-                    },
                     auto_show = true
                 }
             },
