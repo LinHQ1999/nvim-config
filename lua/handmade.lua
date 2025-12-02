@@ -180,6 +180,7 @@ function M.lang2ft(lang)
         :totable()
 end
 
+-- 在 lua-line 上显示 codecompanion lsp 调用状态
 function M.codecompanion_progress()
     local lua_line_comp = require("lualine.component"):extend()
 

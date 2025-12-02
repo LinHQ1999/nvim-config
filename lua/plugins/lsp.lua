@@ -77,6 +77,9 @@ return {
             sources = {
                 default = { 'lsp', 'buffer', 'path', 'snippets' },
                 providers = {
+                    lsp = {
+                        fallbacks = {} -- 同时显示 lsp 和 buffer 补全
+                    },
                     buffer = {
                         opts = {
                             get_bufnrs = function()
