@@ -107,6 +107,7 @@ return {
     {
         "olimorris/codecompanion.nvim",
         cmd = { "CodeCompanionChat", "CodeCompanionCmd", "CodeCompanionActions", "CodeCompanion" },
+        keys = { { "<leader>ca", "<Cmd>CodeCompanionActions<CR>", mode = { "v", "n" }, desc = "打开 CodeCompanion 面板" } },
         tag = "v17.33.0",
         opts = {
             adapters = {
