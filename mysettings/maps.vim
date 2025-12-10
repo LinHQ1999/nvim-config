@@ -15,11 +15,12 @@ cnoremap <A-f> <C-Right>
 " (terminal control)
 tnoremap fj <C-\><C-n>
 tnoremap <Esc> exit<cr>
-" (window jump)
+" (window control)
 noremap <silent> <A-h> <C-w>h
 noremap <silent> <A-j> <C-w>j
 noremap <silent> <A-k> <C-w>k
 noremap <silent> <A-l> <C-w>l
+noremap <silent> <A-p> <C-w>p
 noremap <silent> <A-H> <C-w>H
 noremap <silent> <A-J> <C-w>J
 noremap <silent> <A-K> <C-w>K
