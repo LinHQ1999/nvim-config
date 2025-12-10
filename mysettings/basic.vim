@@ -34,7 +34,6 @@ set jumpoptions+=stack
 set winborder=rounded
 set undofile
 set sidescrolloff=5 scrolloff=8
-set switchbuf=usetab,vsplit
 
 if has('win32') || has('win64') || &shell =~ 'pwsh'
     let &shell = executable('pwsh') ? 'pwsh' : 'powershell'
