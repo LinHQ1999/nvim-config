@@ -26,6 +26,7 @@ noremap <silent> <A-J> <C-w>J
 noremap <silent> <A-K> <C-w>K
 noremap <silent> <A-L> <C-w>L
 noremap <silent> <A-w> <C-w>c
+noremap <silent> <C-A-w> <C-w>o
 " (buffer jump & tab jump)
 noremap <silent> <A-t> <Cmd>tabnew<cr>
 noremap <silent> <A-W> <Cmd>tabclose<cr>
