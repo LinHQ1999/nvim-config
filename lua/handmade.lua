@@ -56,13 +56,7 @@ function M:config_lsp(with_mapping)
     -- :h nvim_open_win
     vim.diagnostic.config({
         severity_sort = true,
-        jump = {
-            float = true
-        },
-        float = {
-            border = "rounded",
-            source = "if_many",
-        },
+        jump = { float = true },
         signs = {
             text = {
                 [vim.diagnostic.severity.ERROR] = "󰅚 ",
@@ -71,7 +65,6 @@ function M:config_lsp(with_mapping)
                 [vim.diagnostic.severity.HINT] = "󰌶 ",
             },
         },
-        virtual_lines = true,
     })
 
     local cfgs = require("lsp_overrides")
