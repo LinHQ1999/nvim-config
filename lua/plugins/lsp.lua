@@ -115,7 +115,7 @@ return {
 
             require("mason-lspconfig").setup({
                 ensure_installed = {
-                    "yamlls", "vue_ls", "lemminx", "tailwindcss", "lua_ls", "jsonls", "powershell_es", "html", "vtsls",
+                    "yamlls", "vue_ls", "lemminx", "tailwindcss", "lua_ls", "jsonls", "powershell_es", "html", "tsgo",
                     "vimls", "cssls", "eslint", "emmet_language_server", "vimls", "bashls"
                 },
             })
@@ -138,17 +138,6 @@ return {
         'nvim-flutter/flutter-tools.nvim',
         ft = { "dart" },
         opts = {},
-    },
-    {
-        'yioneko/nvim-vtsls',
-        ft = { "typescriptreact", "javascriptreact", "typescript", "javascript", "vue", "html" },
-        config = function()
-            -- 注意，这里是 config 而不是常规的 setup，如果用 opts 则会报错
-            -- 另外由于未知原因，指定 cmd lazy 会报错
-            require('vtsls').config({
-                refactor_auto_rename = true,
-            })
-        end
     },
     {
         "olexsmir/gopher.nvim",

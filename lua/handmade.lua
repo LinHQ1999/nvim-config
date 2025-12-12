@@ -38,8 +38,8 @@ function M.config_lsp_mapping()
             map("n", "gri", function() Snacks.picker.lsp_implementations() end, opts)
             map("n", "grt", function() Snacks.picker.lsp_type_definition() end, opts)
 
-            -- 调用 vtsls 专用方法
-            if client.name == "vtsls" then
+            -- 调用 tsgo 专用方法
+            if client.name == "tsgo" then
                 map("n", "<leader>ci", [[<Cmd>VtsExec remove_unused<cr>]], opts)
                 map("n", "<leader>cm", [[<Cmd>VtsExec add_missing_imports<cr>]], opts)
             elseif client.name == "gopls" then
