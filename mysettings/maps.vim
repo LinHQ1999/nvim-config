@@ -32,8 +32,7 @@ noremap <silent> <A-t> <C-w>T
 noremap <silent> <A-W> <Cmd>tabclose<cr>
 noremap <silent> <leader><left> <Cmd>bdelete<cr>
 " (diff)
-noremap <silent> <Leader>dt <Cmd>diffthis<cr>
-noremap <silent> <Leader>do <Cmd>diffoff<cr>
+noremap <silent> <Leader>dt <Cmd>call Diff_within_tab()<cr>
 " (my)
 " or <C-R>=
 " 根据最新的 coc 配置，不再使用此项

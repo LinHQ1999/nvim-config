@@ -1,15 +1,15 @@
 " Caclulator, you can also use winheight() and winwidth()
-let g:Sp_height = {x -> float2nr(nvim_win_get_height(0) * x)}
-let g:Vsp_width = {x -> float2nr(nvim_win_get_width(0) * x)}
+let s:Sp_height = {x -> float2nr(nvim_win_get_height(0) * x)}
+let s:Vsp_width = {x -> float2nr(nvim_win_get_width(0) * x)}
 
 " Tab to complete
-function! Check_back_space() abort
+function! s:Check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 
 " Function to get current absolute file path, also see fnamemodify()
-function! Get_current_path(...)
+function! s:Get_current_path(...)
     if a:0 == 0
         return expand("%:p")
     elseif a:0 > 1
@@ -20,11 +20,11 @@ function! Get_current_path(...)
 endf
 
 " Split window in percent.
-function! PercentSplit(percent, action)
+function! s:PercentSplit(percent, action)
     if a:action == "sp"
-        let l:temp = g:Sp_height(a:percent)
+        let l:temp = s:Sp_height(a:percent)
     else
-        let l:temp = g:Vsp_width(a:percent)
+        let l:temp = s:Vsp_width(a:percent)
     endif
     " [N]sp/vsp
     exe l:temp.a:action
@@ -32,7 +32,7 @@ endf
 
 function! Compiler()
     exe "wa"
-    call PercentSplit(0.4, "sp")
+    call s:PercentSplit(0.4, "sp")
     if &filetype=='c'
         exe "te clang -o %:r.exe %"
     elseif &filetype=='cpp'
@@ -54,7 +54,7 @@ function! Runner()
     elseif &filetype == 'go'
         exe ":GoRun %"
     else
-        call PercentSplit(0.4, "sp")
+        call s:PercentSplit(0.4, "sp")
         if &filetype=='cpp'|| &filetype=='c'
             exe "te %:r.exe"
         elseif &filetype == 'javascript'
@@ -87,7 +87,7 @@ function! Go_plugin()
 endf
 
 function! Open_terminal()
-    call PercentSplit(0.4, "sp")
+    call s:PercentSplit(0.4, "sp")
     exe "te"
 endf
 
@@ -99,5 +99,14 @@ function! Open_fix()
         lopen
     else
         echo 'Neither quickfix or locallist has any sources!'
+    endif
+endfunction
+
+function Diff_within_tab() abort
+    " windo 默认就是 tab 内所有 window
+    if &l:diff == v:true
+        windo diffoff
+    else
+        windo diffthis
     endif
 endfunction
