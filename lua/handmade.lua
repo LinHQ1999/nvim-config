@@ -36,7 +36,7 @@ function M.config_lsp_mapping()
             map("n", "gD", function() Snacks.picker.lsp_declarations() end, opts)
             map("n", "grr", function() Snacks.picker.lsp_references() end, opts)
             map("n", "gri", function() Snacks.picker.lsp_implementations() end, opts)
-            map("n", "grt", function() Snacks.picker.lsp_type_definition() end, opts)
+            map("n", "grt", function() Snacks.picker.lsp_type_definitions() end, opts)
 
             -- 调用 vtsls 专用方法
             if client.name == "vtsls" then

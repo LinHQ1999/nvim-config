@@ -39,6 +39,7 @@ return {
             { "<leader>la", function() Snacks.picker.autocmds() end, desc = "Autocmds 搜索" },
             { "<leader>lm", function() Snacks.picker.keymaps() end, desc = "搜索快捷键" },
         },
+        ---@type snacks.Config
         opts = {
             bigfile = { enabled = true },
             quickfile = { enabled = true },
@@ -254,14 +255,14 @@ return {
     {
         "folke/todo-comments.nvim",
         keys = {
-            { "<leader>xX", "<cmd>Trouble todo<cr>",                      desc = "Show todo in trouble" },
-            { "<leader>lt", function() Snacks.picker.todo_comments() end, desc = "Show todo in trouble", }
+            { "<leader>xX", "<cmd>Trouble todo<cr>", desc = "Show todo in trouble" },
         },
         opts = {},
     },
     {
         'MeanderingProgrammer/render-markdown.nvim',
         ft = { "markdown" },
+        ---@type render.md.UserConfig
         opts = {
             preset = "obsidian",
             completions = {

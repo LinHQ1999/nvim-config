@@ -13,6 +13,7 @@ return {
                 desc = "Conform 格式化",
             },
         },
+        ---@type conform.setupOpts
         opts = {
             formatters_by_ft = {
                 -- NOTE: 这里实际上可以用 conform.format 中的 { id, name, filter, formatting_options } 参数

@@ -57,6 +57,7 @@ return {
         -- use a release tag to download pre-built binaries
         version = '1.*',
         lazy = true,
+        ---@type blink.cmp.Config
         opts = {
             keymap = { preset = 'enter' },
             appearance = {
