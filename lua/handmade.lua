@@ -27,7 +27,7 @@ function M.config_lsp_mapping()
             -- :h lsp-method
             -- :h lsp-client
             if client:supports_method("textDocument/inlayHint") then
-                vim.lsp.inlay_hint.enable(true)
+                vim.lsp.inlay_hint.enable(true, { bufnr = e.buf })
             end
 
             local map = vim.keymap.set
