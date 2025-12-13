@@ -77,8 +77,14 @@ endf
 
 " Neovim 专属
 function! Set_it()
-    exe g:Sp_height(0.8)."sp ".stdpath("config")."/init.vim"
-    exe "lcd %:h"
+    let init_path = stdpath("config")."/init.vim"
+    if bufname() == ""
+        exe "edit ".init_path
+        exe "lcd %:h"
+    else
+        exe "tabedit ".init_path
+        exe "tcd %:h"
+    endif
 endf
 
 let s:cwd = fnamemodify("<sfile>", ":p:h")

@@ -28,11 +28,6 @@ EOF
 
 let s:transform = {dir, list -> join(map(list,  { _, module -> dir."/".module.".vim" }), ' ')}
 
-" ui 必须在 plugins 后，原因：colorscheme 需要 theme 先加载
-" firenvim 必须在最后，覆盖所有的设置
-let s:dir = 'mysettings'
-let s:modules = [ "functions", "basic", "ui", "maps", "autocmds"]
-
 " 这里假定加载按照列表顺序，否则应该用链式加载确保顺序
-exec "runtime! ".s:transform(s:dir, s:modules)
+exec "runtime! ".s:transform( 'mysettings', [ "functions", "basic", "ui", "maps", "autocmds"])
 
