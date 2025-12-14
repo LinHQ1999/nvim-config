@@ -77,7 +77,7 @@ endf
 
 " Neovim 专属
 function! Set_it()
-    let init_path = stdpath("config")."/init.vim"
+    let init_path = stdpath("config")."/init.lua"
     if bufname() == ""
         exe "edit ".init_path
         exe "lcd %:h"
@@ -85,6 +85,7 @@ function! Set_it()
         exe "tabedit ".init_path
         exe "tcd %:h"
     endif
+    lua Snacks.picker.files()
 endf
 
 let s:cwd = fnamemodify("<sfile>", ":p:h")

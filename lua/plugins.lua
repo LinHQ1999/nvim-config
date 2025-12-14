@@ -136,6 +136,7 @@ return {
         keys = {
             { "<leader>pd", "<Cmd>NvimTreeFindFileToggle<cr>", desc = "开关 NvimTree" }
         },
+        cmd = { "NvimTreeFindFileToggle" },
         opts = {
             disable_netrw = true,
             open_on_tab = false,
