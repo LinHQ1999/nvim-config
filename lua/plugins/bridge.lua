@@ -21,12 +21,12 @@ return {
                 -- 这里没定义的那就是用 lsp 了
                 python = { "black" },
                 yaml = { "yamlfmt" },
-                go = { "goimports" },
+                go = { "goimports", lsp_format = "last" },
                 bash = { "shfmt" },
                 sh = { "shfmt" },
-                -- 这两个同时需要 lsp 和 eslint_d
-                typescriptreact = { lsp_format = "first", "eslint_d" },
-                typescript = { lsp_format = "first", "eslint_d" },
+                -- 关于这个，建议在项目中配置 lefthook 以完全避免 lint 失效
+                typescriptreact = { "eslint_d" },
+                typescript = { "eslint_d" },
             },
             default_format_opts = {
                 timeout_ms = 3500,

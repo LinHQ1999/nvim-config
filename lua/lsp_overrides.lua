@@ -70,11 +70,6 @@ M.tsgo = {
             }
         },
     },
-    commands = {
-        OrganizeImports = function(cmd, ctx)
-
-        end
-    }
 }
 
 M.bashls = {
