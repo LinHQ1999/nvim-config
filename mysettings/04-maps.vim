@@ -28,12 +28,11 @@ noremap <silent> <A-L> <C-w>L
 noremap <silent> <A-w> <C-w>c
 noremap <silent> <C-A-w> <C-w>o
 " (buffer jump & tab jump)
-noremap <silent> <A-t> <Cmd>tabnew<cr>
+noremap <silent> <A-t> <C-w>T
 noremap <silent> <A-W> <Cmd>tabclose<cr>
 noremap <silent> <leader><left> <Cmd>bdelete<cr>
 " (diff)
-noremap <silent> <Leader>dt <Cmd>diffthis<cr>
-noremap <silent> <Leader>do <Cmd>diffoff<cr>
+noremap <silent> <Leader>dt <Cmd>call Diff_within_tab()<cr>
 " (my)
 " or <C-R>=
 " 根据最新的 coc 配置，不再使用此项

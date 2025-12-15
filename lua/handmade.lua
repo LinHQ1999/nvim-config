@@ -27,7 +27,7 @@ function M.config_lsp_mapping()
             -- :h lsp-method
             -- :h lsp-client
             if client:supports_method("textDocument/inlayHint") then
-                vim.lsp.inlay_hint.enable(true)
+                vim.lsp.inlay_hint.enable(true, { bufnr = e.buf })
             end
 
             local map = vim.keymap.set
@@ -36,7 +36,7 @@ function M.config_lsp_mapping()
             map("n", "gD", function() Snacks.picker.lsp_declarations() end, opts)
             map("n", "grr", function() Snacks.picker.lsp_references() end, opts)
             map("n", "gri", function() Snacks.picker.lsp_implementations() end, opts)
-            map("n", "grt", function() Snacks.picker.lsp_type_definition() end, opts)
+            map("n", "grt", function() Snacks.picker.lsp_type_definitions() end, opts)
 
             -- 调用 tsgo 专用方法
             if client.name == "tsgo" then

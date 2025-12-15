@@ -9,10 +9,14 @@
     "vim",
     "Snacks"
   ],
-  "workspace.checkThirdParty": false,
+  "workspace.checkThirdParty": "Disable",
   "workspace.library": [
     "$VIMRUNTIME",
-    "${3rd}/luv/library"
+    "${3rd}/luv/library",
+    "$MASON/../lazy/snacks.nvim",
+    "$MASON/../lazy/render-markdown.nvim",
+    "$MASON/../lazy/conform.nvim",
+    "$MASON/../lazy/blink.cmp"
   ],
   "hint.enable": true
 }
