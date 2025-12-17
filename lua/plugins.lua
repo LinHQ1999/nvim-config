@@ -95,12 +95,14 @@ return {
     {
         "tpope/vim-fugitive",
         keys = {
-            { "<Leader>gs",  "<Cmd>G<cr>" },
+            { "<Leader>gs", "<Cmd>G<cr>" },
             { "<Leader>gps", "<Cmd>Git push<cr>" },
             { "<Leader>gpl", "<Cmd>Git pull<cr>" },
-            { "<Leader>glf", "<Cmd>Gclog --follow %<cr>" },
+            { "<Leader>glf", "<Cmd>Gclog --follow %<cr>", desc = "显示当前文件 log" },
+            { "<Leader>gll", [[:\<C-u>exec "Git log -L ".line("'<").",".line("'>").":% --no-merges --pretty=short"<cr>]], mode = { "x" }, desc = "显示当前行数范围 log" },
+            { "<Leader>gls", [[<Cmd>exec expandcmd("Git log -p --no-merges -S<cword> --no-merges --pretty=short")<cr>]], desc = "显示包括当前光标下 word log" },
         },
-        cmd = { "G", "Git", "GcLog", "Gdiffs" }
+        cmd = { "G", "Git", "Gclog", "Gdiffs" }
     },
     {
         "lewis6991/gitsigns.nvim",

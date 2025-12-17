@@ -47,10 +47,6 @@ nnoremap <silent> <Leader>fs <Cmd>call Set_it()<cr>
 nnoremap <silent> <Leader>fd <Cmd>exe "e expand('<sfile>:p:h')"."\pack\my\start\myplugin\plugin\one.vim"<cr>
 nnoremap <silent> <Leader>ft <Cmd>call Open_terminal()<cr>
 nnoremap <silent> <Leader>fh <Cmd>tcd %:h<cr>
-" (fugitive)
-" lazygit 快捷键不在此处配置
-xnoremap <silent> <Leader>gll :\<C-u>exec "Git log -L ".line("'<").",".line("'>").":% --no-merges --pretty=short"<cr>
-nnoremap <silent> <Leader>gls <Cmd>exec expandcmd("Git log -p --no-merges -S<cword> --no-merges --pretty=short")<cr>
 " (pluging manager)
 nnoremap <silent> <Leader>pi <Cmd>Lazy install<cr>
 nnoremap <silent> <Leader>pu <Cmd>Lazy update<cr>
