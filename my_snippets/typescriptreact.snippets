@@ -1,2 +1,59 @@
 snippet uz "use Zustand"
   const $1 = $2(state => state.$1)$0
+
+snippet rhinput "rhf Input"
+  <Controller
+    name="$1"
+    control={$2}
+    render={({ field, fieldState }) => (
+      <Field orientation="vertical" data-invalid={fieldState.invalid}>
+        ${3:<FieldLabel htmlFor="$1">
+          $0
+        </FieldLabel>}
+        <Input
+          {...field}
+          id="$1"
+          aria-invalid={fieldState.invalid}
+          placeholder="$4"
+        />
+        {fieldState.invalid && (
+          <FieldError errors={[fieldState.error]} />
+        )}
+      </Field>
+    )}
+  />
+
+snippet rhsel "rhf select"
+  <Controller
+    name="$1"
+    control={form.control}
+    render={({ field, fieldState }) => (
+      <Field orientation="vertical" data-invalid={fieldState.invalid}>
+        <Select
+          name={field.name}
+          value={field.value}
+          onValueChange={field.onChange}
+        >
+          <SelectTrigger
+            id="form-rhf-select-language"
+            aria-invalid={fieldState.invalid}
+            className="min-w-[120px]"
+          >
+            <SelectValue placeholder="Select" />
+          </SelectTrigger>
+          <SelectContent position="item-aligned">
+            <SelectItem value="auto">Auto</SelectItem>
+            <SelectItem value="en">English</SelectItem>
+          </SelectContent>
+        </Select>
+      </Field>
+    )}
+  />
+
+snippet rhfield "rhf useFieldArray"
+  const {fields, $3} = useFieldArray({ control: ${1:form.control}, name: '$2' });
+  $0
+
+snippet zodef "zod schema and type"
+  const $2Schema = $0;
+  type $2Type = z.infer<typeof $2Schema>

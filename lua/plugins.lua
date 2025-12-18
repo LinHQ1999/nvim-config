@@ -38,6 +38,7 @@ return {
             { "<leader>lc", function() Snacks.picker.projects() end, desc = "CD 路径搜索" },
             { "<leader>la", function() Snacks.picker.autocmds() end, desc = "Autocmds 搜索" },
             { "<leader>lm", function() Snacks.picker.keymaps() end, desc = "搜索快捷键" },
+            { "<leader>lu", function() Snacks.picker.undo() end, desc = "文件历史记录" },
         },
         ---@type snacks.Config
         opts = {
