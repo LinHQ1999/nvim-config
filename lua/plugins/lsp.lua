@@ -117,7 +117,7 @@ return {
             require("mason-lspconfig").setup({
                 ensure_installed = {
                     "yamlls", "vue_ls", "lemminx", "tailwindcss", "lua_ls", "jsonls", "powershell_es", "html", "tsgo",
-                    "vimls", "cssls", "eslint", "emmet_language_server", "vimls", "bashls"
+                    "vimls", "cssls", "bashls", "eslint"
                 },
             })
         end),
