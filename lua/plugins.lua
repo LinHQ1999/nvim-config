@@ -158,6 +158,9 @@ return {
                 enable = true,
                 show_on_dirs = true,
             },
+            live_filter = {
+                always_show_folders = false,
+            },
             on_attach = function(bufnr)
                 local api = require("nvim-tree.api")
 
