@@ -41,9 +41,9 @@ M.gopls = {
     }
 }
 
-M.tsgo = {
+M.vtsls = {
+    filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
     settings = {
-        -- 考虑到 tsgo 应该不会破坏已有设置，复用 vtsls 设置，可能不会都生效
         -- https://github.com/yioneko/vtsls/blob/main/packages/service/configuration.schema.json
         typescript = {
             inlayHints = {
@@ -57,6 +57,9 @@ M.tsgo = {
             format = {
                 semicolons = "insert"
             },
+            tsserver = {
+                maxTsServerMemory = 4096
+            },
             preferGoToSourceDefinition = true
         },
         javascript = {
@@ -67,6 +70,13 @@ M.tsgo = {
                 propertyDeclarationTypes = { enabled = true },
                 functionLikeReturnTypes = { enabled = true },
                 enumMemberValues = { enabled = true },
+            }
+        },
+        vtsls = {
+            expirmental = {
+                completion = {
+                    enableServerSideFuzzyMatch = true
+                }
             }
         },
     },
