@@ -4,6 +4,8 @@ inoremap fj <Esc>
 " 方便粘贴
 inoremap <C-v> <C-r><C-p>+
 inoremap <D-v> <C-r><C-p>+
+tnoremap <C-v> <C-\><C-n>"+pi
+tnoremap <D-v> <C-\><C-n>"+pi
 
 noremap \ :
 nnoremap / /\v
