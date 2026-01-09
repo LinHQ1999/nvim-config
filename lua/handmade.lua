@@ -37,6 +37,8 @@ function M.config_lsp_mapping()
             map("n", "grr", function() Snacks.picker.lsp_references() end, opts)
             map("n", "gri", function() Snacks.picker.lsp_implementations() end, opts)
             map("n", "grt", function() Snacks.picker.lsp_type_definitions() end, opts)
+            map("n", "]e", function() vim.diagnostic.jump({ count = 1, float = true, severity = "ERROR" }) end, opts)
+            map("n", "[e", function() vim.diagnostic.jump({ count = -1, float = true, severity = "ERROR" }) end, opts)
 
             -- 调用 vtsls 专用方法
             if client.name == "vtsls" then

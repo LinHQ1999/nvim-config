@@ -39,6 +39,7 @@ return {
             { "<leader>la", function() Snacks.picker.autocmds() end, desc = "Autocmds 搜索" },
             { "<leader>lm", function() Snacks.picker.keymaps() end, desc = "搜索快捷键" },
             { "<leader>lu", function() Snacks.picker.undo() end, desc = "文件历史记录" },
+            { "<leader>pd", function() Snacks.picker.explorer() end, desc = "文件浏览器" },
         },
         ---@type snacks.Config
         opts = {
@@ -133,49 +134,6 @@ return {
     {
         "nvim-lua/plenary.nvim",
         lazy = true,
-    },
-    {
-        "kyazdani42/nvim-tree.lua",
-        keys = {
-            { "<leader>pd", "<Cmd>NvimTreeFindFileToggle<cr>", desc = "开关 NvimTree" }
-        },
-        cmd = { "NvimTreeFindFileToggle" },
-        opts = {
-            disable_netrw = true,
-            open_on_tab = false,
-            -- :cd 时自动切换树
-            sync_root_with_cwd = true,
-            view = {
-                adaptive_size = true,
-            },
-            update_focused_file = {
-                -- 切换到buffer时跟踪显示
-                enable = true,
-                update_root = false,
-                ignore_list = {},
-            },
-            diagnostics = {
-                enable = true,
-                show_on_dirs = true,
-            },
-            live_filter = {
-                always_show_folders = false,
-            },
-            on_attach = function(bufnr)
-                local api = require("nvim-tree.api")
-
-                local function opts(desc)
-                    return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
-                end
-
-                -- default mappings
-                api.config.mappings.default_on_attach(bufnr)
-
-                -- custom mappings
-                vim.keymap.set("n", "<C-s>", api.node.open.horizontal, opts("兼容 Snacks split"))
-                vim.keymap.set("n", "?", api.tree.toggle_help, opts("Help"))
-            end
-        },
     },
     {
         "nvim-lualine/lualine.nvim",
